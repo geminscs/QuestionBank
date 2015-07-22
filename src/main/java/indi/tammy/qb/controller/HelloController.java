@@ -26,4 +26,10 @@ public class HelloController {
 		System.out.println(user.getEmail());
 		return "register";
 	}
+	
+	@RequestMapping(value={"/admin/home"},method = RequestMethod.GET)
+	public String adminHomeGet(){
+		
+		return "adminHome";
+	}
 }
