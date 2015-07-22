@@ -7,10 +7,10 @@
 	<!-- configuration of DB -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/test" />
-		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+		<property name="url" value="jdbc:jtds:sqlserver://122.228.236.130:5706;DatabaseName=newhope" />
+		<property name="username" value="test01" />
+		<property name="password" value="newhope2000" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

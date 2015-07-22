@@ -6,11 +6,15 @@
 <mapper namespace="indi.tammy.qb.dao.RegisterDao">
 
 	<insert id="insert" parameterType="indi.tammy.qb.model.User" >
-		insert into user(email,password) values(#{email},#{password})
+		insert into ots_user(email,password) values(#{email},#{password})
 	</insert>
 	
 	<select id="select" resultType="indi.tammy.qb.model.User" >
-		select * from  user
+		select * from  ots_user
+	</select>
+	
+	<select id="selectId" resultType="indi.tammy.qb.model.User" >
+		select * from  ots_user where email = #{email}
 	</select>
 	
 </mapper>
