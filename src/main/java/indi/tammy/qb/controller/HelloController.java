@@ -32,4 +32,10 @@ public class HelloController {
 		
 		return "adminHome";
 	}
+	
+	@RequestMapping(value={"/admin/manualImport"},method = RequestMethod.GET)
+	public String adminManualImport(){
+		
+		return "pagesQuestionBank/pagesQuestionImport/pageManualImport";
+	}
 }
