@@ -1,6 +1,7 @@
 package indi.tammy.qb.controller;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,6 +93,14 @@ public class HelloController {
 			originalPath = rootPath + uri;
 		}
 		System.out.println(originalPath);
+		
+		Resource r = new ClassPathResource("ApplicationContextBase.xml");
+		try {
+			System.out.println(r.getFile().getAbsolutePath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "1";
 	}
