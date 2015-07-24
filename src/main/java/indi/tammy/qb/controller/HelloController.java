@@ -1,11 +1,17 @@
 package indi.tammy.qb.controller;
 
+
 import java.util.List;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import indi.tammy.qb.model.Question;
+=======
+
+
+>>>>>>> 6cc6837c5e19809d4c1a35b26b8882b0b6376a2d
 import indi.tammy.qb.model.User;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
@@ -50,6 +56,7 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionImport/pageManualImport";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
 	@ResponseBody
 	public String qbankDelete(){
@@ -93,4 +100,7 @@ public class HelloController {
 
 		return "1";
 	}
+=======
+	
+>>>>>>> 6cc6837c5e19809d4c1a35b26b8882b0b6376a2d
 }
