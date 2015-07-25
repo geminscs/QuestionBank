@@ -24,6 +24,13 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css"> 
+	    .bar {
+	    height: 18px;
+	    background: green;
+		}
+    
+    </style>
   </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="skin-blue layout-top-nav" style="font-family:Microsoft YaHei;">
@@ -241,7 +248,10 @@
               </div>
               <div class="box-body">
                 <p>请上传包含试题信息的Word文档。<a>试题格式!</a></p>
-                <input type="file" name="files" id="fileupload_input" />
+                <input type="file" name="files" id="fileupload_input" multiple="multiple"/>
+                <div id="progress">
+    				<div class="bar" style="width: 0%;"></div>
+				</div>
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </section><!-- /.content -->
@@ -277,8 +287,15 @@
     <script src="/dist/js/demo.js" type="text/javascript"></script>
     <script type="text/javascript">
 	    $("#fileupload_input").fileupload({
-	        url:"files/upload",//文件上传地址，当然也可以直接写在input的data-url属性内
+	        url:"/upload/file",//文件上传地址，当然也可以直接写在input的data-url属性内
 	        formData:{param1:"p1",param2:"p2"},//如果需要额外添加参数可以在这里添加
+	        progressall: function (e, data) {
+	            var progress = parseInt(data.loaded / data.total * 100, 10);
+	            $('#progress .bar').css(
+	                'width',
+	                progress + '%'
+	            );
+	        },
 	        done:function(e,result){
 	            //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
 	            //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
