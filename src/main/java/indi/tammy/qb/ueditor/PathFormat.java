@@ -40,9 +40,9 @@ public class PathFormat {
 	}
 	
 	/**
-	 * 格式化路径, 把windows路径替换成标准路径
-	 * @param input 待格式化的路径
-	 * @return 格式化后的路径
+	 * 格式化路�? 把windows路径替换成标准路�?
+	 * @param input 待格式化的路�?
+	 * @return 格式化后的路�?
 	 */
 	public static String format ( String input ) {
 		
@@ -149,9 +149,5 @@ public class PathFormat {
 		
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 }

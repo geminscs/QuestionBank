@@ -42,7 +42,7 @@ public class ActionEnter {
 		String callbackName = this.request.getParameter("callback");
 		
 		if ( callbackName != null ) {
-
+										
 			if ( !validCallbackName( callbackName ) ) {
 				return new BaseState( false, AppInfo.ILLEGAL ).toJSONString();
 			}
@@ -64,7 +64,6 @@ public class ActionEnter {
 		if ( this.configManager == null || !this.configManager.valid() ) {
 			return new BaseState( false, AppInfo.CONFIG_ERROR ).toJSONString();
 		}
-		
 		State state = null;
 		
 		int actionCode = ActionMap.getType( this.actionType );

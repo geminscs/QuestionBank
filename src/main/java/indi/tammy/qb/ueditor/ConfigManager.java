@@ -23,8 +23,8 @@ import org.json.JSONObject;
  *
  */
 public final class ConfigManager {
-
-	private final String rootPath;
+	//**删除了final
+	private  String rootPath;
 	private final String originalPath;
 	private final String contextPath;
 	private static final String configFileName = "config.json";
@@ -40,12 +40,10 @@ public final class ConfigManager {
 	 */
 	private ConfigManager ( String rootPath, String contextPath, String uri ) throws FileNotFoundException, IOException {
 		
-		rootPath = rootPath.replace( "\\", "/" );
-		System.out.println(rootPath);
-		
+		rootPath = rootPath.replace( "\\", "/" );		
 		this.rootPath = rootPath;
 		this.contextPath = contextPath;
-		
+		//**此处将originalPath修改为rootPath，rootPath在之后的代码中修改为其父级目录
 		/*if ( contextPath.length() > 0 ) {
 			this.originalPath = this.rootPath + uri.substring( contextPath.length() );
 		} else {
@@ -162,6 +160,8 @@ public final class ConfigManager {
 		}
 		
 		this.parentPath = file.getParent();
+		//**此处将rootPath设置为原来的父级目录
+		this.rootPath = this.parentPath;
 		
 		String configContent = this.readFile( this.getConfigPath() );
 		

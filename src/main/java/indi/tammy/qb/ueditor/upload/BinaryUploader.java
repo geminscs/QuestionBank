@@ -44,6 +44,7 @@ public class BinaryUploader {
 			FileItemIterator iterator = upload.getItemIterator(request);
 
 			while (iterator.hasNext()) {
+				System.out.println("**while");
 				fileStream = iterator.next();
 
 				if (!fileStream.isFormField())

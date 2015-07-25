@@ -8002,6 +8002,9 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 imageUrl = this.getOpt('imageUrl'),
                 serverUrl = this.getOpt('serverUrl');
 
+            if(action == 'uploadimage'){
+            	return '/admin/manualImport/imageUp';
+            }
             if(!serverUrl && imageUrl) {
                 serverUrl = imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2');
             }
