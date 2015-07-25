@@ -31,7 +31,7 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: "./admin/manualImport/ueditorControl"
+        , serverUrl: "/admin/manualImport/ueditorControl"
         	
         	,imageUrl:URL+"/admin/manualImport/imageUp"             //图片上传提交地址  
             ,imagePath:URL + "jsp/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置     
