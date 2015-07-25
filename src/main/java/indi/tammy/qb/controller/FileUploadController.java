@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadController {
 	@RequestMapping(value={"/upload/file"})
 	@ResponseBody
-	public String ueditorImageUp(@RequestParam("files") MultipartFile upfile){
+	public String ueditorImageUp(@RequestParam("file") MultipartFile upfile){
 		String fname = null;
 		if(upfile != null){            
 			Resource r = new ClassPathResource("ApplicationContextBase.xml");
@@ -49,5 +49,10 @@ public class FileUploadController {
 				}  
 		}
 		return "FAIL";
+	}
+	
+	@RequestMapping(value={"/upload/file2"})
+	public String ueditorImageUp2(){
+		return "/test/testFileUploader";
 	}
 }
