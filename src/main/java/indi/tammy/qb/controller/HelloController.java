@@ -53,6 +53,12 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionImport/pageManualImport";
 	}
 	
+	@RequestMapping(value={"/admin/wordImport"},method = RequestMethod.GET)
+	public String adminWordImport(){
+		
+		return "pagesQuestionBank/pagesQuestionImport/pageWordImport";
+	}
+	
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
 	@ResponseBody
 	public String qbankDelete(){

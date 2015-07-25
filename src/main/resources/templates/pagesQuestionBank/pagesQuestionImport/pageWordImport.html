@@ -70,7 +70,7 @@
 		              
 		            </div>
 		            <span>&nbsp;&nbsp;
-		               <select class="form-control select">
+		               <select class="form-control select2 select2-hidden-accessible">
 		                  	<option value="question">题目</option>
 		   					<option value="test">试卷</option>
 		              </select></span>
@@ -221,12 +221,12 @@
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1 style="font-family:Microsoft YaHei;">
-                                                 手动试题导入
+                                                 在线组卷系统
               <small>version 0.1</small>
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-              <li><a href="#">手动试题导入</a></li>
+              <li><a href="#">Word试题导入</a></li>
             </ol>
           </section>
 
@@ -237,11 +237,11 @@
             
             <div class="box box-default">
               <div class="box-header with-border">
-                <h3 class="box-title">Blank Box</h3>
+                <h3 class="box-title">Word试题导入</h3>
               </div>
               <div class="box-body">
-                The great content goes here
-                
+                <p>请上传包含试题信息的Word文档。<a>试题格式!</a></p>
+                <input type="file" name="files" id="fileupload_input" />
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </section><!-- /.content -->
@@ -265,9 +265,27 @@
     <script src="/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src="/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
+    <!-- file uploader -->
+    <script src="/plugins/fileUploader/js/vendor/jquery.ui.widget.js" type="text/javascript"></script>
+    <script src="/plugins/fileUploader/js/jquery.iframe-transport.js " type="text/javascript"></script>
+    <script src="/plugins/fileUploader/js/jquery.fileupload.js" type="text/javascript"></script>
+    <script src="/plugins/fileUploader/js/cors/jquery.xdr-transport.js" type="text/javascript"></script>
+    
     <!-- AdminLTE App -->
     <script src="/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/dist/js/demo.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	    $("#fileupload_input").fileupload({
+	        url:"files/upload",//文件上传地址，当然也可以直接写在input的data-url属性内
+	        formData:{param1:"p1",param2:"p2"},//如果需要额外添加参数可以在这里添加
+	        done:function(e,result){
+	            //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
+	            //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
+	            //返回的数据在result.result中，假设我们服务器返回了一个json对象
+	            console.log(JSON.stringify(result.result));
+	        }
+	    }) 
+    </script>
   </body>
 </html>
