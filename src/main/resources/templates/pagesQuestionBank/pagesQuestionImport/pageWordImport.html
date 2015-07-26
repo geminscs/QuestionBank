@@ -11,11 +11,28 @@
     <link href="/font_awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css"/>
+    
+    
+    
     <!-- Theme style -->
     <link href="/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link href="/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    
+    <!--引入CSS-->
+	<link rel="stylesheet" type="text/css" href="/test2/syntax.css"/>
+    <link rel="stylesheet" type="text/css" href="/test2/style.css"/>
+    
+    <link rel="stylesheet" type="text/css" href="/test2/webuploader.css"/>
+    
+    <link rel="stylesheet" type="text/css" href="/test2/demo.css"/>
+
+
+    
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,13 +41,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style type="text/css"> 
-	    .bar {
-	    height: 18px;
-	    background: green;
-		}
     
-    </style>
   </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="skin-blue layout-top-nav" style="font-family:Microsoft YaHei;">
@@ -248,10 +259,28 @@
               </div>
               <div class="box-body">
                 <p>请上传包含试题信息的Word文档。<a>试题格式!</a></p>
-                <input type="file" name="files" id="fileupload_input" multiple="multiple"/>
-                <div id="progress">
-    				<div class="bar" style="width: 0%;"></div>
-				</div>
+               
+			        <div class="page-container">
+						<div id="uploader" class="wu-example">
+						    <div class="queueList">
+						        <div id="dndArea" class="placeholder">
+						            <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择文件</div><div id="rt_rt_19r4pkkldk6m3ij127s5mq131d1" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" /><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+						            <p>或将文件拖到这里</p>
+						        </div>
+						    <ul class="filelist"></ul></div>
+						    <div class="statusBar" style="display:none;">
+						        <div class="progress" style="display: none;">
+						            <span class="text">0%</span>
+						            <span class="percentage" style="width: 0%;"></span>
+						        </div><div class="info">共0个（0B），已上传0个</div>
+						        <div class="btns">
+						            <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_19r4pkklitaio0t15lj1mcu1e236" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple"/><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding">开始上传</div>
+						        </div>
+						    </div>
+						</div>
+					</div>
+			     
+			    
               </div><!-- /.box-body -->
             </div><!-- /.box -->
           </section><!-- /.content -->
@@ -275,34 +304,80 @@
     <script src="/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src="/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
-    <!-- file uploader -->
-    <script src="/plugins/fileUploader/js/vendor/jquery.ui.widget.js" type="text/javascript"></script>
-    <script src="/plugins/fileUploader/js/jquery.iframe-transport.js " type="text/javascript"></script>
-    <script src="/plugins/fileUploader/js/jquery.fileupload.js" type="text/javascript"></script>
-    <script src="/plugins/fileUploader/js/cors/jquery.xdr-transport.js" type="text/javascript"></script>
     
+    <!-- uploader -->
+    <!--引入JS-->
+    <script type="text/javascript" src="/test2/global.js"></script>
+	<script type="text/javascript" src="/plugins/webUploader/webuploader.js"></script>
+    <script type="text/javascript" src="/test2/demo.js"></script>
+	
     <!-- AdminLTE App -->
     <script src="/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/dist/js/demo.js" type="text/javascript"></script>
-    <script type="text/javascript">
-	    $("#fileupload_input").fileupload({
-	        url:"/upload/file",//文件上传地址，当然也可以直接写在input的data-url属性内
-	        formData:{param1:"p1",param2:"p2"},//如果需要额外添加参数可以在这里添加
-	        progressall: function (e, data) {
-	            var progress = parseInt(data.loaded / data.total * 100, 10);
-	            $('#progress .bar').css(
-	                'width',
-	                progress + '%'
-	            );
-	        },
-	        done:function(e,result){
-	            //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
-	            //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
-	            //返回的数据在result.result中，假设我们服务器返回了一个json对象
-	            console.log(JSON.stringify(result.result));
-	        }
-	    }) 
-    </script>
+    
+  	
+	<script>
+		var uploader = WebUploader.create({
+	
+		    // swf文件路径
+		    swf: '/plugins/webUploader/Uploader.swf',
+	
+		    // 文件接收服务端。
+		    server: '/upload/file',
+
+	
+		    // 选择文件的按钮。可选。
+		    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+		    pick: '#picker',
+	
+		    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+		    resize: false
+		});
+		
+		//开始上传
+		$("#ctlBtn").click(function () {
+			uploader.upload();
+		});
+		
+		uploader.on( 'fileQueued', function( file ) {
+		    $('#thelist').append( '<div id="' + file.id + '" class="item">' +
+		        '<h4 class="info">' + file.name + '</h4>' +
+		        '<p class="state">等待上传...</p>' +
+		    '</div>' );
+		});
+		
+		uploader.on( 'uploadProgress', function( file, percentage ) {
+		    var $li = $( '#'+file.id ),
+		        $percent = $li.find('.progress .progress-bar');
+
+		    // 避免重复创建
+		    if ( !$percent.length ) {
+		        $percent = $('<div class="progress progress-striped active">' +
+		          '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+		          '</div>' +
+		        '</div>').appendTo( $li ).find('.progress-bar');
+		    }
+
+		    $li.find('p.state').text('上传中');
+
+		    $percent.css( 'width', percentage * 100 + '%' );
+		});
+		uploader.on( 'uploadSuccess', function( file ) {
+		    $( '#'+file.id ).find('p.state').text('已上传');
+		});
+
+		uploader.on( 'uploadError', function( file ) {
+		    $( '#'+file.id ).find('p.state').text('上传出错');
+		});
+
+		uploader.on( 'uploadComplete', function( file ) {
+		    $( '#'+file.id ).find('.progress').fadeOut();
+		});
+
+
+
+
+	</script>
   </body>
 </html>
