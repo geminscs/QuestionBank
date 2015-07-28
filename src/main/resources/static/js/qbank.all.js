@@ -13,4 +13,6 @@ $(document).ready(function(){
 		var editor=UE.getEditor('ueditor');
 		editor.setContent('');
 	});
+	
+	
 });
