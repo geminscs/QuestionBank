@@ -35,7 +35,7 @@ $(function(){
 	    //total:1000
 	    remote: {
 	        url: '/getJsonData',  //请求地址
-	        params: { subject: "小学语文" },       //自定义请求参数
+	        params: { subject: $('b[name="currentSubjectName"]').text() },       //自定义请求参数
 	        beforeSend: function(XMLHttpRequest){
 	            //...
 	        },
@@ -137,7 +137,14 @@ $(function(){
 	});
 	
 	//选择科目
-	$(document).on("click",'a[name="subjectSubName2"]'),function(){
+	$(document).on("click",'a[name="subjectSubName2"]',function(){
+		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
+		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
+		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
+		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
+		$('b[name="currentSubjectName"]').text(subjectName);
+		alert($('b[name="currentSubjectName"]').text());
+		$("#page").page( 'remote',0 ,$('b[name="currentSubjectName"]').text());
 		
 	});
 	

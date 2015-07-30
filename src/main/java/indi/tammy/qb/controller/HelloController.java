@@ -76,8 +76,15 @@ public class HelloController {
 	@RequestMapping(value={"/admin/questionCheck"},method = RequestMethod.GET)
 	public String adminQuestionCheck(){
 		
-		return "pagesQuestionBank/pageQuestionCheck";
+		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionCheck";
 	}
+	
+	@RequestMapping(value={"/admin/questionCheck/questionModify"},method = RequestMethod.GET)
+	public String adminModifyForCheck(){
+		
+		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
+	}
+
 
 	
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
