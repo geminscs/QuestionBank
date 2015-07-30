@@ -1,5 +1,7 @@
 package indi.tammy.qb.controller;
 
+import indi.tammy.qb.wrapper.QuestionWrapper;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +15,10 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -27,6 +33,10 @@ import com.artofsolving.jodconverter.DocumentConverter;
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.ComThread;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
 import com.sun.star.io.ConnectException;
 
 @Controller
@@ -85,6 +95,7 @@ public class FileUploadController {
 		return "/test/webUploader";
 	}
 	
+	
 	/**
      * 将word文档转换成html文档
      * 
@@ -118,8 +129,7 @@ public class FileUploadController {
 		    DocumentConverter converter = new OpenOfficeDocumentConverter(con);
 		    // 转换文档问html
 		    
-		    converter.convert(docFile, htmlFile);
-		    
+		    converter.convert(docFile, htmlFile);	    
 		    // 关闭openoffice连接
 		    con.disconnect();
 		} catch (java.net.ConnectException e) {
@@ -205,5 +215,129 @@ public class FileUploadController {
 	    +"<head>"
 	      +"<meta charset=\"UTF-8\"></meta>"+"<body>"+htmlStr+"</body></html>";
     }
-
+    
+    
+    /**
+     * 将html中的题目分割出来
+     * 
+     * @param htmlStr 带有简单html标记的html语句
+     *                
+     * @return 分割后的类数组
+     */
+    @RequestMapping(value={"/upload/divider"})
+    @ResponseBody
+    public String htmlDivider(){
+    	String typeName = "【题型】";
+    	String contentName = "【题面】";
+    	String answerName = "【答案】";
+    	String analysisName = "【解析】";
+    	String knowName = "【知识点】";
+    	String endName = "【结束】";
+    	String outPutString = " ";
+    	File input = new File("E:/PHP/QuestionBank/target/classes/static/upload/1438184904730.html");
+    	try {
+			Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+			Elements divs = doc.body().child(0).children();
+			for(int i = 0;i < divs.size();i ++){
+				Element div = divs.get(i);
+				System.out.println(div.html());
+				if(div.text().startsWith(typeName)){
+					QuestionWrapper q = new QuestionWrapper();
+					q.setType(div.html().substring(typeName.length()));
+					String nowType = typeName;
+					for(i ++;i < divs.size();i ++){
+						Element innerDiv = divs.get(i);
+						if(innerDiv.html().startsWith(endName)){
+							//System.out.println(q.toString());	
+							q.setContent(contentAnalyzer(q.getContent()));
+							outPutString += q.toString();
+							break;
+						}
+						if(innerDiv.html().startsWith(contentName)){
+							nowType = contentName;
+							q.setContent(innerDiv.html().substring(contentName.length()));
+						}
+						else if(innerDiv.html().startsWith(answerName)){
+							nowType = answerName;
+							q.setAnswer(innerDiv.html().substring(answerName.length()));
+						}
+						else if(innerDiv.html().startsWith(analysisName)){
+							nowType = analysisName;
+							q.setAnalysis(innerDiv.html().substring(analysisName.length()));
+						}
+						else if(innerDiv.html().startsWith(knowName)){
+							nowType = knowName;
+							q.setKnow(innerDiv.html().substring(knowName.length()));
+						}
+						else{
+							if(nowType.equals(contentName)){
+								q.setContent(q.getContent() + "<br/>" + innerDiv.html());
+							}
+							else if(nowType.equals(answerName)){
+								q.setAnswer(q.getAnswer() + "<br/>" + innerDiv.html());
+							}
+							else if(nowType.equals(analysisName)){
+								q.setAnalysis(q.getAnalysis() + "<br/>" + innerDiv.html());
+							}
+							else if(nowType.equals(knowName)){
+								q.setKnow(q.getKnow() + "<br/>" + innerDiv.html());
+							}
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return outPutString;
+    }
+    
+    /**
+     * 分割出题面里的选项和小题
+     * 
+     * @param contentStr 题面内容
+     *                
+     * @return 分割后的类数组
+     */
+    public String contentAnalyzer(String contentStr){
+     	String numSeparatorName = "【[0-9]+】";
+     	String charSeparatorName = "【[A-Z]】";
+     	String[] subStrs = contentStr.split(numSeparatorName);
+     	if(subStrs.length == 1){
+     		String[] optionStr = contentStr.split(charSeparatorName);
+     		if(optionStr.length == 1){
+     			return contentStr;
+     		}
+     		String outPutStr = "ContentBody=" + optionStr[0];
+     		for(int i = 1;i < optionStr.length;i ++){
+     			outPutStr += "Option " + i +"=" + optionStr[i];
+     		}
+     		return outPutStr;
+     	}
+     	
+     	String outPutStr = "ContentBody=" + subStrs[0];
+     	for(int i = 1;i < subStrs.length;i ++){
+     		outPutStr += "SubQ " + i + "=" +contentAnalyzer(subStrs[i]);
+     	}
+    	return outPutStr;
+    }
+    
+    @RequestMapping(value={"/upload/jacob"})
+    @ResponseBody
+    public String testJacob(){
+    	String htmlFile = "E:/PHP/QuestionBank/target/classes/static/upload/1438194161628.html";
+    	String docFile = "E:/PHP/QuestionBank/target/classes/static/upload/testJacob.doc";
+    	ActiveXComponent app = new ActiveXComponent("Word.Application");
+    	app.setProperty("Visible", new Variant(false));
+    	Dispatch docs = app.getProperty("Documents").toDispatch();
+    	Dispatch doc = Dispatch.invoke(docs, "Open", Dispatch.Method, new Object[] { htmlFile, new Variant(false), new Variant(true) }, new int[1]).toDispatch();
+    	Dispatch.invoke(doc, "SaveAs", Dispatch.Method, new Object[] { docFile, new Variant(1) }, new int[1]);  
+    	Variant f = new Variant(false);    
+        Dispatch.call(doc, "Close", f);
+        app.invoke("Quit", new Variant[0]);   
+        //关闭com的线程   
+        ComThread.Release();   
+    	return "lalala";
+    }
 }
