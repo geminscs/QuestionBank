@@ -1,0 +1,44 @@
+<div class="box-header with-border">
+							<h3 class="box-title"></h3>
+							<div class="pull-left">
+								<span><input type="checkbox"/>&nbsp;&nbsp;选择</span>
+							</div>
+							<div class="pull-right">
+						      <!-- Buttons, labels, and many other things can be placed here! -->
+						      <!-- Here is a label for example -->
+						      <span>
+						      	<label>题型：{{:type}}</label>&nbsp;&nbsp;
+						      	<label>科目：{{:subject}}</label>&nbsp;&nbsp;
+						      	<label>年级：{{:grade}}</label>&nbsp;&nbsp;
+						      	<label>知识点：{{:know}}</label>
+						      </span>
+						    </div><!-- /.box-tools -->
+						</div>
+  						<div class="box-body">
+  							<div style="padding-left:10px;padding-right:10px;">
+  								{{:content}}
+  							</div>
+  						</div><!-- /.box-body -->
+  						<div class="box-footer with-border">
+  							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
+  								<label><input type="checkbox"/>查看答案与解析</label>
+  								<div class="pull-right">
+	  								<button class="btn btn-primary ">审核通过</button>
+  									<button class="btn btn-default ">修改</button>
+  									<button class="btn btn-default ">删除</button>
+  								</div>
+  							</div>
+  							<div class="box-info box-solid" style="display:none;">
+  								<br/>
+  								<div class="box-body bg-gray color-palette">
+	  								<p><label>答案：</label>
+	  									{{:answer}}
+	  								</p>
+	  								<p><label>解析：</label>
+	  									{{:analysis}}
+	  								</p>
+  								</div>
+  							</div>
+  									
+  							
+                    	</div><!-- /.box-footer-->

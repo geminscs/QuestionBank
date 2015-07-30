@@ -326,16 +326,16 @@ public class FileUploadController {
     @RequestMapping(value={"/upload/jacob"})
     @ResponseBody
     public String testJacob(){
-    	String htmlFile = "E:/PHP/QuestionBank/target/classes/static/upload/1438194161628.html";
-    	String docFile = "E:/PHP/QuestionBank/target/classes/static/upload/testJacob.doc";
-    	ActiveXComponent app = new ActiveXComponent("Word.Application");
-    	app.setProperty("Visible", new Variant(false));
-    	Dispatch docs = app.getProperty("Documents").toDispatch();
+    	String htmlFile = "C:/Users/Tammy/Desktop/1438194161628.html";
+    	String docFile = "C:/Users/Tammy/Desktop/testJacob.doc";
+    	ActiveXComponent word = new ActiveXComponent("Word.Application");
+    	word.setProperty("Visible", new Variant(false));
+    	Dispatch docs = word.getProperty("Documents").toDispatch();
     	Dispatch doc = Dispatch.invoke(docs, "Open", Dispatch.Method, new Object[] { htmlFile, new Variant(false), new Variant(true) }, new int[1]).toDispatch();
     	Dispatch.invoke(doc, "SaveAs", Dispatch.Method, new Object[] { docFile, new Variant(1) }, new int[1]);  
     	Variant f = new Variant(false);    
         Dispatch.call(doc, "Close", f);
-        app.invoke("Quit", new Variant[0]);   
+        word.invoke("Quit", new Variant[0]);   
         //关闭com的线程   
         ComThread.Release();   
     	return "lalala";

@@ -22,7 +22,8 @@ $(function(){
       ']' +
     '},' +
     '{' +
-      '"text": "Parent 2"' +
+      '"text": "Parent 2",' +
+      '"tags":["available"]'+
     '},' +
     '{' +
       '"text": "Parent 3"' +
@@ -41,6 +42,7 @@ $(function(){
         collapseIcon: 'glyphicon glyphicon-chevron-down',
         nodeIcon: 'glyphicon glyphicon-bookmark',
         data: json,
-        showBorder:false
+        showBorder:false,
+        showTags:true
     });
 });

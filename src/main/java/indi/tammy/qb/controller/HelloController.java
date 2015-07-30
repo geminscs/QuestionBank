@@ -12,6 +12,8 @@ import indi.tammy.qb.model.User;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -70,6 +72,12 @@ public class HelloController {
 		
 		return "pagesQuestionBank/pagesQuestionImport/pageImportNotice";
 	}
+	
+	@RequestMapping(value={"/admin/questionCheck"},method = RequestMethod.GET)
+	public String adminQuestionCheck(){
+		
+		return "pagesQuestionBank/pageQuestionCheck";
+	}
 
 	
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
@@ -123,4 +131,39 @@ public class HelloController {
 
 		return "1";
 	}
+	
+	@RequestMapping(value={"/getJsonData"},method = RequestMethod.GET)
+	@ResponseBody
+	public String getJsonData(HttpServletRequest request){
+		 JSONObject json=new JSONObject();  
+		    JSONArray jsonMembers = new JSONArray();  
+		    JSONObject member1 = new JSONObject();  
+		    member1.put("id", "1");  
+		    member1.put("type", "作文题");  
+		    member1.put("subject", "小学语文");  
+		    member1.put("grade","三年级");  
+		    member1.put("content", "test");  
+		    member1.put("answer", "test");  
+		    member1.put("analysis", "test");  
+		    member1.put("know", "记叙文；说明文；议论文；全命题作文；半命题作文");
+		    
+		    jsonMembers.put(member1);  
+		  
+		    JSONObject member2 = new JSONObject();  
+		    member2.put("id", "2");  
+		    member2.put("type", "作文题");  
+		    member2.put("subject", "小学语文");  
+		    member2.put("grade","三年级");  
+		    member2.put("content", "test");  
+		    member2.put("answer", "test");  
+		    member2.put("analysis", "test");  
+		    member2.put("know", "记叙文；说明文；议论文；全命题作文；半命题作文");
+		    jsonMembers.put(member2);  
+		    json.put("data", jsonMembers); 
+		    json.put("total", 800); 
+		    
+		return json.toString();
+	}
+	
+	
 }
