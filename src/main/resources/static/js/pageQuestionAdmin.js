@@ -1,7 +1,43 @@
 $(function(){
 	//服务器端返回的json
 	//alert("pageQuestionAdmin");
-	//获得知识点
+	//测试用Data
+	var data1 = [
+	            {
+	                label: 'node1',
+	                id:1,
+	                children: [
+	                    { label: 'child1' ,id:2},
+	                    { label: 'child2',id:3 }
+	                ]
+	            },
+	            {
+	                label: 'node2',
+	                id:4,
+	                children: [
+	                    { label: 'child3',id:5 }
+	                ]
+	            }
+	        ];
+	$('#tree1').tree({
+	        data: data1
+	    });
+	
+	//节点的点击事件
+	$('#tree1').bind(
+		    'tree.click',
+		    function(event) {
+		        // The clicked node is 'event.node'
+		        var node = event.node;
+		        $('input[name="currentKnowId"]').val(node.id);
+		        alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+						+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+						+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+						+',节点id：'+ $('input[name="currentKnowId"]').val());
+		    }
+		);
+	
+	//获得知识点,由科目、年级、标准、地区决定
 	function getTree() {
 	    // Some logic to retrieve, or generate tree structure
 //		var data = '[' +
@@ -44,22 +80,11 @@ $(function(){
 //			fieldId:$('input[name="currentFieldId"]').val(),
 //			standardId:$('input[name="currentStandardId"]').val()
 //			},function (result, status) { data=result });
-		var data=[];
-		temp1={};
-		temp1.text='parent1';
-		var node1=[];
-		var child={};
-		child.text='child1';
-		node1.push(child);
-		temp1.nodes=node1;
-		data.push(temp1);
-		temp2={};
-		temp2.text='parent2';
-		data.push(temp2)
-		temp3={};
-		temp3.text='parent3';
-		data.push(temp3)
-	    return data;
+		var data2 = [{"children":[{"children":[{"children":[{"label":"函数的最大值和最小值"},{"label":"增函数、减函数的概念"},{"label":"函数的单调性、单调区间"}],"label":"单调性与最大（小）值"},{"children":[{"label":"奇函数、偶函数的概念"},{"label":"奇函数、偶函数的性质"}],"label":"奇偶性"}],"label":"函数的基本性质"},{"label":"集合的基本运算"},{"children":[{"children":[{"label":"函数的概念"},{"label":"函数符号y=f(x)"},{"label":"函数的定义域"},{"label":"函数的值域"},{"label":"函数的定义域"}],"label":"函数的概念"},{"children":[{"label":"函数的解析法表示"},{"label":"函数的图象法表示，描点法作图"},{"label":"函数的列表法表示"},{"label":"分段函数的意义与应用"},{"label":"映射的概念"}],"label":"函数的表示法"},{"label":"映射的概念"},{"label":"函数的基本性质"},{"label":"函数的基本性质"},{"label":"函数的基本性质"},{"children":[{"label":"单调性与最大（小）值"},{"label":"奇偶性"},{"children":[{"label":"函数的最大值和最小值"},{"label":"增函数、减函数的概念"},{"label":"函数的单调性、单调区间"}],"label":"单调性与最大（小）值"},{"children":[{"label":"奇函数、偶函数的概念"},{"label":"奇函数、偶函数的性质"}],"label":"奇偶性"}],"label":"函数的基本性质"}],"label":"函数的概念及表示"},{"children":[{"children":[{"label":"集合的含义"},{"label":"集合元素的特性"},{"label":"集合的相等"},{"label":"集合与元素关系"},{"label":"常用数集的记法"},{"label":"集合的表示法"}],"label":"集合的定义和表示"},{"children":[{"label":"子集、真子集的概念"},{"label":"空集的概念"}],"label":"集合间的基本关系"},{"label":"集合间的关系"},{"label":"集合的基本运算"},{"children":[{"label":"并集的含义"},{"label":"交集的含义"},{"label":"全集与补集"}],"label":"集合的基本运算"}],"label":"集合"}],"label":"集合与函数"},{"children":[{"children":[{"label":"任意角"},{"label":"弧度制"}],"label":"任意角的三角函数"},{"children":[{"label":"任意角的三角函数"},{"label":"同角三角函数的基本关系"}],"label":"任意角的三角函数"},{"children":[{"children":[{"label":"π+α与α的正弦、余弦、正切值的关系"},{"label":"-α与α的正弦、余弦、正切值的关系"},{"label":"π-α与的正弦、余弦、正切值的关系"},{"label":"与α的正弦、余弦值的关系"}],"label":"三角函数的诱导公式"}],"label":"三角函数的诱导公式"},{"children":[{"label":"正弦函数、余弦函数的图象"},{"label":"正弦函数、余弦函数的性质"},{"label":"正切函数的性质和图象"},{"label":"y=Asin(ωx+ψ)的图象"},{"label":"三角函数模型的简单应用"}],"label":"三角函数的图象和性质"}],"label":"三角函数"},{"children":[{"children":[{"label":"数列的定义"},{"label":"数列几种简单表示"}],"label":"数列的概念与简单表示法"},{"label":"等差数列"},{"children":[{"label":"向量的物理背景与概念"},{"label":"向量的几何表示"}],"label":"平面向量的实际背景及基本概念"},{"label":"平面向量的线性运算"},{"label":"平面向量的基本定理及坐标表示"},{"label":"平面向量的数量积"},{"label":"平面向量应用举例"}],"label":"平面向量"},{"children":[{"children":[{"children":[{"label":"根式的意义"},{"label":"分数指数幂的意义"},{"label":"无理数指数幂的意义"},{"label":"有理数指数幂的运算性质"}],"label":"指数与指数幂的运算"},{"children":[{"label":"指数函数的概念"},{"label":"指数函数的图象"},{"label":"指数函数的性质"}],"label":"指数函数及其性质"}],"label":"指数函数"},{"children":[{"children":[{"label":"对数的概念"},{"label":"常用对数与自然对数"},{"label":"对数的运算性质"},{"label":"对数的换底公式"}],"label":"对数与对数运算"},{"children":[{"label":"对数函数的概念"},{"label":"对数函数的图象"},{"label":"对数函数的性质"},{"label":"指数函数与对数函数的关系"}],"label":"对数函数及其性质"}],"label":"对数函数"},{"children":[{"children":[{"label":"幂函数的概念"},{"label":"幂函数的图象"},{"label":"幂函数的性质"}],"label":"幂函数"}],"label":"幂函数"}],"label":"基本初等函数"},{"children":[{"children":[{"label":"方程的根与函数的零点"},{"label":"用二分法求方程的近似解"}],"label":"函数与方程"},{"children":[{"label":"精确度与近似解"},{"label":"二分法求f(x)=0零点的基本方法"},{"label":"二分法求f(x)=0零点的基本步骤"}],"label":"函数模型及其应用"}],"label":"函数的应用"},{"children":[{"label":"两角和与差的正弦、余弦和正切公式"},{"label":"简单的三角恒等变换"}],"label":"三角恒等变换"},{"children":[{"label":"数列的概念与简单表示"},{"label":"等差数列"},{"label":"等差数列的前n项的和"},{"label":"等比数列"},{"label":"等比数列的前n项的和"},{"label":"数列的综合应用"}],"label":"数列"},{"children":[{"label":"不等关系与不等式"},{"label":"一元二次不等式及其解法"},{"label":"二元一次不等式（组）与简单线性规划问题"},{"label":"基本不等式"}],"label":"不等式"},{"children":[{"label":"空间几何体的结构"},{"label":"空间几何体的三视图和直观图"},{"label":"空间几何体的表面积与体积"}],"label":"空间几何体"},{"children":[{"label":"空间点、直线、平面之间的位置关系"},{"label":"直线、平面平行的判定及其性质"},{"label":"直线、平面垂直的判定及其性质"}],"label":"第二章点、直线、平面之间的位置关系"},{"children":[{"label":"直线的倾斜角与斜率"},{"label":"直线的方程"},{"label":"直线的交点坐标与距离公式"}],"label":"直线与方程"},{"children":[{"label":"圆的方程"},{"label":"直线、圆的位置关系"},{"label":"空间直角坐标系"}],"label":"圆的方程"},{"children":[{"label":"命题及其关系"},{"label":"充分条件与必要条件"},{"label":"简单的逻辑联结词"},{"label":"全称量词与存在量词"}],"label":"常用逻辑用语"},{"children":[{"label":"曲线与方程"},{"label":"椭圆"},{"label":"双曲线"},{"label":"抛物线"}],"label":"圆锥曲线与方程"},{"children":[{"label":"正弦定理和余弦定理"},{"label":"应用举例"}],"label":"解三角形"},{"children":[{"label":"空间向量及其运算"},{"label":"立体几何中的向量方法"}],"label":"空间向量与立体几何"}];
+
+
+		
+	    return data2;
 	}
 	
 	//获得标准,标准由科目决定，subjectId
@@ -125,6 +150,20 @@ $(function(){
 		return data;
 	 }
 	 
+	 //获得新的page
+	 function getPage(){
+		 $("#page").page('remote',0,{
+			 	subjectId:$('input[name="currentSubjectId"]').val(),//科目id
+				gradeId:$('input[name="currentGradeId"]').val(),//年级id
+				fieldId:$('input[name="currentFieldId"]').val(),//地区id
+				standardId:$('input[name="currentStandardId"]').val(),//标准id
+				knowId:$('input[name="currentKnowId"]').val(),//知识点id
+				typeId:$('input[name="currentTypeId"]').val(),//题型id
+				hardness:$('input[name="currentHardness"]').val(),//难度
+				subject:'小学数学'//测试用，请删除
+				 });
+	 }
+	 
 	//筛选知识点的树形结构
 	$('#treeviewOfKPoint_pQuestionAdmin').treeview({
         color: "#428bca",
@@ -136,28 +175,7 @@ $(function(){
         showTags:true
     });
 	
-	//选择科目
-	$(document).on("click",'a[name="subjectSubName2"]',function(){
-		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
-		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
-		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
-		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
-		$('b[name="currentSubjectName"]').text(subjectName);
-		$('input[name="currentSubjectId"]').val($(this).find('input').val());
-		//alert($('input[name="currentSubjectId"]').val());
-		$("#page").page( 'remote',0 ,$('b[name="currentSubjectName"]').text());
-		
-		//重新获得知识点
-		$('#treeviewOfKPoint_pQuestionAdmin').treeview({data:getTree()});
-		//重新获得年级
-		$("#spanGradeList").empty().html($("#gradeTmpl").render(getGrade()));
-		//重新获得题型
-		$("#spanTypeList").empty().html($("#typeTmpl").render(getType()));
-		//重新获得标准
-		$("#spanStandardList").empty().html($("#standardTmpl").render(getStandard()));
-	});
-	
-	//测试pagination插件
+	//分页插件
 	//$("#page").page({ total: 1000 });
 	$("#page").page({
 		showInfo: true,
@@ -167,13 +185,15 @@ $(function(){
 	    //total:1000
 	    remote: {
 	        url: '/getJsonData',  //请求地址
-	        params: { 
-	        	subjectId:$('input[name="currentSubjectId"]').val(),
-				gradeId:$('input[name="currentGradeId"]').val(),
-				fieldId:$('input[name="currentFieldId"]').val(),
-				standardId:$('input[name="currentStandardId"]').val(),
-				knowId:$('input[name="currentKnowId"]').val(),
-				hardness:$('input[name="currentHardness"]').val()
+	        params: { //根据这些参数返回
+	        	subjectId:$('input[name="currentSubjectId"]').val(),//科目id
+				gradeId:$('input[name="currentGradeId"]').val(),//年级id
+				fieldId:$('input[name="currentFieldId"]').val(),//地区id
+				standardId:$('input[name="currentStandardId"]').val(),//标准id
+				knowId:$('input[name="currentKnowId"]').val(),//知识点id
+				typeId:$('input[name="currentTypeId"]').val(),//题型id
+				hardness:$('input[name="currentHardness"]').val(),//难度
+				subject:'小学语文'//测试用，请删除
 	        	},       //自定义请求参数
 	        beforeSend: function(XMLHttpRequest){
 	            //...
@@ -192,6 +212,135 @@ $(function(){
 	        totalName: 'total'            //指定返回数据的总数据量的字段名
 	    }
 	});
+	
+	//选择科目
+	$(document).on("click",'a[name="subjectSubName2"]',function(){
+		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
+		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
+		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
+		var originName=$('b[name="currentSubjectName"]').text();
+		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
+		$('b[name="currentSubjectName"]').text(subjectName);
+		$('input[name="currentSubjectId"]').val($(this).find('input').val());
+		//alert($('input[name="currentSubjectId"]').val());
+		$("#page").page( 'remote',0 ,$('b[name="currentSubjectName"]').text());
+		
+		//重新获得知识点
+		$('#tree1').tree('loadData', getTree());
+		//重新获得年级
+		$('a[name="aGradeName"]').removeClass();
+		$('a[name="aGradeName"]').eq(0).addClass('current');
+		$('input[name="currentGradeId"]').val($('a[name="aGradeName"]').eq(0).find('input').val());
+		$("#spanGradeList").empty().html($("#gradeTmpl").render(getGrade()));
+		//重新获得题型
+		$('a[name="aTypeName"]').removeClass();
+		$('a[name="aTypeName"]').eq(0).addClass('current');
+		$('input[name="currentTypeId"]').val($('a[name="aTypeName"]').eq(0).find('input').val());
+		$("#spanTypeList").empty().html($("#typeTmpl").render(getType()));
+		//重新获得标准
+		$('a[name="aStandardName"]').removeClass();
+		$('a[name="aStandardName"]').eq(0).addClass('current');
+		$('input[name="currentStandardId"]').val($('a[name="aStandardName"]').eq(0).find('input').val());
+		$("#spanStandardList").empty().html($("#standardTmpl").render(getStandard()));
+		
+		//获得新的数据
+		getPage();
+		
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择年级
+	$(document).on("click",'a[name="aGradeName"]',function(){
+		$('a[name="aGradeName"]').removeClass();
+		$(this).addClass('current');
+		$('input[name="currentGradeId"]').val($(this).find('input').val());
+		
+		//重新获得知识点
+		$('#tree1').tree('loadData', getTree());
+		$('input[name="currentKnowId"]').val(-1);
+		
+		//获得新的数据
+		getPage();
+		//核实
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择题型
+	$(document).on("click",'a[name="aTypeName"]',function(){
+		$('a[name="aTypeName"]').removeClass();
+		$(this).addClass('current');
+		$('input[name="currentTypeId"]').val($(this).find('input').val());
+		
+		//获得新的数据
+		getPage();
+		//核实
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择地区
+	$(document).on("click",'a[name="aFieldName"]',function(){
+		$('a[name="aFieldName"]').removeClass();
+		$(this).addClass('current');
+		$('input[name="currentFieldId"]').val($(this).find('input').val());
+		//重新获得知识点
+		$('#tree1').tree('loadData', getTree());
+		$('input[name="currentKnowId"]').val(-1);
+		
+		//获得新的数据
+		getPage();
+		//核实
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择标准
+	$(document).on("click",'a[name="aStandardName"]',function(){
+		$('a[name="aStandardName"]').removeClass();
+		$(this).addClass('current');
+		$('input[name="currentStandardId"]').val($(this).find('input').val());
+		//重新获得知识点
+		$('#tree1').tree('loadData', getTree());
+		$('input[name="currentKnowId"]').val(-1);
+		
+		//获得新的数据
+		getPage();
+		//核实
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择难度
+	$(document).on("click",'a[name="aHardnessName"]',function(){
+		$('a[name="aHardnessName"]').removeClass();
+		$(this).addClass('current');
+		$('input[name="currentHardness"]').val($(this).text());
+		
+		//获得新的数据
+		getPage();
+		//核实
+		alert('当前科目id：'+$('input[name="currentSubjectId"]').val()+',年级id:'+$('input[name="currentGradeId"]').val()
+				+',题型id：'+$('input[name="currentTypeId"]').val()+',标准id:'+$('input[name="currentStandardId"]').val()
+				+',难度：'+$('input[name="currentHardness"]').val()+',地区id'+$('input[name="currentFieldId"]').val()
+				+',节点id：'+ $('input[name="currentKnowId"]').val());
+	});
+	
+	//选择知识点
+	
+	
+	
 	
 	//是否展开完整信息
 	$(document).on("click",'input[name="checkboxForFullInfo"]',function(){
@@ -285,5 +434,15 @@ $(function(){
 		});
 		
 		alert(JSON.stringify(idArr));
+	});
+	
+	//搜索
+	$('button[name="btnSearchQuestion"]').click(function(){
+		var key=$('input[name="keyForSearchQuestion"]').val();
+		$("#page").page('remote',0,{
+			key:key,
+			subject:'小学语文'//测试用请删除
+		});
+		//alert(key);
 	});
 });
