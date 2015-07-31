@@ -141,9 +141,23 @@ public class HelloController {
 	
 	@RequestMapping(value={"/getJsonData"},method = RequestMethod.GET)
 	@ResponseBody
-	public String getJsonData(HttpServletRequest request){
-		 JSONObject json=new JSONObject();  
-		    JSONArray jsonMembers = new JSONArray();  
+	public String getJsonData(String subject, int pageIndex, int pageSize){
+		List<Question> l = questionService.findBySubject(subject, pageIndex * pageSize + 1, (pageIndex + 1) * pageSize);
+		JSONObject json=new JSONObject();  
+		JSONArray jsonMembers = new JSONArray();
+		for(int i = 0;i < l.size();i ++){
+			JSONObject member = new JSONObject();
+			Question q = l.get(i);
+			member.put("id", q.getId());  
+			member.put("type", q.getType_name());  
+			member.put("subject", "无此功能");  
+			member.put("grade","无此功能");  
+			member.put("content", q.getContent());  
+			member.put("answer", q.getAnswer());  
+			member.put("analysis", q.getAnalysis());  
+			member.put("know", q.getKnow_name());
+			jsonMembers.put(member); 
+		}
 		    JSONObject member1 = new JSONObject();  
 		    member1.put("id", "1");  
 		    member1.put("type", "作文题");  
@@ -172,5 +186,19 @@ public class HelloController {
 		return json.toString();
 	}
 	
+	@RequestMapping(value={"/admin/questionCheck/delete"}, method=RequestMethod.GET)
+	@ResponseBody
+	public void questionCheckDelete(int id){
+		questionService.delete(id);
+		return;
+	}
+	
+	@RequestMapping(value={"/admin/questionCheck/pass"}, method=RequestMethod.GET)
+	@ResponseBody
+	public void questionCheckPass(int id){
+		questionService.formalInsert(id);
+		questionService.delete(id);
+		return;
+	}
 	
 }

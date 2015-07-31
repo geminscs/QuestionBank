@@ -1,5 +1,7 @@
 package indi.tammy.qb.controller;
 
+import indi.tammy.qb.model.Question;
+import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.wrapper.QuestionWrapper;
 
 import java.io.BufferedReader;
@@ -12,13 +14,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -41,6 +46,9 @@ import com.sun.star.io.ConnectException;
 
 @Controller
 public class FileUploadController {
+	@Autowired
+	private QuestionService questionService;
+	
 	@RequestMapping(value={"/upload/file"})
 	@ResponseBody
 	public String ueditorImageUp(@RequestParam("file") MultipartFile upfile){
@@ -70,9 +78,24 @@ public class FileUploadController {
 					System.out.println(str);
 					OutputStream fileWriter = new FileOutputStream(rootPath + "/" + new Date().getTime()
 						        + ".html");  
-			         
-			            fileWriter.write(str.getBytes("utf-8"));  
-			            fileWriter.close(); // 关闭数据流  
+			        fileWriter.write(str.getBytes("utf-8"));  
+			        fileWriter.close(); // 关闭数据流  
+			        List<Question> l = htmlDivider(str);
+			        for(int i = 0;i < l.size();i ++){
+			        	Question q = l.get(i);
+			        	int type = questionService.getTypeId(q.getType_name());
+			        	if(type > 0){
+			        		q.setType(type);
+			        		questionService.insert(q);
+			        		String[] knows = q.getKnow_name().split(";");
+			        		for(int j = 0;j < knows.length;j ++){
+			        			int knowId = Integer.parseInt(knows[j]);
+			        			if(knowId > 0){
+			        				questionService.insertKnowQuestion(q.getId(), knowId);
+			        			}
+			        		}
+			        	}
+			        }
 					return "{\"name\":\""+fname+"\", \"originalName\": \""+fname+"\", \"size\": 8192, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"/upload/"+fname+"\"}";
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -193,8 +216,8 @@ public class FileUploadController {
 	            .replaceAll("</BODY>", "</DIV>");
 	    }
 	    // 调整图片地址
-//	    htmlStr = htmlStr.replaceAll("<IMG SRC=\"", "<IMG SRC=\"" + docImgPath
-//	        + "/");
+	    htmlStr = htmlStr.replaceAll("<IMG SRC=\"", "<IMG SRC=\"" + "/upload/"
+	        + "/");
 	    // 把<P></P>转换成</div></div>保留样式
 	    htmlStr =  htmlStr.replaceAll("(<P)([^>]*>.*?)(<\\/P>)",
 	    "<div$2</div>");
@@ -224,73 +247,63 @@ public class FileUploadController {
      *                
      * @return 分割后的类数组
      */
-    @RequestMapping(value={"/upload/divider"})
-    @ResponseBody
-    public String htmlDivider(){
+    public List<Question> htmlDivider(String htmlStr){
     	String typeName = "【题型】";
     	String contentName = "【题面】";
     	String answerName = "【答案】";
     	String analysisName = "【解析】";
     	String knowName = "【知识点】";
     	String endName = "【结束】";
-    	String outPutString = " ";
-    	File input = new File("E:/PHP/QuestionBank/target/classes/static/upload/1438184904730.html");
-    	try {
-			Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
-			Elements divs = doc.body().child(0).children();
-			for(int i = 0;i < divs.size();i ++){
-				Element div = divs.get(i);
-				System.out.println(div.html());
-				if(div.text().startsWith(typeName)){
-					QuestionWrapper q = new QuestionWrapper();
-					q.setType(div.html().substring(typeName.length()));
-					String nowType = typeName;
-					for(i ++;i < divs.size();i ++){
-						Element innerDiv = divs.get(i);
-						if(innerDiv.html().startsWith(endName)){
-							//System.out.println(q.toString());	
-							q.setContent(contentAnalyzer(q.getContent()));
-							outPutString += q.toString();
-							break;
+    	List<Question> l = new ArrayList<Question>();
+    	Document doc = Jsoup.parse(htmlStr);
+		Elements divs = doc.body().child(0).children();
+		for(int i = 0;i < divs.size();i ++){
+			Element div = divs.get(i);
+			System.out.println(div.html());
+			if(div.text().startsWith(typeName)){
+				Question q = new Question();
+				q.setType_name(div.html().substring(typeName.length()));
+				String nowType = typeName;
+				for(i ++;i < divs.size();i ++){
+					Element innerDiv = divs.get(i);
+					if(innerDiv.html().startsWith(endName)){	
+						l.add(q);
+						break;
+					}
+					if(innerDiv.html().startsWith(contentName)){
+						nowType = contentName;
+						q.setContent(innerDiv.html().substring(contentName.length()));
+					}
+					else if(innerDiv.html().startsWith(answerName)){
+						nowType = answerName;
+						q.setAnswer(innerDiv.html().substring(answerName.length()));
+					}
+					else if(innerDiv.html().startsWith(analysisName)){
+						nowType = analysisName;
+						q.setAnalysis(innerDiv.html().substring(analysisName.length()));
+					}
+					else if(innerDiv.html().startsWith(knowName)){
+						nowType = knowName;
+						q.setKnow_name(innerDiv.html().substring(knowName.length()));
+					}
+					else{
+						if(nowType.equals(contentName)){
+							q.setContent(q.getContent() + "<br/>" + innerDiv.html());
 						}
-						if(innerDiv.html().startsWith(contentName)){
-							nowType = contentName;
-							q.setContent(innerDiv.html().substring(contentName.length()));
+						else if(nowType.equals(answerName)){
+							q.setAnswer(q.getAnswer() + "<br/>" + innerDiv.html());
 						}
-						else if(innerDiv.html().startsWith(answerName)){
-							nowType = answerName;
-							q.setAnswer(innerDiv.html().substring(answerName.length()));
+						else if(nowType.equals(analysisName)){
+							q.setAnalysis(q.getAnalysis() + "<br/>" + innerDiv.html());
 						}
-						else if(innerDiv.html().startsWith(analysisName)){
-							nowType = analysisName;
-							q.setAnalysis(innerDiv.html().substring(analysisName.length()));
-						}
-						else if(innerDiv.html().startsWith(knowName)){
-							nowType = knowName;
-							q.setKnow(innerDiv.html().substring(knowName.length()));
-						}
-						else{
-							if(nowType.equals(contentName)){
-								q.setContent(q.getContent() + "<br/>" + innerDiv.html());
-							}
-							else if(nowType.equals(answerName)){
-								q.setAnswer(q.getAnswer() + "<br/>" + innerDiv.html());
-							}
-							else if(nowType.equals(analysisName)){
-								q.setAnalysis(q.getAnalysis() + "<br/>" + innerDiv.html());
-							}
-							else if(nowType.equals(knowName)){
-								q.setKnow(q.getKnow() + "<br/>" + innerDiv.html());
-							}
+						else if(nowType.equals(knowName)){
+							q.setKnow_name(q.getKnow_name() + "<br/>" + innerDiv.html());
 						}
 					}
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-    	return outPutString;
+    	return l;
     }
     
     /**

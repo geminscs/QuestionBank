@@ -10,6 +10,21 @@ public class Question {
 	private int hardness;
 	private long submit_time;
 	
+	private String know_name;
+	private String type_name;
+	
+	public String getType_name() {
+		return type_name;
+	}
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
+	public String getKnow_name() {
+		return know_name;
+	}
+	public void setKnow_name(String know_name) {
+		this.know_name = know_name;
+	}
 	public int getId() {
 		return id;
 	}
@@ -63,7 +78,8 @@ public class Question {
 		// TODO Auto-generated constructor stub
 	}
 	public Question(int id, String content, String analysis, String answer,
-			int type, boolean isFull, int hardness, long submit_time) {
+			int type, boolean isFull, int hardness, long submit_time,
+			String know_name, String type_name) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -73,7 +89,10 @@ public class Question {
 		this.isFull = isFull;
 		this.hardness = hardness;
 		this.submit_time = submit_time;
+		this.know_name = know_name;
+		this.type_name = type_name;
 	}
+	
 	
 	
 }

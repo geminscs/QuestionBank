@@ -74,6 +74,13 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
+		$.ajax({
+			url:"/admin/questionCheck/pass",
+			data:{id:id},
+			success:function(){
+				location.reload();
+			}
+		});
 		alert('pass question id:'+id);
 	});
 	
@@ -89,7 +96,7 @@ $(function(){
 		alert('modify question id:'+id);
 	});
 	
-	//单题修改
+	//单题删除
 	$(document).on("click",'button[name="btnDelOneQuestion"]',function(){
 		//alert('btnPassForOneQuestion绑定成功');
 		//$(this).removeClass();
@@ -98,6 +105,13 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
+		$.ajax({
+			url:"/admin/questionCheck/delete",
+			data:{id:id},
+			success:function(){
+				location.reload();
+			}
+		});
 		alert('del question id:'+id);
 	});
 	

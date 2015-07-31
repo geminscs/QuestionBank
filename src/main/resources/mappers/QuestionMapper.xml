@@ -9,8 +9,73 @@
 		insert into qb_temp_qbank(content, analysis, answer, type, isFull, hardness, submit_time) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time})
 	</insert>
 	
+	<insert id="formalInsert" parameterType="int" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qb_formal_qbank (
+			content,
+			analysis,
+			answer,
+			type,
+			isFull,
+			hardness,
+			submit_time
+		) SELECT
+			content,
+			analysis,
+			answer,
+			type,
+			isFull,
+			hardness,
+			submit_time
+		FROM
+			qb_temp_qbank
+		WHERE
+			qb_temp_qbank.id = #{id};
+		INSERT INTO qb_formal_knowQuestion (question_id, know_id) SELECT
+			question_id,
+			know_id
+		FROM
+			qb_temp_knowQuestion
+		WHERE
+			qb_temp_knowQuestion.question_id = #{id}
+	</insert>
+	
+	<insert id="insertKnowQuestion" keyProperty="id">
+		insert into qb_temp_knowQuestion(question_id, know_id) values(#{question_id},#{know_id})
+	</insert>
+	
 	<delete id="delete" parameterType="int">
-         delete from qb_temp_qbank where id=#{id}
+         delete from qb_temp_qbank where id=#{id};
+         delete from qb_temp_knowQuestion where question_id=#{id}
     </delete>
-		
+    
+    <select id="findBySubject" resultType="indi.tammy.qb.model.Question" >
+		SELECT qb_temp_qbank.*, t2.name know_name, qb_question_type.type_name
+		FROM
+			(
+			SELECT TOP ${pEnd}
+				t1.question_id,
+				t1.subject_name,
+				dbo.AggregateString (t1.question_id) name,
+				row_number () OVER (ORDER BY t1.question_id) n
+			FROM
+				(
+				SELECT
+					qb_temp_knowQuestion.question_id,
+					TB_Subject.name subject_name
+				FROM
+					TB_Know	
+					INNER JOIN TB_Subject ON TB_Subject.id = TB_Know.subjectid
+					AND TB_Subject.name = #{subject}
+					INNER JOIN qb_temp_knowQuestion ON TB_Know.id = qb_temp_knowQuestion.know_id
+				) t1
+			GROUP BY
+				t1.question_id,
+				t1.subject_name
+			) AS t2, qb_temp_qbank, qb_question_type
+		WHERE t2.n >= #{pStart} and t2.question_id=qb_temp_qbank.id and qb_temp_qbank.type=qb_question_type.type
+	</select>
+	
+	<select id="getTypeId" parameterType="String" resultType="int" >
+		select type from qb_question_type where type_name=#{type_name}
+	</select>				
 </mapper>
