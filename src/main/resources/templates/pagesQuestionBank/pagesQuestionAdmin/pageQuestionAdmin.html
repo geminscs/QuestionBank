@@ -13,7 +13,8 @@
     <link href="/font_awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-   
+   <!-- pagination -->
+    <link href="/plugins/jqueryPagination/jquery.pagination.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -238,81 +239,110 @@
           <section class="content">
 	      	<div class="box  box-solid">
 	  			<div class="box-body">
-		  				<p>
+		  				<p name="pGrade">
 		  					<b>年级：</b>
-		  					<a class="current">全部</a>&nbsp;
-		  					<a>一年级</a>&nbsp;
-		  					<a>二年级</a>&nbsp;
-		  					<a>三年级</a>&nbsp;
-		  					<a>四年级</a>&nbsp;
-		  					<a>五年级</a>&nbsp;
-		  					<a>六年级</a>&nbsp;
+		  					<input type="hidden" value="-1" name="currentGradeId"/>
+		  					<a class="current" name="aGradeName"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<span id="spanGradeList">
+			  					<a name="aGradeName"><input type="hidden" value="1"/>一年级</a>&nbsp;
+			  					<a name="aGradeName"><input type="hidden" value="2"/>二年级</a>&nbsp;
+			  					<a name="aGradeName"><input type="hidden" value="3"/>三年级</a>&nbsp;
+			  					<a name="aGradeName"><input type="hidden" value="4"/>四年级</a>&nbsp;
+			  					<a name="aGradeName"><input type="hidden" value="5"/>五年级</a>&nbsp;
+			  					<a name="aGradeName"><input type="hidden" value="6"/>六年级</a>&nbsp;
+		  					</span>
 		  				</p>
-		  				<p>
+		  				<p name="pType">
 		  					<b>题型：</b>
-		  					<a class="current">全部</a>&nbsp;
-		  					<a>单选题</a>&nbsp;
-		  					<a>多选题</a>&nbsp;
-		  					<a>填空题</a>&nbsp;
-		  					<a>书写题</a>&nbsp;
-		  					<a>现代文阅读</a>&nbsp;
-		  					<a>文言文阅读</a>&nbsp;
-		  					<a>诗歌鉴赏</a>&nbsp;
-		  					<a>连线题</a>&nbsp;
-		  					<a>作文题</a>&nbsp;
-		  					<a>其他</a>
+		  					<input type="hidden" value="-1" name="currentTypeId"/>
+		  					<a name="aTypeName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<span id="spanTypeList">
+		  						<a name="aTypeName"><input type="hidden" value="1"/>单选题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="2"/>多选题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="3"/>填空题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="4"/>书写题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="5"/>现代文阅读</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="6"/>文言文阅读</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="7"/>诗歌鉴赏</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="8"/>连线题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="9"/>作文题</a>&nbsp;
+			  					<a name="aTypeName"><input type="hidden" value="10"/>其他</a>
+		  					</span>
 		  				</p>
-		  				<p>
+		  				<p name="pField">
 		  					<b>地区：</b>
-		  					<a class="current">全部</a>&nbsp;
-		  					<a>北京</a>&nbsp;
-		  					<a>上海</a>&nbsp;
-		  					<a>天津</a>&nbsp;
-		  					<a>重庆</a>&nbsp;
-		  					<a>山东</a>&nbsp;
-		  					<a>云南</a>&nbsp;
-		  					<a>浙江</a>&nbsp;
-		  					<a>黑龙江</a>&nbsp;
-		  					<a>江苏</a>&nbsp;
-		  					<a>广州</a>&nbsp;
-		  					<a>更多>></a>&nbsp;
+		  					<input type="hidden" value="-1" name="currentFieldId"/>
+		  					<a name="aFieldName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<span id="spanFieldList">
+		  						<a name="aFieldName"><input type="hidden" value="1"/>北京</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="2"/>上海</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="3"/>天津</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="4"/>重庆</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="5"/>山东</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="6"/>云南</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="7"/>浙江</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="8"/>黑龙江</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="9"/>江苏</a>&nbsp;
+			  					<a name="aFieldName"><input type="hidden" value="10"/>广州</a>&nbsp;
+		  					</span>
 		  				</p>
-		  				<p>
+		  				<p name="pStandard">
+		  					<b>标准：</b>
+		  					<input type="hidden" value="-1" name="currentStandardId"/>
+		  					<a name="aStandardName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<span id="spanStandardList">
+		  						<a name="aStandardName"><input type="hidden" value="1"/>课标</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="2"/>中考</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="3"/>会考</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="4"/>高考</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="5"/>小升初</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="6"/>奥赛</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="7"/>提前考</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="8"/>自主招生</a>&nbsp;
+			  					<a name="aStandardName"><input type="hidden" value="9"/>其他课标</a>&nbsp;
+		  					</span>
+		  				</p>
+		  				<p name="pHardness">
 		  					<b>难度：</b>
-		  					<a class="current">全部</a>&nbsp;
-		  					<a>容易</a>&nbsp;
-		  					<a>较易</a>&nbsp;
-		  					<a>一般</a>&nbsp;
-		  					<a>较难</a>&nbsp;
-		  					<a>困难</a>&nbsp;
+		  					<input type="hidden" value="全部" name="currentHardness"/>
+		  					<a name="aHardnessName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a name="aHardnessName">容易</a>&nbsp;
+		  					<a name="aHardnessName">较易</a>&nbsp;
+		  					<a name="aHardnessName">一般</a>&nbsp;
+		  					<a name="aHardnessName">较难</a>&nbsp;
+		  					<a name="aHardnessName">困难</a>&nbsp;
 		  				</p>
 	  			</div><!-- /.box-body -->
 		  	</div><!-- /.box -->
 		  	<div class="row">
 		  		<div class="col-md-3">
-		  			<div class="box box-solid collapsed-box" style="margin-bottom:5px;">
+		  			<div class="box box-solid collapsed-box" style="margin-bottom:5px;" name="divForSelectSubject">
 					  <div class="box-header with-border">
-					    <h3 class="box-title">当前科目：<b>小学语文</b></h3>
+					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b><input type="hidden" name="currentSubjectId" value="1"/></h3>
 					    <div class="box-tools pull-right">
 					      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 					    </div><!-- /.box-tools -->
 					  </div><!-- /.box-header -->
 					  <div class="box-body">
-					    <h5>小学</h5>
-					    <p style="padding-left:10px;padding-right:10px;">
-					    	<a>语文</a>
-					    	<a>英语</a>
-					    	<a>数学</a>
-					    	<a>科学</a>
-					    </p>
-					    <h5>初中</h5>
-					    <p style="margin-left:10px;margin-right:10px;">
-					    	<a>语文</a>
-					    	<a>英语</a>
-					    	<a>数学</a>
-					    	<a>科学</a>
-					    	<a>思政</a>
-					    </p>
+					    <div>
+						    <h5 name="subjectSubName1">小学</h5>
+						    <p style="padding-left:10px;padding-right:10px;">
+						    	<a name="subjectSubName2" herf="#"><input type="hidden" value="1"/>语文</a>
+						    	<a name="subjectSubName2" herf="#"><input type="hidden" value="2"/>英语</a>
+						    	<a name="subjectSubName2" href="#"><input type="hidden" value="3"/>数学</a>
+						    	<a name="subjectSubName2" href="#"><input type="hidden" value="4"/>科学</a>
+						    </p>
+					    </div>
+					    <div>
+					    	<h5 name="subjectSubName1">初中</h5>
+						    <p style="margin-left:10px;margin-right:10px;">
+						    	<a name="subjectSubName2"><input type="hidden" value="5"/>语文</a>
+						    	<a name="subjectSubName2"><input type="hidden" value="6"/>英语</a>
+						    	<a name="subjectSubName2"><input type="hidden" value="7"/>数学</a>
+						    	<a name="subjectSubName2"><input type="hidden" value="8"/>科学</a>
+						    	<a name="subjectSubName2"><input type="hidden" value="9"/>思政</a>
+						    </p>
+					    </div>
 					  </div><!-- /.box-body -->
 					</div><!-- /.box -->
 		  			<div class="box box-solid">
@@ -325,7 +355,37 @@
 					</div><!-- /.box -->
 		  		</div>
 		  		<div class="col-md-9">
+		  		
+		  			<div class="row">
+		  				<div class="col-md-8"></div>
+		  				<div class="col-md-4">
+		  					<div class="input-group" style="margin-bottom:5px;">
+				              <input type="text" name="keyForSearch" class="form-control" placeholder="关键字搜索" />
+				              <span class="input-group-btn">
+				                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+				              </span>
+		              
+		            		</div>
+		  				</div>
+		  			</div>
+		  			<div id="divQuestions"></div>
 		  			<div class="box box-solid">
+		  				<input type="hidden" value="1"/>
+						<div class="box-header with-border">
+							<h3 class="box-title"></h3>
+							<div class="pull-left">
+								<span><input type="checkbox"/>&nbsp;&nbsp;选择</span>
+							</div>
+							<div class="pull-right">
+						      <!-- Buttons, labels, and many other things can be placed here! -->
+						      <!-- Here is a label for example -->
+						      <span>
+						      	<label>题型：作文题</label>&nbsp;&nbsp;
+						      	<label>科目：小学语文</label>&nbsp;&nbsp;
+						      	<label>知识点：记叙文；说明文；议论文；全命题作文；半命题作文</label>
+						      </span>
+						    </div><!-- /.box-tools -->
+						</div>
   						<div class="box-body">
   							<div style="padding-left:10px;padding-right:10px;">
   								<p>作文（两者任选其一）</p>
@@ -347,9 +407,8 @@
   								</div>
   							</div>
   							<br/>
-  							<div class="box-info box-solid">
+  							<div class="box-info box-solid" style="display:none;">
   								<div class="box-body bg-gray color-palette">
-  									<p><label>考点：</label>记叙文；说明文；议论文；全命题作文；半命题作文</p>
 	  								<p><label>答案：</label>
 	  									参考例文<br/>
 	  									我心中那一道阳光<br/>
@@ -364,10 +423,15 @@
 	  								<p><label>题面属性：</label>|题型：写作题|试题类型：普通|难度：</p>
   								</div>
   							</div>
-  									
-  							
                     	</div><!-- /.box-footer-->
 					</div><!-- /.box -->
+					<div>
+						<span class="pull-left" style="margin:10px 10px;">
+						<button class="btn btn-primary" name="btnAddQuestionsToPaper">添加至组卷</button>
+						<button class="btn btn-default" name="btnSelectAllQuestions">全选</button>
+						<button class="btn btn-default" name="btnDelQuestions">删除</button></span>
+						<div id="page" class="m-pagination pull-right no-padding"></div>
+					</div>
 		  		</div>
 		  	</div><!-- row end -->
           </section><!-- /.content -->
@@ -393,11 +457,75 @@
     <script src="/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
     <!-- treeview -->
     <script src="/plugins/treeview/js/bootstrap-treeview.js" type="text/javascript"></script>
+     <!-- pagination -->
+	<script src="/plugins/jqueryPagination/jquery.pagination-1.2.7.min.js"></script>
+	<!-- jsrender -->
+	<script src="/plugins/jsrender/jsrender.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/dist/js/demo.js" type="text/javascript"></script>
     <!-- pageQuestionAdmin -->
     <script src="/js/pageQuestionAdmin.js" type="text/javascript"></script>
+    <script id="questionBoxTmpl" type="text/x-jsrender">
+		<div class="box box-solid" name="divQuestionBox">
+		  				<input type="hidden" value="{{:id}}" name="questionId"/>
+						<div class="box-header with-border">
+							<h3 class="box-title"></h3>
+							<div class="pull-left">
+								<span><input type="checkbox" name="checkBoxForSelect"/>&nbsp;&nbsp;选择</span>
+							</div>
+							<div class="pull-right">
+						      <!-- Buttons, labels, and many other things can be placed here! -->
+						      <!-- Here is a label for example -->
+						      <span>
+						      	<label>题型：{{:type}}</label>&nbsp;&nbsp;
+						      	<label>科目：{{:subject}}</label>&nbsp;&nbsp;
+						      	<label>知识点：{{:know}}</label>&nbsp;&nbsp;
+						      	<label>难度：{{:hardness}}</label>
+						      </span>
+						    </div><!-- /.box-tools -->
+						</div>
+  						<div class="box-body">
+  							<div style="padding-left:10px;padding-right:10px;">
+  								{{:content}}
+  							</div>
+  						</div><!-- /.box-body -->
+  						<div class="box-footer">
+  							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
+  								<label><input type="checkbox" name="checkboxForFullInfo"/>查看答案与解析</label>
+  								<div class="pull-right">
+	  								<button class="btn btn-primary " name="btnAddOneToPaper">添加至组卷</button>
+		                      		<button class="btn btn-default " name="btnReportOneError">报告错误</button>
+		                      		<button class="btn btn-default " name="btnModifyOneQuestion">修改</button> 
+  									<button class="btn btn-danger " name="btnDelOneQuestion">删除</button>
+  								</div>
+  							</div>
+  							<br/>
+  							<div class="box-info box-solid" style="display:none;" name="divFullInfo">
+  								<div class="box-body bg-gray color-palette">
+	  								<p><label>答案：</label>
+	  									{{:answer}}
+	  								</p>
+	  								<p><label>解析：</label>
+										{{:analysis}}
+	  								</p>
+  								</div>
+  							</div>
+                    	</div><!-- /.box-footer-->
+					</div><!-- /.box -->
+	</script>
+	<script id="gradeTmpl" type="text/x-jsrender">
+		<a name="aGradeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+	</script>
+	<script id="typeTmpl" type="text/x-jsrender">
+		<a name="aTypeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+	</script>
+	<script id="fieldTmpl" type="text/x-jsrender">
+		<a name="aFieldName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+	</script>
+	<script id="standardTmpl" type="text/x-jsrender">
+		<a name="aStandardName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+	</script>
   </body>
 </html>
