@@ -186,5 +186,19 @@ public class HelloController {
 		return json.toString();
 	}
 	
+	@RequestMapping(value={"/admin/questionCheck/delete"}, method=RequestMethod.GET)
+	@ResponseBody
+	public void questionCheckDelete(int id){
+		questionService.delete(id);
+		return;
+	}
+	
+	@RequestMapping(value={"/admin/questionCheck/pass"}, method=RequestMethod.GET)
+	@ResponseBody
+	public void questionCheckPass(int id){
+		questionService.formalInsert(id);
+		questionService.delete(id);
+		return;
+	}
 	
 }
