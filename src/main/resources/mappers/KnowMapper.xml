@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="indi.tammy.qb.dao.KnowDao">
+
+	<select id="findBySubject" parameterType="String" resultType="indi.tammy.qb.model.Know" >
+		SELECT
+			*
+		FROM
+			TB_Know
+			INNER JOIN TB_Subject ON TB_Subject.name = #{subject}
+			AND TB_Know.subjectid = TB_Subject.id
+			ORDER BY TB_Know.parent
+	</select>
+	
+	<select id="findByParam" resultType="indi.tammy.qb.model.Know">
+		SELECT
+			TB_Know.*
+		FROM
+			TB_Know
+			INNER JOIN TB_Subject ON TB_Subject.name = #{subject}
+			AND TB_Know.subjectid = TB_Subject.id
+			<if test="area_id >= 0">
+				INNER JOIN TB_KnowArea ON TB_KnowArea.areaid=#{area_id}
+				AND TB_Know.id = TB_KnowArea.knowid
+			</if>
+			<if test="standard_id >= 0">
+				INNER JOIN TB_KnowStandard ON TB_KnowStandard.standard=#{standard_id}
+				AND TB_Know.id = TB_KnowStandard.knowid
+			</if>
+			ORDER BY TB_Know.parent
+	</select>
+	
+</mapper>

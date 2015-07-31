@@ -7,8 +7,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import indi.tammy.qb.model.Know;
 import indi.tammy.qb.model.Question;
 import indi.tammy.qb.model.User;
+import indi.tammy.qb.service.KnowService;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
 
@@ -30,6 +32,9 @@ public class HelloController {
 	
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private KnowService knowService;
 
 	@RequestMapping(value={"/register"},method = RequestMethod.GET)
 	public String registerGet(){
@@ -199,6 +204,31 @@ public class HelloController {
 		questionService.formalInsert(id);
 		questionService.delete(id);
 		return;
+	}
+	
+	@RequestMapping(value={"/test/knows"}, method=RequestMethod.GET)
+	@ResponseBody
+	public String testKnows(String subject, int area_id, int standard_id){
+		List<Know> l = knowService.findByParam(subject, area_id, standard_id);		
+		JSONArray res = constructTree(0, l);
+		return res.toString();
+	}
+	
+	public JSONArray constructTree(long parentIndex, List<Know> l){
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0;i < l.size();i ++){
+			Know know = l.get(i);
+			if(know.getParent() == parentIndex){
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("label", know.getName());
+				JSONArray children = constructTree(know.getId(), l);
+				if(children.length() > 0){
+					jsonObj.put("children", children);
+				}
+				jsonArray.put(jsonObj);
+			}
+		}
+		return jsonArray;
 	}
 	
 }
