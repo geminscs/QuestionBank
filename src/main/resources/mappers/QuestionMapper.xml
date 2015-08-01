@@ -9,7 +9,7 @@
 		insert into qb_temp_qbank(content, analysis, answer, type, isFull, hardness, submit_time) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time})
 	</insert>
 	
-	<insert id="formalInsert" parameterType="int" useGeneratedKeys="true" keyProperty="id">
+	<insert id="formalInsert" parameterType="indi.tammy.qb.model.Question" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO qb_formal_qbank (
 			content,
 			analysis,
@@ -29,14 +29,17 @@
 		FROM
 			qb_temp_qbank
 		WHERE
-			qb_temp_qbank.id = #{id};
+			qb_temp_qbank.id = #{id}
+	</insert>
+	
+	<insert id="formalInsertKnowQuestion" keyProperty="id">
 		INSERT INTO qb_formal_knowQuestion (question_id, know_id) SELECT
-			question_id,
-			know_id
+			${formal_id},
+			qb_temp_knowQuestion.know_id
 		FROM
 			qb_temp_knowQuestion
 		WHERE
-			qb_temp_knowQuestion.question_id = #{id}
+			qb_temp_knowQuestion.question_id = #{temp_id}
 	</insert>
 	
 	<insert id="insertKnowQuestion" keyProperty="id">
@@ -77,5 +80,65 @@
 	
 	<select id="getTypeId" parameterType="String" resultType="int" >
 		select type from qb_question_type where type_name=#{type_name}
+	</select>
+	
+	<select id="formalFindByParam" resultType="indi.tammy.qb.model.Question" >
+		SELECT qb_formal_qbank.*, t2.name know_name, qb_question_type.type_name
+		FROM
+			(
+			SELECT TOP ${pEnd}
+				t1.question_id,
+				t1.subject_name,
+				dbo.FormalAggregateString (t1.question_id) name,
+				row_number () OVER (ORDER BY t1.question_id) n
+			FROM
+				(
+				SELECT
+					qb_formal_knowQuestion.question_id,
+					TB_Subject.name subject_name
+				FROM
+					TB_Know	
+					INNER JOIN TB_Subject ON TB_Subject.id = TB_Know.subjectid
+					AND TB_Subject.id = #{subject_id}
+					<if test = "know_id >= 0">
+						AND TB_Know.id = #{know_id}
+					</if>
+					
+					<if test = "grade_id >= 0">
+						INNER JOIN TB_KnowGrad ON TB_Know.id = TB_KnowGrad.knowid
+						AND TB_KnowGrad.grade = #{grade_id}
+					</if>
+					
+					<if test = "area_id >= 0">
+						INNER JOIN TB_KnowArea ON TB_Know.id = TB_KnowArea.knowid
+						AND TB_KnowArea.areaid = #{area_id}
+					</if>
+					
+					<if test = "standard_id >= 0">
+						INNER JOIN TB_KnowStandard ON TB_Know.id = TB_KnowStandard.knowid
+						AND TB_KnowStandard.standard = #{standard_id}
+					</if>
+					
+					<if test = "standard_id >= 0">
+						INNER JOIN TB_KnowStandard ON TB_Know.id = TB_KnowStandard.knowid
+						AND TB_KnowStandard.standard = #{standard_id}
+					</if>
+					INNER JOIN qb_formal_knowQuestion ON TB_Know.id = qb_formal_knowQuestion.know_id			
+				) t1
+			GROUP BY
+				t1.question_id,
+				t1.subject_name
+			) AS t2, qb_formal_qbank, qb_question_type
+		WHERE 
+		t2.n >= #{pStart} 
+		AND t2.question_id = qb_formal_qbank.id 
+		AND qb_formal_qbank.type = qb_question_type.type
+		<if test = "type_id >= 0">
+			AND qb_formal_qbank.type = #{type_id}
+		</if>
+		
+		<if test = "hardness >= 0">
+			AND qb_formal_qbank.hardness = #{hardness}
+		</if>
 	</select>				
 </mapper>

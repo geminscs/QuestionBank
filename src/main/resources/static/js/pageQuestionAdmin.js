@@ -184,7 +184,7 @@ $(function(){
 	    infoFormat: '{start} ~ {end}条，共{total}条',
 	    //total:1000
 	    remote: {
-	        url: '/getJsonData',  //请求地址
+	        url: '/admin/questionAdmin/getJsonData',  //请求地址
 	        params: { //根据这些参数返回
 	        	subjectId:$('input[name="currentSubjectId"]').val(),//科目id
 				gradeId:$('input[name="currentGradeId"]').val(),//年级id

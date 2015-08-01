@@ -66,11 +66,7 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionImport/pageWordImport";
 	}
 	
-	@RequestMapping(value={"/admin/questionAdmin"},method = RequestMethod.GET)
-	public String adminQuestion(){
-		
-		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionAdmin";
-	}
+	
 	
 	@RequestMapping(value={"/admin/importNotice"},method = RequestMethod.GET)
 	public String adminImportNotice(){
@@ -201,7 +197,10 @@ public class HelloController {
 	@RequestMapping(value={"/admin/questionCheck/pass"}, method=RequestMethod.GET)
 	@ResponseBody
 	public void questionCheckPass(int id){
-		questionService.formalInsert(id);
+		Question q = new Question();
+		q.setId(id);
+		questionService.formalInsert(q);
+		questionService.formalInsertKnowQuestion(q.getId(), id);
 		questionService.delete(id);
 		return;
 	}
@@ -221,6 +220,7 @@ public class HelloController {
 			if(know.getParent() == parentIndex){
 				JSONObject jsonObj = new JSONObject();
 				jsonObj.put("label", know.getName());
+				jsonObj.put("id", know.getId());
 				JSONArray children = constructTree(know.getId(), l);
 				if(children.length() > 0){
 					jsonObj.put("children", children);
