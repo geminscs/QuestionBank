@@ -51,6 +51,11 @@
          delete from qb_temp_knowQuestion where question_id=#{id}
     </delete>
     
+    <delete id="formalDelete" parameterType="int">
+         delete from qb_formal_qbank where id=#{id};
+         delete from qb_formal_knowQuestion where question_id=#{id}
+    </delete>
+    
     <select id="findBySubject" resultType="indi.tammy.qb.model.Question" >
 		SELECT qb_temp_qbank.*, t2.name know_name, qb_question_type.type_name
 		FROM
@@ -83,14 +88,21 @@
 	</select>
 	
 	<select id="formalFindByParam" resultType="indi.tammy.qb.model.Question" >
-		SELECT qb_formal_qbank.*, t2.name know_name, qb_question_type.type_name
+		SELECT TOP ${pEnd}
+			*, COUNT (*) OVER () total
+		FROM
+		(
+		SELECT 
+		qb_formal_qbank.*, 
+		t2.name know_name, 
+		row_number () OVER (ORDER BY qb_formal_qbank.id) n,
+		qb_question_type.type_name
 		FROM
 			(
-			SELECT TOP ${pEnd}
+			SELECT
 				t1.question_id,
 				t1.subject_name,
-				dbo.FormalAggregateString (t1.question_id) name,
-				row_number () OVER (ORDER BY t1.question_id) n
+				dbo.FormalAggregateString (t1.question_id) name
 			FROM
 				(
 				SELECT
@@ -130,8 +142,7 @@
 				t1.subject_name
 			) AS t2, qb_formal_qbank, qb_question_type
 		WHERE 
-		t2.n >= #{pStart} 
-		AND t2.question_id = qb_formal_qbank.id 
+		t2.question_id = qb_formal_qbank.id 
 		AND qb_formal_qbank.type = qb_question_type.type
 		<if test = "type_id >= 0">
 			AND qb_formal_qbank.type = #{type_id}
@@ -140,5 +151,10 @@
 		<if test = "hardness >= 0">
 			AND qb_formal_qbank.hardness = #{hardness}
 		</if>
+		
+		<if test = "key != null">
+			AND qb_formal_qbank.content LIKE '${key}'
+		</if>) t3
+		WHERE t3.n >= #{pStart}
 	</select>				
 </mapper>

@@ -38,12 +38,16 @@ public class QuestionService {
 		questionDao.insertKnowQuestion(question_id, know_id);
 	}
 	
-	public List<Question> formalFindByParam(int pStart, int pEnd, int know_id, int area_id, int standard_id, int grade_id, int subject_id, int type_id, int hardness){
-		return questionDao.formalFindByParam(pStart, pEnd, know_id, area_id, standard_id, grade_id, subject_id, type_id, hardness);
+	public List<Question> formalFindByParam(int pStart, int pEnd, int know_id, int area_id, int standard_id, int grade_id, int subject_id, int type_id, int hardness, String key){
+		return questionDao.formalFindByParam(pStart, pEnd, know_id, area_id, standard_id, grade_id, subject_id, type_id, hardness, key);
 	}
 
 	public void formalInsertKnowQuestion(int formal_id, int temp_id){
 		questionDao.formalInsertKnowQuestion(formal_id, temp_id);
+	}
+	
+	public void formalDelete(int id){
+		questionDao.formalDelete(id);
 	}
 
 }

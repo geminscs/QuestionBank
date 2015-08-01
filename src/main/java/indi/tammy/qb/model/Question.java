@@ -12,7 +12,14 @@ public class Question {
 	
 	private String know_name;
 	private String type_name;
+	private int total;
 	
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	public String getType_name() {
 		return type_name;
 	}
@@ -79,7 +86,7 @@ public class Question {
 	}
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
-			String know_name, String type_name) {
+			String know_name, String type_name, int total) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -91,7 +98,9 @@ public class Question {
 		this.submit_time = submit_time;
 		this.know_name = know_name;
 		this.type_name = type_name;
+		this.total = total;
 	}
+	
 	
 	
 	
