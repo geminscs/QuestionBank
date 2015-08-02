@@ -60,7 +60,7 @@ $(function(){
       		console.log(nodes);
       	});
       	
-      	//修改后审阅通过
+      	//修改后保存
       	$('#btnSave').click(function(){
       		var subjectId=$('#selectForSubject').val();
       		var typeId=$('#selectForType').val();

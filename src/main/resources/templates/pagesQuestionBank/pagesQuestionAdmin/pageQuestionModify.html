@@ -11,8 +11,8 @@
     <link href="/font_awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- pagination -->
-    <link href="/plugins/jqueryPagination/jquery.pagination.css" rel="stylesheet" />
+    <!-- jqtree -->
+    <link href="/plugins/jqueryTree/jqtree.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -72,7 +72,7 @@
 		              
 		            </div>
 		            <span>&nbsp;&nbsp;
-		               <select class="form-control select2 select2-hidden-accessible">
+		               <select class="form-control select">
 		                  	<option value="question">题目</option>
 		   					<option value="test">试卷</option>
 		              </select></span>
@@ -228,83 +228,50 @@
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-              <li><a href="#">新题审阅</a></li>
+              <li><a href="#">试题管理</a></li>
+              <li><a href="#">试题修改</a></li>
             </ol>
           </section>
 
           <!-- Main content -->
           <section class="content">
-            <div class="box box-solid collapsed-box" name="divForSelectSubject">
-					  <div class="box-header with-border">
-					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b></h3>
-					    <div class="box-tools pull-right">
-					      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-					    </div><!-- /.box-tools -->
-					  </div><!-- /.box-header -->
-					  <div class="box-body">
-					  	<div>
-						    <h5 name="subjectSubName1">小学</h5>
-						    <p style="padding-left:10px;padding-right:10px;">
-						    	<a name="subjectSubName2" herf="#">语文</a>
-						    	<a name="subjectSubName2" herf="#">英语</a>
-						    	<a name="subjectSubName2" href="#">数学</a>
-						    	<a name="subjectSubName2" href="#">科学</a>
-						    </p>
-					    </div>
-					    <div>
-					    	<h5 name="subjectSubName1">初中</h5>
-						    <p style="margin-left:10px;margin-right:10px;">
-						    	<a name="subjectSubName2">语文</a>
-						    	<a name="subjectSubName2">英语</a>
-						    	<a name="subjectSubName2">数学</a>
-						    	<a name="subjectSubName2">科学</a>
-						    	<a name="subjectSubName2">思政</a>
-						    </p>
-					    </div>
-					  </div><!-- /.box-body -->
-					</div><!-- /.box -->
-					<div id="test"></div>
-					<div class="box box-solid">
-						<input type="hidden" value="1"/>
-						<div class="box-header with-border">
-							<h3 class="box-title"></h3>
-							<div class="pull-left">
-								<span><input type="checkbox"/>&nbsp;&nbsp;选择</span>
-							</div>
-							<div class="pull-right">
-						      <!-- Buttons, labels, and many other things can be placed here! -->
-						      <!-- Here is a label for example -->
-						      <span>
-						      	<label>题型：作文题</label>&nbsp;&nbsp;
-						      	<label>科目：小学语文</label>&nbsp;&nbsp;
-						      	<label>年级：三年级</label>&nbsp;&nbsp;
-						      	<label>知识点：记叙文；说明文；议论文；全命题作文；半命题作文</label>
-						      </span>
-						    </div><!-- /.box-tools -->
-						</div>
-  						<div class="box-body">
-  							<div style="padding-left:10px;padding-right:10px;">
-  								<p>作文（两者任选其一）</p>
-  								<p>1、也许，你在家里，父亲一个欣赏的眼神，母亲一声关切的叮咛，慈爱的阳光就会充满你的心房；也许，你在老师的办公室里，满怀困惑，倾听着老师的柔柔絮语，关爱的阳光就会驱散你心灵的迷茫；也许，你倚在教室窗旁，捧着书本，读着名著，吟诵唐诗宋词，文学的阳光就会照亮你成长的方向；也许……
-  								<br/>请以“我心中的那一道阳光”为题，写一篇600字左右的文章。除诗歌外，文体不限。</p>
-								<p>2、带着________，一路前行<br/>
-								要求：（1）根据自己所写内容（如理想、自信、尊严、感动、感恩、挫折、伤痛、遗憾、微笑、眼泪、鲜花等），补足题目，然后将完整的题目抄写在正文前；（2）诗歌除外，文体不限；（3）文中不得出现真实的地名、校名、人名。
-  								</p>
-  							</div>
-  						</div><!-- /.box-body -->
-  						<div class="box-footer with-border">
-  							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
-  								<label><input type="checkbox" name="checkboxForFullInfo"/>查看答案与解析</label>
-  								<div class="pull-right">
-	  								<button class="btn btn-primary " name="btnPassForOneQuestion">审核通过</button>
-  									<button class="btn btn-default ">修改</button>
-  									<button class="btn btn-default ">删除</button>
-  								</div>
-  							</div>
-  							<div class="box-info box-solid" style="display:none;" name="divFullInfo">
-  								<br/>
-  								<div class="box-body bg-gray color-palette">
-	  								<p><label>答案：</label>
+            <div class="box box-default">
+              <div class="box-header with-border">
+                <h3 class="box-title" style="font-family:Microsoft YaHei;">新题修改</h3>
+              </div>
+              <div class="box-body">
+              	<!-- 试题id -->
+              	<input id="questionId" type="hidden" value="1"/>
+              	<!-- 试题题型等信息 -->
+              	<span>
+              		<input id="originSubject" type="hidden" value="1"/>
+              		<label>科目：
+		         		<select id="selectForSubject">
+		         			<option value="1" selected="selected">小学语文</option>
+		         			<option value="2">小学数学</option>
+		         			<option value="3">小学英语</option>
+		         			<option value="4">小学科学</option>
+		         		</select>
+		         	</label>&nbsp;&nbsp;
+		         	<label>题型：
+		         		<select id="selectForType">
+		         			<option value="1">单选题</option>
+		         			<option value="2">多选题</option>
+		         			<option value="3">填空题</option>
+		         			<option value="4" selected="selected">作文题</option>
+		         		</select>
+		         	</label>&nbsp;&nbsp;
+					<label name="currentKnowName">知识点：记叙文；说明文；议论文；全命题作文；半命题作文</label>
+					<button id="btnSelectKnow" class="btn btn-xs btn-primary">选择知识点</button>
+				</span>
+                <div>
+                	请在下面的编辑器中，修改题目的信息 
+                	<a href="#">！格式说明</a>
+                </div>
+                <div style="width:100%">
+                	<!-- 原本试题的题面、答案、解析 -->
+                	<script id="ueditor" type="text/plain" style="width:100%;height:400px;">
+						<p><label>答案：</label>
 	  									参考例文<br/>
 	  									我心中那一道阳光<br/>
 	  									阳光总在风雨后。——题记<br/>
@@ -315,19 +282,18 @@
 	  								<p><label>解析：</label>
 	  									“我心中那一道阳光”告诉我们，本文的主题必须是积极向上的，写作内容也应该是以积极的为主，不论是物质上的还是精神上的，否则就偏离了正确的立意。最为创新的立意可以是反弹琵琶法，比如把逆境、困难、坚持、荆棘等等环境喻成“一道阳光”，而这恰恰是这一代孩子们身上最为缺乏的，由此立意，可出现高分作文。
 	  								</p>
-  								</div>
-  							</div>
-  									
-  							
-                    	</div><!-- /.box-footer-->
-					</div><!-- /.box -->
-					<div class="row" style="margin:0px;">
-							<span class="pull-left" style="margin:10px 10px;">
-							<button class="btn btn-primary" name="btnPassQuestions">审核通过</button>
-							<button class="btn btn-default" name="btnSelectAllQuestions">全选</button>
-							<button class="btn btn-default" name="btnDelQuestions">删除</button></span>
-							<div id="page" class="m-pagination pull-right no-padding"></div>
-					</div>
+	  								<p><label>题面属性：</label>|题型：写作题|试题类型：普通|难度：</p>
+					</script>
+                </div>
+                <div style="width:100%;">
+                	<br/>
+                	<button class="btn btn-primary" style="margin:0 auto;" id="btnSave">保存</button>
+                	&nbsp;&nbsp;
+                 	<button class="btn btn-default" style="margin:0 auto;" id="btnCancel">取消</button>
+                 	<br/>
+                </div>
+              </div><!-- /.box-body -->
+            </div><!-- /.box -->
           </section><!-- /.content -->
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->
@@ -340,76 +306,63 @@
         </div><!-- /.container -->
       </footer>
     </div><!-- ./wrapper -->
+    
+    <div class="modal fade" id="modalSelectKnow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	              	 选择知识点
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	         	<div id="tree1"></div>
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default"
+	               data-dismiss="modal">取消
+	            </button>
+	            <button type="button" class="btn btn-primary" id="btnConfirmKnow">
+	               	提交
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
 
     <!-- jQuery 2.1.4 -->
     <script src="/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- Select2 -->
-    <script src="../../plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src="/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
-    <!-- pagination -->
-	<script src="/plugins/jqueryPagination/jquery.pagination-1.2.7.min.js"></script>
-	<!-- jsrender -->
+   <!-- jqtree -->
+	<script src="/plugins/jqueryTree/tree.jquery.js"></script>
+	<!-- ueditor -->
+    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- jsrender -->
 	<script src="/plugins/jsrender/jsrender.js" type="text/javascript"></script>
+    
     <!-- AdminLTE App -->
     <script src="/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/dist/js/demo.js" type="text/javascript"></script>
-    <script src="/js/pageQuestionCheck.js" type="text/javascript"></script>
-    <script id="questionBoxTmpl" type="text/x-jsrender">
-	<div class="box box-solid" name="divQuestionBox">
-						<input type="hidden" value="{{:id}}" name="questionId"/>
-						<div class="box-header with-border">
-							<h3 class="box-title"></h3>
-							<div class="pull-left">
-								<span><input type="checkbox" name="checkBoxForSelect"/>&nbsp;&nbsp;选择</span>
-							</div>
-							<div class="pull-right">
-						      <!-- Buttons, labels, and many other things can be placed here! -->
-						      <!-- Here is a label for example -->
-						      <span>
-						      	<label>题型：{{:type}}</label>&nbsp;&nbsp;
-						      	<label>科目：{{:subject}}</label>&nbsp;&nbsp;
-						      	<label>年级：{{:grade}}</label>&nbsp;&nbsp;
-						      	<label>知识点：{{:know}}</label>
-						      </span>
-						    </div><!-- /.box-tools -->
-						</div>
-  						<div class="box-body">
-  							<div style="padding-left:10px;padding-right:10px;">
-  								{{:content}}
-  							</div>
-  						</div><!-- /.box-body -->
-  						<div class="box-footer with-border">
-  							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
-  								<label><input type="checkbox" name="checkboxForFullInfo"/>查看答案与解析</label>
-  								<div class="pull-right">
-	  								<button class="btn btn-primary " name="btnPassForOneQuestion">审核通过</button>
-  									<a href="/admin/questionCheck/questionModify?id={{:id}}"><button class="btn btn-default " name="btnModifyOneQuestion">修改</button></a>
-  									<button class="btn btn-default " name="btnDelOneQuestion">删除</button>
-  								</div>
-  							</div>
-  							<div class="box-info box-solid" style="display:none;" name="divFullInfo">
-  								<br/>
-  								<div class="box-body bg-gray color-palette">
-	  								<p><label>答案：</label>
-	  									{{:answer}}
-	  								</p>
-	  								<p><label>解析：</label>
-	  									{{:analysis}}
-	  								</p>
-  								</div>
-  							</div>
-  									
-  							
-                    	</div><!-- /.box-footer-->
-					</div><!-- /.box -->
+     
+    <script type="text/javascript" src="/js/pageQuestionCheckModify.js"></script>
+    
+    <script id="optionTmpl" type="text/x-jsrender">
+		<option value="{{:id}}">{{:name}}</option>
 	</script>
-    	
-	
+    
   </body>
 </html>

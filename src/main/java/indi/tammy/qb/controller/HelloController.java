@@ -86,6 +86,11 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
 
+	@RequestMapping(value={"/admin/delWrongQuestion"},method = RequestMethod.GET)
+	public String adminDelWrongQuestion(){//根据试题id显示试卷信息
+		
+		return "pagesQuestionBank/pageDelWrongQuestion";
+	}
 
 	
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
