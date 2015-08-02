@@ -260,12 +260,7 @@
 		  					<input type="hidden" value="-1" name="currentGradeId"/>
 		  					<a class="current" name="aGradeName"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanGradeList">
-			  					<a name="aGradeName"><input type="hidden" value="1"/>一年级</a>&nbsp;
-			  					<a name="aGradeName"><input type="hidden" value="2"/>二年级</a>&nbsp;
-			  					<a name="aGradeName"><input type="hidden" value="3"/>三年级</a>&nbsp;
-			  					<a name="aGradeName"><input type="hidden" value="4"/>四年级</a>&nbsp;
-			  					<a name="aGradeName"><input type="hidden" value="5"/>五年级</a>&nbsp;
-			  					<a name="aGradeName"><input type="hidden" value="6"/>六年级</a>&nbsp;
+			  					<a name="aGradeName" th:each="grade:${gradeList}"><input type="hidden" th:value="${grade.id}" th:text="${grade.grade}"/></a>&nbsp;
 		  					</span>
 		  				</p>
 		  				<p name="pType">
@@ -273,33 +268,16 @@
 		  					<input type="hidden" value="-1" name="currentTypeId"/>
 		  					<a name="aTypeName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanTypeList">
-		  						<a name="aTypeName"><input type="hidden" value="1"/>单选题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="2"/>多选题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="3"/>填空题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="4"/>书写题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="5"/>现代文阅读</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="6"/>文言文阅读</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="7"/>诗歌鉴赏</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="8"/>连线题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="9"/>作文题</a>&nbsp;
-			  					<a name="aTypeName"><input type="hidden" value="10"/>其他</a>
+		  						<a name="aTypeName" th:each="questionType:${questionTypeList}"><input type="hidden" th:value="${questionType.type}" th:text="${questionType.type_name}"/></a>&nbsp;
+		
 		  					</span>
 		  				</p>
 		  				<p name="pField">
 		  					<b>地区：</b>
 		  					<input type="hidden" value="-1" name="currentFieldId"/>
 		  					<a name="aFieldName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
-		  					<span id="spanFieldList">
-		  						<a name="aFieldName"><input type="hidden" value="1"/>北京</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="2"/>上海</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="3"/>天津</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="4"/>重庆</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="5"/>山东</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="6"/>云南</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="7"/>浙江</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="8"/>黑龙江</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="9"/>江苏</a>&nbsp;
-			  					<a name="aFieldName"><input type="hidden" value="10"/>广州</a>&nbsp;
+		  					<span id="spanFieldList" >
+		  						<a name="aFieldName" th:each="area:${areaList}"><input type="hidden" th:value="${area.id}" th:text="${area.name}"/></a>&nbsp;	  						
 		  					</span>
 		  				</p>
 		  				<p name="pStandard">
@@ -307,15 +285,7 @@
 		  					<input type="hidden" value="-1" name="currentStandardId"/>
 		  					<a name="aStandardName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanStandardList">
-		  						<a name="aStandardName"><input type="hidden" value="1"/>课标</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="2"/>中考</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="3"/>会考</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="4"/>高考</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="5"/>小升初</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="6"/>奥赛</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="7"/>提前考</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="8"/>自主招生</a>&nbsp;
-			  					<a name="aStandardName"><input type="hidden" value="9"/>其他课标</a>&nbsp;
+		  						<a name="aStandardName" th:each="standard:${standardList}"><input type="hidden" th:value="${standard.id}" th:text="${standard.name}" /></a>&nbsp;
 		  					</span>
 		  				</p>
 		  				<p name="pHardness">

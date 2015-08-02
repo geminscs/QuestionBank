@@ -6,6 +6,7 @@ import indi.tammy.qb.dao.EnumDao;
 import indi.tammy.qb.model.enums.Area;
 import indi.tammy.qb.model.enums.Grade;
 import indi.tammy.qb.model.enums.QuestionType;
+import indi.tammy.qb.model.enums.Standard;
 import indi.tammy.qb.model.enums.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class EnumService {
 	
 	public List<Subject> findSubjectBySubjectId(int subject_id){
 		return enumDao.findSubjectBySubjectId(subject_id);
+	}
+	
+	public List<Standard> findStandardBySubjectId(int subject_id){
+		return enumDao.findStandardBySubjectId(subject_id);
 	}
 }

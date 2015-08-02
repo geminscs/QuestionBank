@@ -17,13 +17,31 @@
 	</select>
 	
 	<select id="findSubjectBySubjectId" parameterType="int" resultType="indi.tammy.qb.model.enums.Subject" >
-		SELECT DISTINCT
-			id,
-			name
+		SELECT 
+			*
 		FROM
 			TB_Subject
 		WHERE
 			id = #{subject_id}
+	</select>
+	
+	<select id="findStandardBySubjectId" parameterType="int" resultType="indi.tammy.qb.model.enums.Standard" >
+		SELECT DISTINCT
+			qb_standard.*
+		FROM
+			TB_Know
+			INNER JOIN TB_KnowStandard ON TB_Know.id = TB_KnowStandard.knowid
+			AND TB_Know.subjectid = #{subject_id}
+			INNER JOIN qb_standard ON qb_standard.id = TB_KnowStandard.standard
+	</select>
+	
+	<select id="findQuestionTypeBySubjectId" parameterType="int" resultType="indi.tammy.qb.model.enums.QuestionType" >
+		SELECT
+			qb_question_type.*
+		FROM
+			qb_subject_questionType
+			INNER JOIN qb_question_type ON qb_subject_questionType.subject = #{subject_id}
+			AND qb_subject_questionType.type = qb_question_type.type
 	</select>
 	
 	
