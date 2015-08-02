@@ -16,6 +16,7 @@ import indi.tammy.qb.service.KnowService;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,7 @@ public class HelloController {
 	public String adminModifyForCheck(int id, ModelMap modelMap){//根据试题id显示试卷信息
 		Question q = questionService.findById(id);
 		List<QuestionType> l = enumService.findQuestionTypeBySubjectId(q.getSubject_id());
+		q.setContent(StringEscapeUtils.unescapeHtml4(q.getContent()));
 		modelMap.addAttribute("question", q);
 		modelMap.addAttribute("questionTypeList", l);
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
