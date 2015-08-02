@@ -159,7 +159,7 @@ $(function(){
 //		 temp5.id=4;
 //		 temp5.name='其他';
 //		 data.push(temp5);
-		$.post('/admin/questionAdmin/getType', 
+		$.getJSON('/admin/questionAdmin/getType', 
 				{subjectId:$('input[name="currentSubjectId"]').val()},
 				function (result, status) { 
 					$('a[name="aTypeName"]').removeClass();

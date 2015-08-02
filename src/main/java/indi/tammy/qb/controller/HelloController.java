@@ -81,7 +81,7 @@ public class HelloController {
 	}
 	
 	@RequestMapping(value={"/admin/questionCheck/questionModify"},method = RequestMethod.GET)
-	public String adminModifyForCheck(){
+	public String adminModifyForCheck(int id){//根据试题id显示试卷信息
 		
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
