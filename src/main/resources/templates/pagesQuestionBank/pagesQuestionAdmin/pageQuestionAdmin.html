@@ -37,8 +37,6 @@
    			color:#ffffff;
    		}
    	</style>
-    
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -449,6 +447,7 @@
 						<button class="btn btn-default" name="btnDelQuestions">删除</button></span>
 						<div id="page" class="m-pagination pull-right no-padding"></div>
 					</div>
+					
 		  		</div>
 		  	</div><!-- row end -->
           </section><!-- /.content -->
@@ -463,6 +462,47 @@
         </div><!-- /.container -->
       </footer>
     </div><!-- ./wrapper -->
+    
+    <!-- 当前点击的试题id -->
+    <input name="currentQuestionId" value="-1" type="hidden"/>
+    <!-- 模态框（Modal） -->
+	<div class="modal fade" id="modalReportError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	              	 报告错误
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	            <label>错误类型：
+	            	<select id="selectErrorType">
+	            		<option value="1">试题不完整</option>
+	            		<option value="2">答案错误</option>
+	            		<option value="3">解析错误</option>
+	            		<option value="4">其他</option>
+	            	</select>
+	            </label>
+	            <div class="form-group">
+                	<label>简要说明：</label>
+                	<textarea  id="textErrorContent" class="form-control" rows="3" placeholder="请简单描述一下错误的内容"></textarea>
+                </div>
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default"
+	               data-dismiss="modal">取消
+	            </button>
+	            <button type="button" class="btn btn-primary" id="btnSubmitError">
+	               	提交
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
 
     <!-- jQuery 2.1.4 -->
     <script src="/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
