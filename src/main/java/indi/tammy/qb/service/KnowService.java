@@ -18,8 +18,8 @@ public class KnowService {
 		return knowDao.findBySubject(subject);
 	}
 	
-	public List<Know> findByParam(String subject, int area_id, int standard_id){
-		return knowDao.findByParam(subject, area_id, standard_id);
+	public List<Know> findByParam(int subject_id, int grade_id, int area_id, int standard_id){
+		return knowDao.findByParam(subject_id, grade_id, area_id, standard_id);
 	}
 
 }

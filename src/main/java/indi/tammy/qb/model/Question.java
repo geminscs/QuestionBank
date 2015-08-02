@@ -12,8 +12,24 @@ public class Question {
 	
 	private String know_name;
 	private String type_name;
+	
+	private int subject_id;
+	private String subject_name;
 	private int total;
 	
+	
+	public int getSubject_id() {
+		return subject_id;
+	}
+	public void setSubject_id(int subject_id) {
+		this.subject_id = subject_id;
+	}
+	public String getSubject_name() {
+		return subject_name;
+	}
+	public void setSubject_name(String subject_name) {
+		this.subject_name = subject_name;
+	}
 	public int getTotal() {
 		return total;
 	}
@@ -86,7 +102,8 @@ public class Question {
 	}
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
-			String know_name, String type_name, int total) {
+			String know_name, String type_name, int subject_id,
+			String subject_name, int total) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -98,8 +115,11 @@ public class Question {
 		this.submit_time = submit_time;
 		this.know_name = know_name;
 		this.type_name = type_name;
+		this.subject_id = subject_id;
+		this.subject_name = subject_name;
 		this.total = total;
 	}
+	
 	
 	
 	

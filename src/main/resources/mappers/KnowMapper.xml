@@ -20,8 +20,10 @@
 			TB_Know.*
 		FROM
 			TB_Know
-			INNER JOIN TB_Subject ON TB_Subject.name = #{subject}
-			AND TB_Know.subjectid = TB_Subject.id
+			<if test="grade_id >= 0">
+				INNER JOIN TB_KnowGrad ON TB_KnowGrad.grade=#{grade_id}
+				AND TB_Know.id=TB_KnowGrad.knowid
+			</if>
 			<if test="area_id >= 0">
 				INNER JOIN TB_KnowArea ON TB_KnowArea.areaid=#{area_id}
 				AND TB_Know.id = TB_KnowArea.knowid
@@ -30,7 +32,8 @@
 				INNER JOIN TB_KnowStandard ON TB_KnowStandard.standard=#{standard_id}
 				AND TB_Know.id = TB_KnowStandard.knowid
 			</if>
-			ORDER BY TB_Know.parent
+		WHERE TB_Know.subjectid=#{subject_id}
+		ORDER BY TB_Know.parent
 	</select>
 	
 </mapper>
