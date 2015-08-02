@@ -413,23 +413,50 @@ $(function(){
 	$(document).on("click",'button[name="btnReportOneError"]',function(){
 		//alert('btnPassForOneQuestion绑定成功');
 		//$(this).removeClass();
-		$(this).parent().find('button').addClass('disabled');
-		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
-		var divparent = $(parents[parents.length-1]).parent();
-		//alert(divparent);
-		var id=$(divparent).find('input[name="questionId"]').val();
-		$.ajax({
-			url:"/admin/questionAdmin/reportError",
-			data:{id:id},
-			success:function(result){
-				if(result=="1"||result==1){
-					alert('报错成功');
-				}else{
-					alert('报错发生错误');
-				}
-			}
-		});
-		alert('report one error question id:'+id);
+//		$(this).parent().find('button').addClass('disabled');
+//		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
+//		var divparent = $(parents[parents.length-1]).parent();
+//		//alert(divparent);
+//		var id=$(divparent).find('input[name="questionId"]').val();
+//		$('input[name="currentQuestionError"]').val(id);
+		$('#modalReportError').modal('show');
+//		$.ajax({
+//			url:"/admin/questionAdmin/reportError",
+//			data:{id:id},
+//			success:function(result){
+//				if(result=="1"||result==1){
+//					alert('报错成功');
+//				}else{
+//					alert('报错发生错误');
+//				}
+//			}
+//		});
+//		alert('report one error question id:'+id);
+	});
+	
+	//举报错误
+	$('#btnSubmitError').click(function(){
+		var type=$('#selectErrorType').val();
+		var content=$('#textErrorContent').val();
+		var id=$('input[name="currentQuestionId"]').val();
+		console.log('error type:'+type+',content:'+content+
+				',question id:'+id);
+//		$.ajax({
+//			url:"/admin/questionAdmin/reportError",
+//			data:{id:id,
+//				type:type,
+//				content:content},
+//			success:function(result){
+//				if(result=="1"||result==1){
+//					alert('报错成功');
+//				}else{
+//					alert('报错发生错误');
+//				}
+//			}
+//		});
+		//清空输入框
+		$('#textErrorContent').val('');
+		$('#modalReportError').modal('hide');
 	});
 	
 	//多题审核通过
