@@ -61,5 +61,25 @@ public class QuestionService {
 	public void deleteKnowQuestionByQId(int id){
 		questionDao.deleteKnowQuestionByQId(id);
 	}
+	
+	public List<Question> findHaveSimQuestionBySubjectId(int pStart, int pEnd, int subject_id){
+		return questionDao.findHaveSimQuestionBySubjectId(pStart, pEnd, subject_id);
+	}
+	
+	public List<Question> findSimQuestionByQId(int pStart, int pEnd, int question_id){
+		return questionDao.findSimQuestionByQId(pStart, pEnd, question_id);
+	}
+		
+	public void deleteSimQuestionByQId(int question_id){
+		questionDao.deleteSimQuestionByQId(question_id);
+	}
+	
+	public List<Question> findWrongQuestionBySubjectId(int pStart, int pEnd, int subject_id){
+		return questionDao.findWrongQuestionBySubjectId(pStart, pEnd, subject_id);
+	}
+	
+	public void deleteWrongQuestionById(int id){
+		questionDao.deleteWrongQuestionById(id);
+	}
 
 }

@@ -101,7 +101,12 @@ public class QuestionAdminController {
 			jsonMembers.put(member); 
 		}
 		res.put("data", jsonMembers.toString());
-		res.put("total", l.get(0).getTotal());
+		if(l.size() > 0){
+			res.put("total", l.get(0).getTotal());
+		}
+		else{
+			res.put("total", 0);
+		}
 		return res.toString();
 	}
 	
@@ -199,6 +204,23 @@ public class QuestionAdminController {
 			jsonMembers.put(jsonObj);
 		}
 		return jsonMembers.toString();
+	}
+	
+	@RequestMapping(value={"/admin/questionAdmin/deleteOne"}, method=RequestMethod.GET)
+	@ResponseBody
+	public String deleteOne(int id){
+		questionService.formalDelete(id);
+		return null;
+	}
+	
+	@RequestMapping(value={"/admin/questionAdmin/deleteSome"},method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteSome(String idArr){
+		JSONArray ids = new JSONArray(idArr);
+		for(int i = 0;i < ids.length();i ++){
+			questionService.formalDelete(ids.getInt(i));
+		}
+		return null;
 	}
 	
 }

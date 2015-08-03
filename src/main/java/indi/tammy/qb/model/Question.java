@@ -1,6 +1,7 @@
 package indi.tammy.qb.model;
 
 public class Question {
+	//Question表内字段
 	private int id;
 	private String content;
 	private String analysis;
@@ -9,15 +10,33 @@ public class Question {
 	private boolean isFull;
 	private int hardness;
 	private long submit_time;
+	private int subject_id;
 	
+	//联表查询得到的额外字段
 	private String know_name;
 	private String type_name;
-	
-	private int subject_id;
 	private String subject_name;
+	private int wrong_type;
+	private String wrong_type_name;
+	
+	//查询得到的总条目数
 	private int total;
 	
 	
+	
+	
+	public int getWrong_type() {
+		return wrong_type;
+	}
+	public void setWrong_type(int wrong_type) {
+		this.wrong_type = wrong_type;
+	}
+	public String getWrong_type_name() {
+		return wrong_type_name;
+	}
+	public void setWrong_type_name(String wrong_type_name) {
+		this.wrong_type_name = wrong_type_name;
+	}
 	public int getSubject_id() {
 		return subject_id;
 	}
@@ -103,7 +122,8 @@ public class Question {
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
 			String know_name, String type_name, int subject_id,
-			String subject_name, int total) {
+			String subject_name, int total, int wrong_type,
+			String wrong_type_name) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -118,10 +138,8 @@ public class Question {
 		this.subject_id = subject_id;
 		this.subject_name = subject_name;
 		this.total = total;
+		this.wrong_type = wrong_type;
+		this.wrong_type_name = wrong_type_name;
 	}
-	
-	
-	
-	
-	
+		
 }

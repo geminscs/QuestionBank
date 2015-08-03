@@ -19,6 +19,10 @@ public interface QuestionDao {
 	
 	public void deleteKnowQuestionByQId(int id);
 	
+	public void deleteSimQuestionByQId(int question_id);
+	
+	public void deleteWrongQuestionById(int id);
+	
 	public void formalDelete(int id);
 	
 	public void update(Question question);
@@ -28,6 +32,12 @@ public interface QuestionDao {
 	public List<Question> findBySubject(@Param(value="subject") String subject, @Param(value="pStart") int pStart, @Param(value="pEnd") int pEnd);
 
 	public Question findById(int id);
+	
+	public List<Question> findHaveSimQuestionBySubjectId(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="subject_id")int subject_id);
+	
+	public List<Question> findSimQuestionByQId(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="question_id")int question_id);
+	
+	public List<Question> findWrongQuestionBySubjectId(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="subject_id")int subject_id);
 	
 	public int getTypeId(String type_name);
 	

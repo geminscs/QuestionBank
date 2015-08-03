@@ -6,7 +6,7 @@
 <mapper namespace="indi.tammy.qb.dao.QuestionDao">
 
 	<insert id="insert" parameterType="indi.tammy.qb.model.Question" useGeneratedKeys="true" keyProperty="id">
-		insert into qb_temp_qbank(content, analysis, answer, type, isFull, hardness, submit_time) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time})
+		insert into qb_temp_qbank(content, analysis, answer, type, isFull, hardness, submit_time, subject_id) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time}, #{subject_id})
 	</insert>
 	
 	<insert id="formalInsert" parameterType="indi.tammy.qb.model.Question" useGeneratedKeys="true" keyProperty="id">
@@ -17,7 +17,8 @@
 			type,
 			isFull,
 			hardness,
-			submit_time
+			submit_time,
+			subject_id
 		) SELECT
 			content,
 			analysis,
@@ -25,7 +26,8 @@
 			type,
 			isFull,
 			hardness,
-			submit_time
+			submit_time,
+			subject_id
 		FROM
 			qb_temp_qbank
 		WHERE
@@ -54,14 +56,23 @@
     <delete id="formalDelete" parameterType="int">
          delete from qb_formal_qbank where id=#{id};
          delete from qb_formal_knowQuestion where question_id=#{id}
+         delete from qb_wrong_question where question_id=#{id}
     </delete>
     
     <delete id="deleteKnowQuestionByQId" parameterType="int">
          delete from qb_temp_knowQuestion where question_id=#{id}
     </delete>
     
+     <delete id="deleteSimQuestionByQId" parameterType="int">
+         delete from qb_similar_question where question_id=#{id}
+    </delete>
+    
+    <delete id="deleteWrongQuestionById" parameterType="int">
+         delete from qb_wrong_question where id=#{id}
+    </delete>
+    
     <update id="update" parameterType="indi.tammy.qb.model.Question">
-         UPDATE qb_temp_qbank SET content=#{content}, answer=#{answer}, analysis=#{analysis}, type=#{type}
+         UPDATE qb_temp_qbank SET content=#{content}, answer=#{answer}, analysis=#{analysis}, type=#{type}, subject_id=#{subject_id}
          WHERE id=#{id}
     </update>
     
@@ -189,5 +200,59 @@
 			qb_temp_qbank
 		WHERE
 			t1.id = qb_temp_qbank.id
-	</select>			
+	</select>
+	
+	<select id="findHaveSimQuestionBySubjectId" resultType="indi.tammy.qb.model.Question" >
+		SELECT
+			TOP ${pEnd} *
+		FROM
+			(
+			SELECT
+				qb_formal_qbank.*, qb_question_type.type_name,COUNT (*) OVER () total,
+				row_number () OVER (ORDER BY qb_formal_qbank.id) n,dbo.formalAggregateString(qb_formal_qbank.id) know_name
+			FROM
+				qb_similar_question
+				INNER JOIN qb_formal_qbank ON qb_formal_qbank.subject_id = #{subject_id}
+				AND qb_formal_qbank.id = qb_similar_question.question_id
+				INNER JOIN qb_question_type ON qb_formal_qbank.id=qb_question_type.type
+			) t1
+		WHERE
+			t1.n >= #{pStart}
+	</select>
+
+	<select id="findSimQuestionByQId" resultType="indi.tammy.qb.model.Question" >
+		SELECT TOP ${pEnd} *
+		FROM
+			(
+			SELECT
+				qb_formal_qbank.*, qb_question_type.type_name,
+				dbo.FormalAggregateString (qb_formal_qbank.id) know_name,
+				COUNT (*) OVER () total, row_number() over(ORDER BY qb_formal_qbank.id) n
+			FROM
+				qb_similar_question
+				INNER JOIN qb_formal_qbank ON qb_similar_question.question_id = #{question_id}
+				INNER JOIN qb_question_type ON qb_formal_qbank.type = qb_question_type.type
+				AND qb_similar_question.sim_id = qb_formal_qbank.id) t1
+			WHERE t1.n >= #{pStart}
+	</select>		
+	
+	<select id="findWrongQuestionBySubjectId" resultType="indi.tammy.qb.model.Question" >
+		SELECT
+			TOP ${pEnd} *
+		FROM
+			(
+			SELECT
+				qb_formal_qbank.*, qb_question_type.type_name,COUNT (*) OVER () total,
+				row_number () OVER (ORDER BY qb_formal_qbank.id) n,dbo.formalAggregateString(qb_formal_qbank.id) know_name,
+				qb_wrong_question.wrong_type, qb_wrong_question.wrong_message, qb_wrong_type.wrong_type_name
+			FROM
+				qb_wrong_question
+				INNER JOIN qb_formal_qbank ON qb_formal_qbank.subject_id = #{subject_id}
+				AND qb_formal_qbank.id = qb_wrong_question.question_id
+				INNER JOIN qb_question_type ON qb_formal_qbank.id=qb_question_type.type
+				INNER JOIN qb_wrong_type ON qb_wrong_question.wrong_type=qb_wrong_type.wrong_type
+			) t1
+		WHERE
+			t1.n >= #{pStart}
+	</select>							
 </mapper>

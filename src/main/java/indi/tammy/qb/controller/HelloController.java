@@ -98,26 +98,6 @@ public class HelloController {
 	}
 
 	
-	@RequestMapping(value={"/admin/delWrongQuestion"},method = RequestMethod.GET)
-	public String adminDelWrongQuestion(){//根据试题id显示试卷信息
-		
-		return "pagesQuestionBank/pageDelWrongQuestion";
-	}
-	
-	@RequestMapping(value={"/admin/delSimQuestion"},method = RequestMethod.GET)
-	public String adminDelSimQuestion(){//根据试题id显示试卷信息
-		
-		return "pagesQuestionBank/pagesDelSimQuestion/pageDelSimQuestion";
-	}
-	
-
-	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions"},method = RequestMethod.GET)
-	public String adminCheckSimQuestions(int id){//根据试题id显示试卷信息
-		
-		return "pagesQuestionBank/pagesDelSimQuestion/pageShowSimQuestion";
-	}
-
-	
 	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
 	@ResponseBody
 	public String qbankDelete(){
