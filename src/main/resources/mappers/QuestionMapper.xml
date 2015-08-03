@@ -56,6 +56,15 @@
          delete from qb_formal_knowQuestion where question_id=#{id}
     </delete>
     
+    <delete id="deleteKnowQuestionByQId" parameterType="int">
+         delete from qb_temp_knowQuestion where question_id=#{id}
+    </delete>
+    
+    <update id="update" parameterType="indi.tammy.qb.model.Question">
+         UPDATE qb_temp_qbank SET content=#{content}, answer=#{answer}, analysis=#{analysis}, type=#{type}
+         WHERE id=#{id}
+    </update>
+    
     <select id="findBySubject" resultType="indi.tammy.qb.model.Question" >
 		SELECT qb_temp_qbank.*, t2.name know_name, qb_question_type.type_name
 		FROM
@@ -156,5 +165,29 @@
 			AND qb_formal_qbank.content LIKE '${key}'
 		</if>) t3
 		WHERE t3.n >= #{pStart}
-	</select>				
+	</select>	
+	
+	<select id="findById" parameterType="int" resultType="indi.tammy.qb.model.Question" >
+		SELECT
+			qb_temp_qbank.*, t1.subjectid subject_id,
+			t1.know_name
+		FROM
+			(
+			SELECT
+				qb_temp_qbank.id,
+				TB_Know.subjectid,
+				dbo.AggregateString (qb_temp_qbank.id) know_name
+			FROM
+				qb_temp_qbank
+				INNER JOIN qb_temp_knowQuestion ON qb_temp_qbank.id = #{id}
+				AND qb_temp_qbank.id = qb_temp_knowQuestion.question_id
+				INNER JOIN TB_Know ON qb_temp_knowQuestion.know_id = TB_Know.id
+			GROUP BY
+				qb_temp_qbank.id,
+				subjectid
+			) t1,
+			qb_temp_qbank
+		WHERE
+			t1.id = qb_temp_qbank.id
+	</select>			
 </mapper>

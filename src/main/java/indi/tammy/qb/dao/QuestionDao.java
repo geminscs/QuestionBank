@@ -17,6 +17,8 @@ public interface QuestionDao {
 	
 	public void delete(int id);
 	
+	public void deleteKnowQuestionByQId(int id);
+	
 	public void formalDelete(int id);
 	
 	public void update(Question question);
@@ -25,6 +27,8 @@ public interface QuestionDao {
 
 	public List<Question> findBySubject(@Param(value="subject") String subject, @Param(value="pStart") int pStart, @Param(value="pEnd") int pEnd);
 
+	public Question findById(int id);
+	
 	public int getTypeId(String type_name);
 	
 }

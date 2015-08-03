@@ -61,7 +61,14 @@
         <version>2.0</version>    
         <scope>system</scope>    
         <systemPath>${project.basedir}/src/lib/jacob.jar</systemPath>   
-	</dependency>  
+	</dependency>
+ 
+	<!-- commons-lang -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.4</version>
+	</dependency>
 	
 	<!-- mysql driver -->
 	<dependency>

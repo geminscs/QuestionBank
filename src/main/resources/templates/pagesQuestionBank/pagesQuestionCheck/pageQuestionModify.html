@@ -247,21 +247,18 @@
               		<input id="originSubject" type="hidden" value="1"/>
               		<label>科目：
 		         		<select id="selectForSubject">
-		         			<option value="1" selected="selected">小学语文</option>
-		         			<option value="2">小学数学</option>
-		         			<option value="3">小学英语</option>
-		         			<option value="4">小学科学</option>
+		         			<option value="101" th:selected="${question.subject_id==101}">小学语文</option>
+		         			<option value="102" th:selected="${question.subject_id==102}">小学数学</option>
+		         			<option value="103" th:selected="${question.subject_id==103}">小学英语</option>
+		         			<option value="104" th:selected="${question.subject_id==104}">小学科学</option>
 		         		</select>
 		         	</label>&nbsp;&nbsp;
 		         	<label>题型：
-		         		<select id="selectForType">
-		         			<option value="1">单选题</option>
-		         			<option value="2">多选题</option>
-		         			<option value="3">填空题</option>
-		         			<option value="4" selected="selected">作文题</option>
+		         		<select id="selectForType" >
+		         			<option th:each="questionType:${questionTypeList}" th:value="${questionType.type}" th:text="${questionType.type_name}" th:selected="${question.type}==${questionType.type}"></option>
 		         		</select>
 		         	</label>&nbsp;&nbsp;
-					<label name="currentKnowName">知识点：记叙文；说明文；议论文；全命题作文；半命题作文</label>
+					<label name="currentKnowName" th:text="知识点：+${question.know_name}"></label>
 					<button id="btnSelectKnow" class="btn btn-xs btn-primary">选择知识点</button>
 				</span>
                 <div>
@@ -271,18 +268,9 @@
                 <div style="width:100%">
                 	<!-- 原本试题的题面、答案、解析 -->
                 	<script id="ueditor" type="text/plain" style="width:100%;height:400px;">
-						<p><label>答案：</label>
-	  									参考例文<br/>
-	  									我心中那一道阳光<br/>
-	  									阳光总在风雨后。——题记<br/>
-	  									阳光，是温暖的，人生就像一个房间有一扇窗户，当你感到迷茫的时候，就推开窗户，让阳光洒进你的心房，去温暖你的内心。我心中的阳光就是友谊。<br/>
-	  									记得那是一个炎热的下午，大家都走在去操场的路上，我也很兴奋，因为体育课是我们唯一可以放松的课了。到了楼下后，不远处传来同学议论的声音：“哎呀，一会又要长跑了，烦死了，本来以为可以歇一会呢。”刚刚那种喜悦的气氛被这突来的噩耗冲散殆尽，看来没办法了，只能硬着头皮上了。<br/>
-	  									随着一声哨响，大家纷纷的冲出跑道，我也没有落后，我的朋友更是如此，一下子冲到了队伍的前面。才跑了半圈多，队伍被就被拆散了，跑得快的在前头，还可以的在中间，平常不怎么跑就在最后跟着。对于那些经常练习的人来说一点都不难，但对于我来说却是个不小的难关。就这样，我结束了第一圈。 <br/>
-	  								</p>
-	  								<p><label>解析：</label>
-	  									“我心中那一道阳光”告诉我们，本文的主题必须是积极向上的，写作内容也应该是以积极的为主，不论是物质上的还是精神上的，否则就偏离了正确的立意。最为创新的立意可以是反弹琵琶法，比如把逆境、困难、坚持、荆棘等等环境喻成“一道阳光”，而这恰恰是这一代孩子们身上最为缺乏的，由此立意，可出现高分作文。
-	  								</p>
-	  								<p><label>题面属性：</label>|题型：写作题|试题类型：普通|难度：</p>
+						<div th:utext="【题面】+${question.content}"></div>
+						<div th:utext="【答案】+${question.answer}"></div>
+						<div th:utext="【解析】+${question.analysis}"></div>
 					</script>
                 </div>
                 <div style="width:100%;">

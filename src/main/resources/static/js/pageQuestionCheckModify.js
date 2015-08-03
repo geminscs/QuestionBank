@@ -5,6 +5,8 @@ $(function(){
          $('#btnSelectKnow').click(function(){
          	$('#modalSelectKnow').modal('show');
          });
+         
+         
          var data1 = [
       	            {
       	                label: 'node1',
@@ -22,6 +24,7 @@ $(function(){
       	                ]
       	            }
       	        ];
+         getTree();
       	$('#tree1').tree({
       	        data: data1
       	    });
@@ -134,7 +137,7 @@ $(function(){
     		$.getJSON('/admin/questionAdmin/getKnow', {
     			subjectId:$('#selectForSubject').val(),
     			gradeId:-1,
-    			fieldId:-1,
+    			areaId:-1,
     			standardId:-1
     			},function (result, status) {
     				$('#tree1').tree('loadData', result);

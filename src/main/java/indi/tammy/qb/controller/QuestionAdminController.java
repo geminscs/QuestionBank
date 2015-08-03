@@ -107,8 +107,8 @@ public class QuestionAdminController {
 	
 	@RequestMapping(value={"/admin/questionAdmin/getKnow"}, method=RequestMethod.GET)
 	@ResponseBody
-	public String getKnows(String subject, int area_id, int standard_id){
-		List<Know> l = knowService.findByParam(subject, area_id, standard_id);		
+	public String getKnows(int subjectId, int gradeId, int areaId, int standardId){
+		List<Know> l = knowService.findByParam(subjectId, gradeId, areaId, standardId);		
 		JSONArray res = constructTree(0, l);
 		return res.toString();
 	}

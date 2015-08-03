@@ -10,16 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import indi.tammy.qb.model.Know;
 import indi.tammy.qb.model.Question;
 import indi.tammy.qb.model.User;
+import indi.tammy.qb.model.enums.QuestionType;
+import indi.tammy.qb.service.EnumService;
 import indi.tammy.qb.service.KnowService;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.service.RegisterService;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +39,9 @@ public class HelloController {
 	
 	@Autowired
 	private KnowService knowService;
+	
+	@Autowired
+	private EnumService enumService;
 
 	@RequestMapping(value={"/register"},method = RequestMethod.GET)
 	public String registerGet(){
@@ -81,8 +88,12 @@ public class HelloController {
 	}
 	
 	@RequestMapping(value={"/admin/questionCheck/questionModify"},method = RequestMethod.GET)
-	public String adminModifyForCheck(int id){//根据试题id显示试卷信息
-		
+	public String adminModifyForCheck(int id, ModelMap modelMap){//根据试题id显示试卷信息
+		Question q = questionService.findById(id);
+		List<QuestionType> l = enumService.findQuestionTypeBySubjectId(q.getSubject_id());
+		q.setContent(StringEscapeUtils.unescapeHtml4(q.getContent()));
+		modelMap.addAttribute("question", q);
+		modelMap.addAttribute("questionTypeList", l);
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
 
@@ -224,10 +235,30 @@ public class HelloController {
 		return;
 	}
 	
+	@RequestMapping(value={"/admin/questionCheck/questionModify/save"}, method=RequestMethod.GET)
+	@ResponseBody
+	public String question(String questionInfoStr){
+		JSONObject jsonObj = new JSONObject(questionInfoStr);
+		Question q = new Question();
+		q.setId(jsonObj.getInt("id"));
+		q.setType(jsonObj.getInt("typeId"));
+		q.setContent(jsonObj.getString("content"));
+		questionService.update(q);
+		JSONArray knows = new JSONArray(jsonObj.getString("knowArr"));
+		if(knows.length() > 0){
+			questionService.deleteKnowQuestionByQId(q.getId());
+			for(int i = 0;i < knows.length();i ++){
+				questionService.insertKnowQuestion(q.getId(), knows.getInt(i));
+			}
+		}
+		return null;
+	}
+	
+	
 	@RequestMapping(value={"/test/knows"}, method=RequestMethod.GET)
 	@ResponseBody
-	public String testKnows(String subject, int area_id, int standard_id){
-		List<Know> l = knowService.findByParam(subject, area_id, standard_id);		
+	public String testKnows(int subjectId, int gradeId, int areaId, int standardId){
+		List<Know> l = knowService.findByParam(subjectId, gradeId, areaId, standardId);		
 		JSONArray res = constructTree(0, l);
 		return res.toString();
 	}

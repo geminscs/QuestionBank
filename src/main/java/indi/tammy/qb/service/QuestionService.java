@@ -49,5 +49,17 @@ public class QuestionService {
 	public void formalDelete(int id){
 		questionDao.formalDelete(id);
 	}
+	
+	public Question findById(int id){
+		return questionDao.findById(id);
+	}
+	
+	public void update(Question q){
+		questionDao.update(q);
+	}
+	
+	public void deleteKnowQuestionByQId(int id){
+		questionDao.deleteKnowQuestionByQId(id);
+	}
 
 }
