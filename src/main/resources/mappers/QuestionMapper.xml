@@ -57,6 +57,8 @@
          delete from qb_formal_qbank where id=#{id};
          delete from qb_formal_knowQuestion where question_id=#{id}
          delete from qb_wrong_question where question_id=#{id}
+         delete from qb_similar_question where question_id=#{id}
+         delete from qb_similar_question where sim_id=#{id}
     </delete>
     
     <delete id="deleteKnowQuestionByQId" parameterType="int">
