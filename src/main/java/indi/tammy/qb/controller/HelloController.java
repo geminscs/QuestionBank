@@ -86,10 +86,24 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
 
+	
 	@RequestMapping(value={"/admin/delWrongQuestion"},method = RequestMethod.GET)
 	public String adminDelWrongQuestion(){//根据试题id显示试卷信息
 		
 		return "pagesQuestionBank/pageDelWrongQuestion";
+	}
+	
+	@RequestMapping(value={"/admin/delSimQuestion"},method = RequestMethod.GET)
+	public String adminDelSimQuestion(){//根据试题id显示试卷信息
+		
+		return "pagesQuestionBank/pagesDelSimQuestion/pageDelSimQuestion";
+	}
+	
+
+	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions"},method = RequestMethod.GET)
+	public String adminCheckSimQuestions(int id){//根据试题id显示试卷信息
+		
+		return "pagesQuestionBank/pagesDelSimQuestion/pageShowSimQuestion";
 	}
 
 	
