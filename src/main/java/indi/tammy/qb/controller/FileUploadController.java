@@ -108,6 +108,7 @@ public class FileUploadController {
 			        			}
 			        		}
 			        		if(q.getSubject_id() > 0){
+			        			q.setSubmit_time(System.currentTimeMillis());
 			        			questionService.insert(q);
 			        			for(int k = 0;k < validCount;k ++){
 			        				questionService.insertKnowQuestion(q.getId(), validKnowId[k]);

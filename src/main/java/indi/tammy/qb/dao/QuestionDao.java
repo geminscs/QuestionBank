@@ -29,7 +29,7 @@ public interface QuestionDao {
 	
 	public List<Question> formalFindByParam(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="know_id")int know_id, @Param(value="area_id")int area_id, @Param(value="standard_id")int standard_id, @Param(value="grade_id")int grade_id, @Param(value="subject_id")int subject_id, @Param(value="type_id")int type_id, @Param(value="hardness")int hardness, @Param(value="key")String key);
 
-	public List<Question> findBySubject(@Param(value="subject") String subject, @Param(value="pStart") int pStart, @Param(value="pEnd") int pEnd);
+	public List<Question> findBySubject(@Param(value="subject_id") int subject_id, @Param(value="pStart") int pStart, @Param(value="pEnd") int pEnd);
 
 	public Question findById(int id);
 	

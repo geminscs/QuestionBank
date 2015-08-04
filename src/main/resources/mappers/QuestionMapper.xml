@@ -79,30 +79,23 @@
     </update>
     
     <select id="findBySubject" resultType="indi.tammy.qb.model.Question" >
-		SELECT qb_temp_qbank.*, t2.name know_name, qb_question_type.type_name
+		SELECT
+			TOP ${pEnd} *
 		FROM
 			(
-			SELECT TOP ${pEnd}
-				t1.question_id,
-				t1.subject_name,
-				dbo.AggregateString (t1.question_id) name,
-				row_number () OVER (ORDER BY t1.question_id) n
+			SELECT
+				qb_temp_qbank.*, dbo.AggregateString (qb_temp_qbank.id) know_name,
+				qb_question_type.type_name,
+				row_number () OVER (ORDER BY qb_temp_qbank.id) n,
+				COUNT (*) OVER () total
 			FROM
-				(
-				SELECT
-					qb_temp_knowQuestion.question_id,
-					TB_Subject.name subject_name
-				FROM
-					TB_Know	
-					INNER JOIN TB_Subject ON TB_Subject.id = TB_Know.subjectid
-					AND TB_Subject.name = #{subject}
-					INNER JOIN qb_temp_knowQuestion ON TB_Know.id = qb_temp_knowQuestion.know_id
-				) t1
-			GROUP BY
-				t1.question_id,
-				t1.subject_name
-			) AS t2, qb_temp_qbank, qb_question_type
-		WHERE t2.n >= #{pStart} and t2.question_id=qb_temp_qbank.id and qb_temp_qbank.type=qb_question_type.type
+				qb_temp_qbank
+				INNER JOIN qb_question_type ON qb_temp_qbank.type = qb_question_type.type
+			WHERE
+				subject_id = #{subject_id}
+			) t1
+		WHERE
+			t1.n >= #{pStart}
 	</select>
 	
 	<select id="getTypeId" parameterType="String" resultType="int" >

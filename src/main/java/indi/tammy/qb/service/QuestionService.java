@@ -22,8 +22,8 @@ public class QuestionService {
 		questionDao.delete(id);
 	}
 	
-	public List<Question> findBySubject(String subject, int pStart, int pEnd){
-		return questionDao.findBySubject(subject, pStart, pEnd);
+	public List<Question> findBySubject(int subject_id, int pStart, int pEnd){
+		return questionDao.findBySubject(subject_id, pStart, pEnd);
 	}
 	
 	public long formalInsert(Question q){
