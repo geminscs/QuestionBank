@@ -253,7 +253,7 @@
             <div class="box box-solid collapsed-box" name="divForSelectSubject">
 					  <div class="box-header with-border">
 					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b></h3>
-					    <input name="currentSubjectId" value="{{:id}}" type="hidden"/>
+					    <input name="currentSubjectId" value="101" type="hidden"/>
 					    <div class="box-tools pull-right">
 					      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 					    </div><!-- /.box-tools -->
@@ -262,19 +262,22 @@
 					  	<div>
 						    <h5 name="subjectSubName1">小学</h5>
 						    <p style="padding-left:10px;padding-right:10px;">
-						    	<a name="subjectSubName2"><input value="{{:id1}}" type="hidden"/>语文</a>
-						    	<a name="subjectSubName2"><input value="{{:id2}}" type="hidden"/>英语</a>
-						    	<a name="subjectSubName2"><input value="{{:id3}}" type="hidden"/>数学</a>
-						    	<a name="subjectSubName2"><input value="{{:id4}}" type="hidden"/>科学</a>
+						    	<a name="subjectSubName2" th:each="p:${primary}"><input th:value="${p.id}" type="hidden" th:text="${p.name}"/></a>
+		
 						    </p>
 					    </div>
 					    <div>
 					    	<h5 name="subjectSubName1">初中</h5>
 						    <p style="margin-left:10px;margin-right:10px;">
-						    	<a name="subjectSubName2"><input value="{{:id5}}" type="hidden"/>语文</a>
-						    	<a name="subjectSubName2"><input value="{{:id6}}" type="hidden"/>英语</a>
-						    	<a name="subjectSubName2"><input value="{{:id7}}" type="hidden"/>数学</a>
-						    	<a name="subjectSubName2"><input value="{{:id8}}" type="hidden"/>科学</a>
+								<a name="subjectSubName2" th:each="m:${middle}"><input th:value="${m.id}" type="hidden" th:text="${m.name}"/></a>
+
+						    </p>
+					    </div>
+					    <div>
+					    	<h5 name="subjectSubName1">高中</h5>
+						    <p style="margin-left:10px;margin-right:10px;">
+								<a name="subjectSubName2" th:each="h:${high}"><input th:value="${h.id}" type="hidden" th:text="${h.name}"/></a>
+
 						    </p>
 					    </div>
 					  </div><!-- /.box-body -->

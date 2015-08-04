@@ -40,5 +40,9 @@ public class EnumService {
 	public Subject findSubjectByKnowId(int know_id){
 		return enumDao.findSubjectByKnowId(know_id);
 	}
+	
+	public List<Subject> findAllSubject(){
+		return enumDao.findAllSubject();
+	}
 
 }

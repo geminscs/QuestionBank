@@ -53,4 +53,8 @@
 			AND TB_Know.subjectid = TB_Subject.id
 	</select>
 	
+	<select id="findAllSubject" resultType="indi.tammy.qb.model.enums.Subject" >
+		select * from TB_Subject
+	</select>
+	
 </mapper>
