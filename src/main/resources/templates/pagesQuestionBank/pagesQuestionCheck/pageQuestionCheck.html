@@ -19,6 +19,22 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     
+    <style type="text/css">
+   		a{
+   			padding-left:5px;
+   			padding-right:5px;
+   		}
+   		a:hover{
+   			background-color:#3c8dbc;
+   			color:#ffffff;
+   			cursor:pointer;  
+   		}
+   		a.current{
+   			background-color:#3c8dbc;
+   			color:#ffffff;
+   		}
+   	</style>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -237,6 +253,7 @@
             <div class="box box-solid collapsed-box" name="divForSelectSubject">
 					  <div class="box-header with-border">
 					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b></h3>
+					    <input name="currentSubjectId" value="{{:id}}" type="hidden"/>
 					    <div class="box-tools pull-right">
 					      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 					    </div><!-- /.box-tools -->
@@ -245,20 +262,19 @@
 					  	<div>
 						    <h5 name="subjectSubName1">小学</h5>
 						    <p style="padding-left:10px;padding-right:10px;">
-						    	<a name="subjectSubName2" herf="#">语文</a>
-						    	<a name="subjectSubName2" herf="#">英语</a>
-						    	<a name="subjectSubName2" href="#">数学</a>
-						    	<a name="subjectSubName2" href="#">科学</a>
+						    	<a name="subjectSubName2"><input value="{{:id1}}" type="hidden"/>语文</a>
+						    	<a name="subjectSubName2"><input value="{{:id2}}" type="hidden"/>英语</a>
+						    	<a name="subjectSubName2"><input value="{{:id3}}" type="hidden"/>数学</a>
+						    	<a name="subjectSubName2"><input value="{{:id4}}" type="hidden"/>科学</a>
 						    </p>
 					    </div>
 					    <div>
 					    	<h5 name="subjectSubName1">初中</h5>
 						    <p style="margin-left:10px;margin-right:10px;">
-						    	<a name="subjectSubName2">语文</a>
-						    	<a name="subjectSubName2">英语</a>
-						    	<a name="subjectSubName2">数学</a>
-						    	<a name="subjectSubName2">科学</a>
-						    	<a name="subjectSubName2">思政</a>
+						    	<a name="subjectSubName2"><input value="{{:id5}}" type="hidden"/>语文</a>
+						    	<a name="subjectSubName2"><input value="{{:id6}}" type="hidden"/>英语</a>
+						    	<a name="subjectSubName2"><input value="{{:id7}}" type="hidden"/>数学</a>
+						    	<a name="subjectSubName2"><input value="{{:id8}}" type="hidden"/>科学</a>
 						    </p>
 					    </div>
 					  </div><!-- /.box-body -->

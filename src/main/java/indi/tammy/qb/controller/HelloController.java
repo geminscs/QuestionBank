@@ -81,6 +81,13 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionImport/pageImportNotice";
 	}
 	
+	@RequestMapping(value={"/admin/clip"},method = RequestMethod.GET)
+	public String testClip(){
+		
+		return "test/test1";
+	}
+	
+
 	@RequestMapping(value={"/admin/questionCheck"},method = RequestMethod.GET)
 	public String adminQuestionCheck(){
 		
