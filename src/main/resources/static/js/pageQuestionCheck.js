@@ -42,8 +42,7 @@ $(function(){
 	        success: function (result, pageIndex) {
 	            //回调函数
 	            //result 为 请求返回的数据，呈现数据
-	        	alert('success');
-	        	 $("#test").empty().html($("#questionBoxTmpl").render(result.data));
+	        	 $("#test").empty().html($("#questionBoxTmpl").render(jQuery.parseJSON(result.data)));
 	        },
 	        complete: function(XMLHttpRequest, textStatu){
 	            //...
@@ -155,7 +154,8 @@ $(function(){
 		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
 		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
 		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
-		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
+		//$(this).parent().parent().find('h5[name=subjectSubName1]').text()+
+		var subjectName=$(this).text();
 		$('b[name="currentSubjectName"]').text(subjectName);
 		$('input[name="currentSubjectId"]').val($(this).find('input').val());
 		alert($('b[name="currentSubjectName"]').text());
