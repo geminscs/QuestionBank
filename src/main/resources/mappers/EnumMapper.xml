@@ -44,5 +44,13 @@
 			AND qb_subject_questionType.type = qb_question_type.type
 	</select>
 	
+	<select id="findSubjectByKnowId" parameterType="int" resultType="indi.tammy.qb.model.enums.Subject" >
+		SELECT
+			TB_Subject.*
+		FROM
+			TB_Know
+			INNER JOIN TB_Subject ON TB_Know.id = #{know_id}
+			AND TB_Know.subjectid = TB_Subject.id
+	</select>
 	
 </mapper>

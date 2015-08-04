@@ -1,6 +1,8 @@
 package indi.tammy.qb.controller;
 
 import indi.tammy.qb.model.Question;
+import indi.tammy.qb.model.enums.Subject;
+import indi.tammy.qb.service.EnumService;
 import indi.tammy.qb.service.QuestionService;
 import indi.tammy.qb.wrapper.QuestionWrapper;
 
@@ -49,6 +51,9 @@ public class FileUploadController {
 	@Autowired
 	private QuestionService questionService;
 	
+	@Autowired
+	private EnumService enumService;
+	
 	@RequestMapping(value={"/upload/file"})
 	@ResponseBody
 	public String ueditorImageUp(@RequestParam("file") MultipartFile upfile){
@@ -83,15 +88,29 @@ public class FileUploadController {
 			        List<Question> l = htmlDivider(str);
 			        for(int i = 0;i < l.size();i ++){
 			        	Question q = l.get(i);
+			        	q.setSubject_id(-1);
 			        	int type = questionService.getTypeId(q.getType_name());
 			        	if(type > 0){
 			        		q.setType(type);
-			        		questionService.insert(q);
 			        		String[] knows = q.getKnow_name().split(";");
+			        		int[] validKnowId = new int[knows.length];
+			        		int validCount = 0;
 			        		for(int j = 0;j < knows.length;j ++){
 			        			int knowId = Integer.parseInt(knows[j]);
 			        			if(knowId > 0){
-			        				questionService.insertKnowQuestion(q.getId(), knowId);
+			        				Subject s = enumService.findSubjectByKnowId(knowId);
+			        				if(s == null){
+			        					continue;
+			        				}
+			        				q.setSubject_id(s.getId());
+			        				validKnowId[validCount] = knowId;
+			        				validCount ++;
+			        			}
+			        		}
+			        		if(q.getSubject_id() > 0){
+			        			questionService.insert(q);
+			        			for(int k = 0;k < validCount;k ++){
+			        				questionService.insertKnowQuestion(q.getId(), validKnowId[k]);
 			        			}
 			        		}
 			        	}
@@ -216,7 +235,7 @@ public class FileUploadController {
 	            .replaceAll("</BODY>", "</DIV>");
 	    }
 	    // 调整图片地址
-	    htmlStr = htmlStr.replaceAll("<IMG SRC=\"", "<IMG SRC=\"" + "/upload/"
+	    htmlStr = htmlStr.replaceAll("<IMG SRC=\"", "<IMG SRC=\"" + "/upload"
 	        + "/");
 	    // 把<P></P>转换成</div></div>保留样式
 	    htmlStr =  htmlStr.replaceAll("(<P)([^>]*>.*?)(<\\/P>)",

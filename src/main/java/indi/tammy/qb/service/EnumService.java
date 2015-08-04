@@ -36,4 +36,9 @@ public class EnumService {
 	public List<Standard> findStandardBySubjectId(int subject_id){
 		return enumDao.findStandardBySubjectId(subject_id);
 	}
+	
+	public Subject findSubjectByKnowId(int know_id){
+		return enumDao.findSubjectByKnowId(know_id);
+	}
+
 }

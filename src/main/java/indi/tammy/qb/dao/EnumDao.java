@@ -18,5 +18,7 @@ public interface EnumDao {
 	public List<Subject> findSubjectBySubjectId(int subject_id);
 	
 	public List<Standard> findStandardBySubjectId(int subject_id);
+	
+	public Subject findSubjectByKnowId(int know_id);
 
 }
