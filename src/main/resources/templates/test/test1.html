@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Zero Clipboard Test</title>
+<meta charset="utf-8"></meta>
+<script type="text/javascript" src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<!-- Bootstrap 3.3.2 JS -->
+<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/plugins/zeroClipBoard/jquery.zclip.js"></script>
+<script type="text/javascript">
+$(function(){ 
+    $('#copy_input').zclip({ 
+        path: '/plugins/zeroClipBoard/ZeroClipboard.swf', 
+        copy: function(){//复制内容 
+            return $('#mytext').val(); 
+        }, 
+        afterCopy: function(){//复制成功 
+            alert('复制成功');
+        } 
+    }); 
+}); 
+
+</script>
+</head>
+<body>
+<textarea id="mytext">请输入内容</textarea><br/> 
+<a href="#" id="copy_input" class="copy">复制内容</a> 
+</body>
+
+</html>
