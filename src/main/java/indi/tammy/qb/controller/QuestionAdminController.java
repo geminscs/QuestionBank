@@ -35,7 +35,7 @@ public class QuestionAdminController {
 	private EnumService enumService;
 	
 	public List<Grade> constuctGradeBySubjectId(int subject_id){
-		List<Subject> l = enumService.findSubjectBySubjectId(101);
+		List<Subject> l = enumService.findSubjectBySubjectId(subject_id);
 		String[] grades = {"一年级", "二年级", "三年级", "四年级", "五年级", "六年级", "初一", "初二", "初三", "高一", "高二", "高三"};
 		List<Grade> gradeList = new ArrayList<Grade>();
 		if(l.size() > 0){

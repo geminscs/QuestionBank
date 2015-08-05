@@ -262,7 +262,9 @@ public class FileUploadController {
 	        .replaceAll(
 	            "<([^>]*)(?:lang|LANG|class|CLASS|style|STYLE|size|SIZE|face|FACE|[ovwxpOVWXP]:\\w+)=(?:'[^']*'|\"\"[^\"\"]*\"\"|[^>]+)([^>]*)>",
 	            "<$1$2>");
-	    htmlStr = htmlStr.replaceAll("</u><u>", "");
+	    System.out.println(htmlStr);
+	    htmlStr = htmlStr.replaceAll("</u><u>|</U><U>", "");
+	    System.out.println(htmlStr);
 	    return "<!DOCTYPE html>"
 	    +"<html>"
 	    +"<head>"
