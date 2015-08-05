@@ -11567,13 +11567,16 @@ UE.plugins['font'] = function () {
                 node.attrs = {
                     'style': cssStyle.join(';')
                 };
+                //add by gm
+                node.tagName = 'span';
             } else {
-                var val = node.tagName == 'u' ? 'underline' : 'line-through';
+            	//delete by gm
+                /*var val = node.tagName == 'u' ? 'underline' : 'line-through';
                 node.attrs = {
                     'style': (node.getAttr('style') || '') + 'text-decoration:' + val + ';'
-                }
+                }*/
             }
-            node.tagName = 'span';
+            //node.tagName = 'span';
         });
 //        utils.each(root.getNodesByTagName('span'), function (node) {
 //            var val;
