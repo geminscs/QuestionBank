@@ -34,10 +34,9 @@ $(function(){
 	    infoFormat: '{start} ~ {end}条，共{total}条',
 	    //total:1000
 	    remote: {
-	        url: '/getJsonData',  //请求地址
+	        url: '/admin/delWrongQuestion/getWrongQuestionData',  //请求地址
 	        params: { 
 	        	subjectId: $('input[name="currentSubjectId"]').val(),
-	        	subject:$('input[name="currentSubjectName"]').val()
 	        	},//用于测试       //自定义请求参数
 	        beforeSend: function(XMLHttpRequest){
 	            //...
@@ -45,8 +44,14 @@ $(function(){
 	        success: function (result, pageIndex) {
 	            //回调函数
 	            //result 为 请求返回的数据，呈现数据
-	        	alert('success');
-	        	 $("#test").empty().html($("#questionBoxTmpl").render(result.data));
+	        	console.log('success');
+	        	if(parseInt(result.total)==0){
+	        		$("#test").empty();
+	        		$('#divNoResult').css('display','');
+	        	}else{
+	        		$('#divNoResult').css('display','none');
+	        		$("#test").empty().html($("#questionBoxTmpl").render(result.data));
+	        	}
 	        },
 	        complete: function(XMLHttpRequest, textStatu){
 	            //...
@@ -181,8 +186,11 @@ $(function(){
 		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
 		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
 		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
-		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
+		//$(this).parent().parent().find('h5[name=subjectSubName1]').text()+
+		var subjectName=$(this).text();
 		$('b[name="currentSubjectName"]').text(subjectName);
+		console.log('subjectId:'+$(this).find('input').val());
+		$('input[name="currentSubjectId"]').val($(this).find('input').val());
 		alert($('b[name="currentSubjectName"]').text());
 		$("#page").page( 'remote',0 ,{subjectId:$('input[name="currentSubjectId"]').val()});
 		
