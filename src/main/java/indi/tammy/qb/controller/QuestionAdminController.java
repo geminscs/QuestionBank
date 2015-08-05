@@ -79,8 +79,11 @@ public class QuestionAdminController {
 	
 	@RequestMapping(value={"/admin/questionAdmin/getQuestionData"},method = RequestMethod.GET)
 	@ResponseBody
-	public String getQuestionData(){
-		List<Question> l = questionService.formalFindByParam(1, 10, -1, -1, -1, -1, 101, -1, -1, "%tbc%");
+	public String getQuestionData(int subjectId, int gradeId, int fieldId, int standardId, int knowId, int typeId, String hardness, int pageIndex, int pageSize, String key){
+		if(key == null || key.length() <= 0){
+			key = null;
+		}
+		List<Question> l = questionService.formalFindByParam(pageIndex*pageSize+1, (pageIndex+1)*pageSize, knowId, fieldId, standardId, gradeId, subjectId, typeId, -1, key);
 		JSONObject res = new JSONObject();
 		JSONArray jsonMembers = new JSONArray();
 		if(l.size() == 0){
