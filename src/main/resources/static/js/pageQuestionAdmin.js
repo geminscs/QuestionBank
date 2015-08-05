@@ -223,7 +223,7 @@ $(function(){
 	            //回调函数
 	            //result 为 请求返回的数据，呈现数据
 	        	alert('success');
-	        	 $("#divQuestions").empty().html($("#questionBoxTmpl").render(result.data));
+	        	 $("#divQuestions").empty().html($("#questionBoxTmpl").render(jQuery.parseJSON(result.data)));
 	        },
 	        complete: function(XMLHttpRequest, textStatu){
 	            //...

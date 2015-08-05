@@ -125,6 +125,7 @@ public class QuestionAdminController {
 		else{
 			res.put("total", 0);
 		}
+		System.out.println("questionData"+res.toString());
 		return res.toString();
 	}
 	
