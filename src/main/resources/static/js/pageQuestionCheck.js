@@ -77,7 +77,7 @@ $(function(){
 			url:"/admin/questionCheck/pass",
 			data:{id:id},
 			success:function(){
-				location.reload();
+				$("#page").page( 'remote');
 			}
 		});
 		alert('pass question id:'+id);
@@ -108,7 +108,7 @@ $(function(){
 			url:"/admin/questionCheck/delete",
 			data:{id:id},
 			success:function(){
-				location.reload();
+				$("#page").page( 'remote');
 			}
 		});
 		alert('del question id:'+id);
