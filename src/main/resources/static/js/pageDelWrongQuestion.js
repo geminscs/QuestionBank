@@ -93,17 +93,17 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="errorId"]').val();
-//		$.ajax({
-//			url:"/admin/delWrongQuestion/ignoreOne",
-//			data:{id:id},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
+		$.ajax({
+			url:"/admin/delWrongQuestion/ignoreOne",
+			data:{id:id},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('成功');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 		alert('ignore error id:'+id);
 	});
 	
