@@ -118,8 +118,10 @@ public class HelloController {
 		Question q = questionService.findById(id);
 		List<QuestionType> l = enumService.findQuestionTypeBySubjectId(q.getSubject_id());
 		q.setContent(StringEscapeUtils.unescapeHtml4(q.getContent()));
+		List<Subject> l2 = enumService.findAllSubject();
 		modelMap.addAttribute("question", q);
 		modelMap.addAttribute("questionTypeList", l);
+		modelMap.addAttribute("subjectList", l2);
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
 

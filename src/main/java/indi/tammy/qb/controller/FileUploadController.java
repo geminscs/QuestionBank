@@ -80,6 +80,9 @@ public class FileUploadController {
 					out.close();
 					//convert(new File(rootPath + "/" + fname),rootPath);
 					String str=toHtmlString(new File(rootPath + "/" + fname),rootPath);
+					if(str==null){
+						return "{\"code\": \"0\"}";
+					}
 					System.out.println(str);
 					OutputStream fileWriter = new FileOutputStream(rootPath + "/" + new Date().getTime()
 						        + ".html");  
@@ -120,9 +123,11 @@ public class FileUploadController {
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return "FAIL";
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return "FAIL";
 				}  
 		}
 		return "FAIL";
@@ -178,6 +183,7 @@ public class FileUploadController {
 		} catch (java.net.ConnectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 	   
 	    return htmlFile;
@@ -193,29 +199,32 @@ public class FileUploadController {
      * @return 转换成功的html代码
      */
     public static String toHtmlString(File docFile, String filepath) {
-    // 转换word文档
-    File htmlFile=null;
-	htmlFile = convert(docFile, filepath);
-    // 获取html文件流
-    StringBuffer htmlSb = new StringBuffer();
-    try {
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-            new FileInputStream(htmlFile)));
-        while (br.ready()) {
-        htmlSb.append(br.readLine());
-        }
-        br.close();
-        // 删除临时文件
-        htmlFile.delete();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    // HTML文件字符串
-    String htmlStr = htmlSb.toString();
-    // 返回经过清洁的html文本
-    return clearFormat(htmlStr, filepath);
+	    // 转换word文档
+	    File htmlFile=null;
+		htmlFile = convert(docFile, filepath);
+		if(htmlFile==null){
+			return null;
+		}
+	    // 获取html文件流
+	    StringBuffer htmlSb = new StringBuffer();
+	    try {
+	        BufferedReader br = new BufferedReader(new InputStreamReader(
+	            new FileInputStream(htmlFile)));
+	        while (br.ready()) {
+	        htmlSb.append(br.readLine());
+	        }
+	        br.close();
+	        // 删除临时文件
+	        htmlFile.delete();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    // HTML文件字符串
+	    String htmlStr = htmlSb.toString();
+	    // 返回经过清洁的html文本
+	    return clearFormat(htmlStr, filepath);
     }
 
     /**

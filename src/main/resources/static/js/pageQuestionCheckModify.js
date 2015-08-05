@@ -1,5 +1,7 @@
 $(function(){
-    	 var ue = UE.getEditor('ueditor');
+    	 var ue=UE.getEditor('ueditor', {
+    		    allowDivTransToP: false
+    		})
     	 
     	 //显示窗口
          $('#btnSelectKnow').click(function(){
@@ -82,18 +84,17 @@ $(function(){
       		console.log('question info:'+JSON.stringify(questionInfo));
       		
 
-//    		$.ajax({
-//    			url:"/admin/questionCheck/questionModify/save",
-//    			data:{questionInfoStr:JSON.stringify(questionInfo)},
-//    			success:function(result){
-//    				if(result==1||result=='1'){
-//    					alert('保存成功');
-//    					getPage();
-//    				}else{
-//    					alert('保存失败');
-//    				}
-//    			}
-//    		});
+    		$.ajax({
+    			url:"/admin/questionCheck/questionModify/save",
+    			data:{questionInfoStr:JSON.stringify(questionInfo)},
+    			success:function(result){
+    				if(result==1||result=='1'){
+    					alert('保存成功');
+    				}else{
+    					alert('保存失败');
+    				}
+    			}
+    		});
     		
       	});
       	
@@ -167,11 +168,11 @@ $(function(){
 //   		 temp5.name='其他';
 //   		 data.push(temp5);
 //   		$("#selectForType").empty().html($("#optionTmpl").render(data));
-   		$.getJSON('/admin/questionAdmin/getType', 
+   		$.getJSON('/admin/questionAdmin/getQuestionType', 
    				{subjectId:$('#selectForSubject').val()},
    				function (result, status) { 
    					//清空select
-	   					
+	   					alert(result);
 	   					$("#selectForType").empty().html($("#optionTmpl").render(result));
    					
    					});
