@@ -18,6 +18,7 @@ public class Question {
 	private String subject_name;
 	private int wrong_type;
 	private String wrong_type_name;
+	private String wrong_message;
 	
 	//查询得到的总条目数
 	private int total;
@@ -25,6 +26,12 @@ public class Question {
 	
 	
 	
+	public String getWrong_message() {
+		return wrong_message;
+	}
+	public void setWrong_message(String wrong_message) {
+		this.wrong_message = wrong_message;
+	}
 	public int getWrong_type() {
 		return wrong_type;
 	}
@@ -121,9 +128,9 @@ public class Question {
 	}
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
-			String know_name, String type_name, int subject_id,
-			String subject_name, int total, int wrong_type,
-			String wrong_type_name) {
+			int subject_id, String know_name, String type_name,
+			String subject_name, int wrong_type, String wrong_type_name,
+			String wrong_message, int total) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -133,13 +140,14 @@ public class Question {
 		this.isFull = isFull;
 		this.hardness = hardness;
 		this.submit_time = submit_time;
+		this.subject_id = subject_id;
 		this.know_name = know_name;
 		this.type_name = type_name;
-		this.subject_id = subject_id;
 		this.subject_name = subject_name;
-		this.total = total;
 		this.wrong_type = wrong_type;
 		this.wrong_type_name = wrong_type_name;
+		this.wrong_message = wrong_message;
+		this.total = total;
 	}
-		
+	
 }

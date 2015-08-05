@@ -25,8 +25,8 @@ public class QuestionWrongController {
 	
 	@RequestMapping(value={"/admin/delWrongQuestion/getWrongQuestionData"},method = RequestMethod.GET)
 	@ResponseBody
-	public String getWrongQuestionData(int subjectId){//根据试题id显示试卷信息
-		List<Question> l = questionService.findWrongQuestionBySubjectId(1, 10, subjectId);
+	public String getWrongQuestionData(int pageIndex, int pageSize, int subjectId){//根据试题id显示试卷信息
+		List<Question> l = questionService.findWrongQuestionBySubjectId(pageIndex*pageSize+1, (pageIndex+1)*pageSize, subjectId);
 		JSONArray jsonMembers = new JSONArray();
 		JSONObject res = new JSONObject();
 		for(Question q:l){
@@ -37,6 +37,8 @@ public class QuestionWrongController {
 			member.put("answer", q.getAnswer());  
 			member.put("analysis", q.getAnalysis());  
 			member.put("know", q.getKnow_name());
+			member.put("errorType", q.getWrong_type_name());
+			member.put("errorMsg", q.getWrong_message());
 			
 			jsonMembers.put(member);
 		}
