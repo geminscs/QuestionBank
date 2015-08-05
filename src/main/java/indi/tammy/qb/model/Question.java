@@ -17,6 +17,7 @@ public class Question {
 	private String type_name;
 	private String subject_name;
 	private int wrong_type;
+	private int wrong_id;
 	private String wrong_type_name;
 	private String wrong_message;
 	
@@ -25,7 +26,12 @@ public class Question {
 	
 	
 	
-	
+	public int getWrong_id() {
+		return wrong_id;
+	}
+	public void setWrong_id(int wrong_id) {
+		this.wrong_id = wrong_id;
+	}
 	public String getWrong_message() {
 		return wrong_message;
 	}
@@ -129,8 +135,8 @@ public class Question {
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
 			int subject_id, String know_name, String type_name,
-			String subject_name, int wrong_type, String wrong_type_name,
-			String wrong_message, int total) {
+			String subject_name, int wrong_type, int wrong_id,
+			String wrong_type_name, String wrong_message, int total) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -145,9 +151,11 @@ public class Question {
 		this.type_name = type_name;
 		this.subject_name = subject_name;
 		this.wrong_type = wrong_type;
+		this.wrong_id = wrong_id;
 		this.wrong_type_name = wrong_type_name;
 		this.wrong_message = wrong_message;
 		this.total = total;
 	}
+	
 	
 }
