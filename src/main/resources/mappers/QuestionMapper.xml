@@ -243,7 +243,8 @@
 			SELECT
 				qb_formal_qbank.*, qb_question_type.type_name,COUNT (*) OVER () total,
 				row_number () OVER (ORDER BY qb_formal_qbank.id) n,dbo.formalAggregateString(qb_formal_qbank.id) know_name,
-				qb_wrong_question.wrong_type, qb_wrong_question.wrong_message, qb_wrong_type.wrong_type_name
+				qb_wrong_question.wrong_type, qb_wrong_question.wrong_message, qb_wrong_type.wrong_type_name,
+				qb_wrong_question.id wrong_id
 			FROM
 				qb_wrong_question
 				INNER JOIN qb_formal_qbank ON qb_formal_qbank.subject_id = #{subject_id}
