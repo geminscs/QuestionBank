@@ -82,4 +82,8 @@ public class QuestionService {
 		questionDao.deleteWrongQuestionById(id);
 	}
 
+	public void insertWrongQuestion(int question_id, int wrong_type, String wrong_message){
+		questionDao.insertWrongQuestion(question_id, wrong_type, wrong_message);
+	}
+
 }

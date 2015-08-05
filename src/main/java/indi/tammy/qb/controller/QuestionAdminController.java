@@ -249,4 +249,11 @@ public class QuestionAdminController {
 		return "1";
 	}
 	
+	@RequestMapping(value={"/admin/questionAdmin/reportError"},method = RequestMethod.GET)
+	@ResponseBody
+	public int reportError(int id, int type, String content){
+		questionService.insertWrongQuestion(id, type, content);
+		return 1;
+	}
+	
 }
