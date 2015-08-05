@@ -101,6 +101,9 @@ public class QuestionAdminController {
 		if(key == null || key.length() <= 0){
 			key = null;
 		}
+		else{
+			key = "%"+key+"%";
+		}
 		List<Question> l = questionService.formalFindByParam(pageIndex*pageSize+1, (pageIndex+1)*pageSize, knowId, fieldId, standardId, gradeId, subjectId, typeId, -1, key);
 		JSONObject res = new JSONObject();
 		JSONArray jsonMembers = new JSONArray();
