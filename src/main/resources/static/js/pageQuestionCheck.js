@@ -77,7 +77,7 @@ $(function(){
 			url:"/admin/questionCheck/pass",
 			data:{id:id},
 			success:function(){
-				location.reload();
+				$("#page").page( 'remote');
 			}
 		});
 		alert('pass question id:'+id);
@@ -108,7 +108,7 @@ $(function(){
 			url:"/admin/questionCheck/delete",
 			data:{id:id},
 			success:function(){
-				location.reload();
+				$("#page").page( 'remote');
 			}
 		});
 		alert('del question id:'+id);
@@ -123,6 +123,13 @@ $(function(){
 			//alert(divparent);
 			var id=$(divparent).find('input[name="questionId"]').val();
 			idArr.push(id);
+		});
+		$.ajax({
+			url:"/admin/questionCheck/passSome",
+			data:{idArr:idArr},
+			success:function(){
+				$("#page").page( 'remote');
+			}
 		});
 		
 		alert(JSON.stringify(idArr));
@@ -144,6 +151,13 @@ $(function(){
 			//alert(divparent);
 			var id=$(divparent).find('input[name="questionId"]').val();
 			idArr.push(id);
+		});
+		$.ajax({
+			url:"/admin/questionCheck/deleteSome",
+			data:{idArrStr:JSON.stringify(idArr)},
+			success:function(){
+				$("#page").page( 'remote');
+			}
 		});
 		
 		alert(JSON.stringify(idArr));
