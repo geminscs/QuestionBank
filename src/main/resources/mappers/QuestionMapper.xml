@@ -48,6 +48,10 @@
 		insert into qb_temp_knowQuestion(question_id, know_id) values(#{question_id},#{know_id})
 	</insert>
 	
+	<insert id="insertWrongQuestion" keyProperty="id">
+		insert into qb_wrong_question(question_id, wrong_type, wrong_message) values(#{question_id},#{wrong_type}, #{wrong_message})
+	</insert>
+	
 	<delete id="delete" parameterType="int">
          delete from qb_temp_qbank where id=#{id};
          delete from qb_temp_knowQuestion where question_id=#{id}

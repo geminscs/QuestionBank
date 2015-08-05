@@ -13,6 +13,8 @@ public interface QuestionDao {
 	
 	public void insertKnowQuestion(@Param(value="question_id")int question_id, @Param(value="know_id")int know_id);
 	
+	public void insertWrongQuestion(@Param(value="question_id")int question_id, @Param(value="wrong_type")int wrong_type, @Param(value="wrong_message")String wrong_message);
+	
 	public void formalInsertKnowQuestion(@Param(value="formal_id")int formal_id, @Param(value="temp_id")int temp_id);
 	
 	public void delete(int id);
