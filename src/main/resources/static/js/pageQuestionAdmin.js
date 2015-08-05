@@ -110,6 +110,7 @@ $(function(){
 					$('a[name="aStandardName"]').removeClass();
 					$('a[name="aStandardName"]').eq(0).addClass('current');
 					$('input[name="currentStandardId"]').val($('a[name="aStandardName"]').eq(0).find('input').val());
+					alert(result);
 					$("#spanStandardList").empty().html($("#standardTmpl").render(result));
 					});
 	}
@@ -159,7 +160,7 @@ $(function(){
 //		 temp5.id=4;
 //		 temp5.name='其他';
 //		 data.push(temp5);
-		$.getJSON('/admin/questionAdmin/getType', 
+		$.getJSON('/admin/questionAdmin/getQuestionType', 
 				{subjectId:$('input[name="currentSubjectId"]').val()},
 				function (result, status) { 
 					$('a[name="aTypeName"]').removeClass();
@@ -239,7 +240,8 @@ $(function(){
 		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
 		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
 		var originName=$('b[name="currentSubjectName"]').text();
-		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
+		//$(this).parent().parent().find('h5[name=subjectSubName1]').text()+
+		var subjectName=$(this).text();
 		$('b[name="currentSubjectName"]').text(subjectName);
 		$('input[name="currentSubjectId"]').val($(this).find('input').val());
 		//alert($('input[name="currentSubjectId"]').val());

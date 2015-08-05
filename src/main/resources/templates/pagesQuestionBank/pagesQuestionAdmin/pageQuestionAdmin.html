@@ -24,6 +24,7 @@
     <link href="/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
    	<style type="text/css">
    		a{
+   			color:#333;
    			padding-left:5px;
    			padding-right:5px;
    		}
@@ -300,31 +301,34 @@
 		  	</div><!-- /.box -->
 		  	<div class="row">
 		  		<div class="col-md-3">
-		  			<div class="box box-solid collapsed-box" style="margin-bottom:5px;" name="divForSelectSubject">
+		  			<div class="box box-solid collapsed-box" name="divForSelectSubject">
 					  <div class="box-header with-border">
-					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b><input type="hidden" name="currentSubjectId" value="1"/></h3>
+					    <h3 class="box-title">当前科目：<b name="currentSubjectName">小学语文</b></h3>
+					    <input name="currentSubjectId" value="101" type="hidden"/>
 					    <div class="box-tools pull-right">
 					      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 					    </div><!-- /.box-tools -->
 					  </div><!-- /.box-header -->
 					  <div class="box-body">
-					    <div>
+					  	<div>
 						    <h5 name="subjectSubName1">小学</h5>
 						    <p style="padding-left:10px;padding-right:10px;">
-						    	<a name="subjectSubName2" herf="#"><input type="hidden" value="1"/>语文</a>
-						    	<a name="subjectSubName2" herf="#"><input type="hidden" value="2"/>英语</a>
-						    	<a name="subjectSubName2" href="#"><input type="hidden" value="3"/>数学</a>
-						    	<a name="subjectSubName2" href="#"><input type="hidden" value="4"/>科学</a>
+						    	<a name="subjectSubName2" th:each="p:${primary}"><input th:value="${p.id}" type="hidden" th:text="${p.name}"/></a>
+		
 						    </p>
 					    </div>
 					    <div>
 					    	<h5 name="subjectSubName1">初中</h5>
 						    <p style="margin-left:10px;margin-right:10px;">
-						    	<a name="subjectSubName2"><input type="hidden" value="5"/>语文</a>
-						    	<a name="subjectSubName2"><input type="hidden" value="6"/>英语</a>
-						    	<a name="subjectSubName2"><input type="hidden" value="7"/>数学</a>
-						    	<a name="subjectSubName2"><input type="hidden" value="8"/>科学</a>
-						    	<a name="subjectSubName2"><input type="hidden" value="9"/>思政</a>
+								<a name="subjectSubName2" th:each="m:${middle}"><input th:value="${m.id}" type="hidden" th:text="${m.name}"/></a>
+
+						    </p>
+					    </div>
+					    <div>
+					    	<h5 name="subjectSubName1">高中</h5>
+						    <p style="margin-left:10px;margin-right:10px;">
+								<a name="subjectSubName2" th:each="h:${high}"><input th:value="${h.id}" type="hidden" th:text="${h.name}"/></a>
+
 						    </p>
 					    </div>
 					  </div><!-- /.box-body -->

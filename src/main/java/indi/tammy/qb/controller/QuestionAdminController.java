@@ -70,6 +70,24 @@ public class QuestionAdminController {
 	
 	@RequestMapping(value={"/admin/questionAdmin"},method = RequestMethod.GET)
 	public String adminQuestion(ModelMap modelMap){
+		List<Subject> l = enumService.findAllSubject();
+		List<Subject> primary = new ArrayList<Subject>();
+		List<Subject> middle = new ArrayList<Subject>();
+		List<Subject> high = new ArrayList<Subject>();
+		for(Subject s:l){
+			if(s.getFlag() == 1){
+				primary.add(s);
+			}
+			else if(s.getFlag() == 2){
+				middle.add(s);
+			}
+			else if(s.getFlag() == 3){
+				high.add(s);
+			}
+		}
+		modelMap.addAttribute("primary", primary);
+		modelMap.addAttribute("middle", middle);
+		modelMap.addAttribute("high", high);
 		modelMap.addAttribute("gradeList", constuctGradeBySubjectId(101));
 		modelMap.addAttribute("areaList", enumService.findAreaBySubjectId(101));
 		modelMap.addAttribute("standardList", enumService.findStandardBySubjectId(101));
@@ -175,6 +193,7 @@ public class QuestionAdminController {
 			jsonObj.put("name", x.getName());
 			jsonMembers.put(jsonObj);
 		}
+		System.out.println(jsonMembers.toString());
 		return jsonMembers.toString();
 	}
 	
