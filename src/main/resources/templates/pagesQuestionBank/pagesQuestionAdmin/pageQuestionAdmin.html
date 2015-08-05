@@ -346,7 +346,16 @@
 		  		<div class="col-md-9">
 		  		
 		  			<div class="row">
-		  				<div class="col-md-8"></div>
+		  				<div class="col-md-5"></div>
+		  				<div class="col-md-3">
+		  					<label>
+		  						<select class="form-control">
+		  							<option>全部</option>
+		  							<option>题面</option>
+		  							<option>知识点</option>
+		  						</select>
+		  					</label>
+		  				</div>
 		  				<div class="col-md-4">
 		  					<div class="input-group" style="margin-bottom:5px;">
 				              <input type="text" name="keyForSearchQuestion" class="form-control" placeholder="关键字搜索" />
@@ -358,62 +367,7 @@
 		  				</div>
 		  			</div>
 		  			<div id="divQuestions"></div>
-		  			<div class="box box-solid">
-		  				<input type="hidden" value="1"/>
-						<div class="box-header with-border">
-							<h3 class="box-title"></h3>
-							<div class="pull-left">
-								<span><input type="checkbox"/>&nbsp;&nbsp;选择</span>
-							</div>
-							<div class="pull-right">
-						      <!-- Buttons, labels, and many other things can be placed here! -->
-						      <!-- Here is a label for example -->
-						      <span>
-						      	<label>题型：作文题</label>&nbsp;&nbsp;
-						      	<label>科目：小学语文</label>&nbsp;&nbsp;
-						      	<label>知识点：记叙文；说明文；议论文；全命题作文；半命题作文</label>
-						      </span>
-						    </div><!-- /.box-tools -->
-						</div>
-  						<div class="box-body">
-  							<div style="padding-left:10px;padding-right:10px;">
-  								<p>作文（两者任选其一）</p>
-  								<p>1、也许，你在家里，父亲一个欣赏的眼神，母亲一声关切的叮咛，慈爱的阳光就会充满你的心房；也许，你在老师的办公室里，满怀困惑，倾听着老师的柔柔絮语，关爱的阳光就会驱散你心灵的迷茫；也许，你倚在教室窗旁，捧着书本，读着名著，吟诵唐诗宋词，文学的阳光就会照亮你成长的方向；也许……
-  								<br/>请以“我心中的那一道阳光”为题，写一篇600字左右的文章。除诗歌外，文体不限。</p>
-								<p>2、带着________，一路前行<br/>
-								要求：（1）根据自己所写内容（如理想、自信、尊严、感动、感恩、挫折、伤痛、遗憾、微笑、眼泪、鲜花等），补足题目，然后将完整的题目抄写在正文前；（2）诗歌除外，文体不限；（3）文中不得出现真实的地名、校名、人名。
-  								</p>
-  							</div>
-  						</div><!-- /.box-body -->
-  						<div class="box-footer">
-  							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
-  								<label><input type="checkbox"/>查看答案与解析</label>
-  								<div class="pull-right">
-	  								<button class="btn btn-primary ">添加至组卷</button>
-		                      		<button class="btn btn-default ">报告错误</button>
-		                      		<button class="btn btn-default ">修改</button> 
-  									<button class="btn btn-danger ">删除</button>
-  								</div>
-  							</div>
-  							<br/>
-  							<div class="box-info box-solid" style="display:none;">
-  								<div class="box-body bg-gray color-palette">
-	  								<p><label>答案：</label>
-	  									参考例文<br/>
-	  									我心中那一道阳光<br/>
-	  									阳光总在风雨后。——题记<br/>
-	  									阳光，是温暖的，人生就像一个房间有一扇窗户，当你感到迷茫的时候，就推开窗户，让阳光洒进你的心房，去温暖你的内心。我心中的阳光就是友谊。<br/>
-	  									记得那是一个炎热的下午，大家都走在去操场的路上，我也很兴奋，因为体育课是我们唯一可以放松的课了。到了楼下后，不远处传来同学议论的声音：“哎呀，一会又要长跑了，烦死了，本来以为可以歇一会呢。”刚刚那种喜悦的气氛被这突来的噩耗冲散殆尽，看来没办法了，只能硬着头皮上了。<br/>
-	  									随着一声哨响，大家纷纷的冲出跑道，我也没有落后，我的朋友更是如此，一下子冲到了队伍的前面。才跑了半圈多，队伍被就被拆散了，跑得快的在前头，还可以的在中间，平常不怎么跑就在最后跟着。对于那些经常练习的人来说一点都不难，但对于我来说却是个不小的难关。就这样，我结束了第一圈。 <br/>
-	  								</p>
-	  								<p><label>解析：</label>
-	  									“我心中那一道阳光”告诉我们，本文的主题必须是积极向上的，写作内容也应该是以积极的为主，不论是物质上的还是精神上的，否则就偏离了正确的立意。最为创新的立意可以是反弹琵琶法，比如把逆境、困难、坚持、荆棘等等环境喻成“一道阳光”，而这恰恰是这一代孩子们身上最为缺乏的，由此立意，可出现高分作文。
-	  								</p>
-	  								<p><label>题面属性：</label>|题型：写作题|试题类型：普通|难度：</p>
-  								</div>
-  							</div>
-                    	</div><!-- /.box-footer-->
-					</div><!-- /.box -->
+		  			
 					<div>
 						<span class="pull-left" style="margin:10px 10px;">
 						<button class="btn btn-primary" name="btnAddQuestionsToPaper">添加至组卷</button>

@@ -233,7 +233,7 @@ public class QuestionAdminController {
 	@ResponseBody
 	public String deleteOne(int id){
 		questionService.formalDelete(id);
-		return null;
+		return "1";
 	}
 	
 	@RequestMapping(value={"/admin/questionAdmin/deleteSome"},method = RequestMethod.GET)
@@ -243,7 +243,7 @@ public class QuestionAdminController {
 		for(int i = 0;i < ids.length();i ++){
 			questionService.formalDelete(ids.getInt(i));
 		}
-		return null;
+		return "1";
 	}
 	
 }
