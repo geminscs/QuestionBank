@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="findAllSubject" resultType="indi.tammy.qb.model.enums.Subject" >
-		select * from TB_Subject
+		select * from TB_Subject where state = 1
 	</select>
 	
 </mapper>
