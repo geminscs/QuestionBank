@@ -39,6 +39,7 @@ public class QuestionWrongController {
 			member.put("know", q.getKnow_name());
 			member.put("errorType", q.getWrong_type_name());
 			member.put("errorMsg", q.getWrong_message());
+			member.put("errorId", q.getWrong_id());
 			
 			jsonMembers.put(member);
 		}
