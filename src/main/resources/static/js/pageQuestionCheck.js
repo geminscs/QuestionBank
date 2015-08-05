@@ -126,7 +126,7 @@ $(function(){
 		});
 		$.ajax({
 			url:"/admin/questionCheck/passSome",
-			data:{idArr:idArr},
+			data:{idArrStr:JSON.stringify(idArr)},
 			success:function(){
 				$("#page").page( 'remote');
 			}
