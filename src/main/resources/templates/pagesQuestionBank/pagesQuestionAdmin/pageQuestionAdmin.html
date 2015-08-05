@@ -23,17 +23,17 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
    	<style type="text/css">
-   		a{
+   		a.aselect{
    			color:#333;
    			padding-left:5px;
    			padding-right:5px;
    		}
-   		a:hover{
+   		a.aselect:hover{
    			background-color:#3c8dbc;
    			color:#ffffff;
    			cursor:pointer;  
    		}
-   		a.current{
+   		a.aselect.current{
    			background-color:#3c8dbc;
    			color:#ffffff;
    		}
@@ -257,45 +257,45 @@
 		  				<p name="pGrade">
 		  					<b>年级：</b>
 		  					<input type="hidden" value="-1" name="currentGradeId"/>
-		  					<a class="current" name="aGradeName"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a class="aselect current" name="aGradeName"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanGradeList">
-			  					<a name="aGradeName" th:each="grade:${gradeList}"><input type="hidden" th:value="${grade.id}" th:text="${grade.grade}"/></a>&nbsp;
+			  					<a class="aselect"  name="aGradeName" th:each="grade:${gradeList}"><input type="hidden" th:value="${grade.id}" th:text="${grade.grade}"/></a>&nbsp;
 		  					</span>
 		  				</p>
 		  				<p name="pType">
 		  					<b>题型：</b>
 		  					<input type="hidden" value="-1" name="currentTypeId"/>
-		  					<a name="aTypeName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a name="aTypeName" class="aselect current"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanTypeList">
-		  						<a name="aTypeName" th:each="questionType:${questionTypeList}"><input type="hidden" th:value="${questionType.type}" th:text="${questionType.type_name}"/></a>&nbsp;
+		  						<a  class="aselect" name="aTypeName" th:each="questionType:${questionTypeList}"><input type="hidden" th:value="${questionType.type}" th:text="${questionType.type_name}"/></a>&nbsp;
 		
 		  					</span>
 		  				</p>
 		  				<p name="pField">
 		  					<b>地区：</b>
 		  					<input type="hidden" value="-1" name="currentFieldId"/>
-		  					<a name="aFieldName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a name="aFieldName" class="aselect current"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanFieldList" >
-		  						<a name="aFieldName" th:each="area:${areaList}"><input type="hidden" th:value="${area.id}" th:text="${area.name}"/></a>&nbsp;	  						
+		  						<a class="aselect"  name="aFieldName" th:each="area:${areaList}"><input type="hidden" th:value="${area.id}" th:text="${area.name}"/></a>&nbsp;	  						
 		  					</span>
 		  				</p>
 		  				<p name="pStandard">
 		  					<b>标准：</b>
 		  					<input type="hidden" value="-1" name="currentStandardId"/>
-		  					<a name="aStandardName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a name="aStandardName" class="aselect current"><input type="hidden" value="-1"/>全部</a>&nbsp;
 		  					<span id="spanStandardList">
-		  						<a name="aStandardName" th:each="standard:${standardList}"><input type="hidden" th:value="${standard.id}" th:text="${standard.name}" /></a>&nbsp;
+		  						<a class="aselect"  name="aStandardName" th:each="standard:${standardList}"><input type="hidden" th:value="${standard.id}" th:text="${standard.name}" /></a>&nbsp;
 		  					</span>
 		  				</p>
 		  				<p name="pHardness">
 		  					<b>难度：</b>
 		  					<input type="hidden" value="全部" name="currentHardness"/>
-		  					<a name="aHardnessName" class="current"><input type="hidden" value="-1"/>全部</a>&nbsp;
-		  					<a name="aHardnessName">容易</a>&nbsp;
-		  					<a name="aHardnessName">较易</a>&nbsp;
-		  					<a name="aHardnessName">一般</a>&nbsp;
-		  					<a name="aHardnessName">较难</a>&nbsp;
-		  					<a name="aHardnessName">困难</a>&nbsp;
+		  					<a  name="aHardnessName" class="aselect current"><input type="hidden" value="-1"/>全部</a>&nbsp;
+		  					<a class="aselect" name="aHardnessName">容易</a>&nbsp;
+		  					<a  class="aselect"  name="aHardnessName">较易</a>&nbsp;
+		  					<a  class="aselect" name="aHardnessName">一般</a>&nbsp;
+		  					<a  class="aselect" name="aHardnessName">较难</a>&nbsp;
+		  					<a  class="aselect" name="aHardnessName">困难</a>&nbsp;
 		  				</p>
 	  			</div><!-- /.box-body -->
 		  	</div><!-- /.box -->
@@ -313,21 +313,21 @@
 					  	<div>
 						    <h5 name="subjectSubName1">小学</h5>
 						    <p style="padding-left:10px;padding-right:10px;">
-						    	<a name="subjectSubName2" th:each="p:${primary}"><input th:value="${p.id}" type="hidden" th:text="${p.name}"/></a>
+						    	<a  class="aselect" name="subjectSubName2" th:each="p:${primary}"><input th:value="${p.id}" type="hidden" th:text="${p.name}"/></a>
 		
 						    </p>
 					    </div>
 					    <div>
 					    	<h5 name="subjectSubName1">初中</h5>
 						    <p style="margin-left:10px;margin-right:10px;">
-								<a name="subjectSubName2" th:each="m:${middle}"><input th:value="${m.id}" type="hidden" th:text="${m.name}"/></a>
+								<a  class="aselect" name="subjectSubName2" th:each="m:${middle}"><input th:value="${m.id}" type="hidden" th:text="${m.name}"/></a>
 
 						    </p>
 					    </div>
 					    <div>
 					    	<h5 name="subjectSubName1">高中</h5>
 						    <p style="margin-left:10px;margin-right:10px;">
-								<a name="subjectSubName2" th:each="h:${high}"><input th:value="${h.id}" type="hidden" th:text="${h.name}"/></a>
+								<a class="aselect"  name="subjectSubName2" th:each="h:${high}"><input th:value="${h.id}" type="hidden" th:text="${h.name}"/></a>
 
 						    </p>
 					    </div>
@@ -490,7 +490,7 @@
   								<div class="pull-right">
 	  								<button class="btn btn-primary " name="btnAddOneToPaper">添加至组卷</button>
 		                      		<button class="btn btn-default " name="btnReportOneError">报告错误</button>
-		                      		<button class="btn btn-default " name="btnModifyOneQuestion">修改</button> 
+		                      		<a href="/admin/questionAdmin/modify?id={{:id}}"><button class="btn btn-default " name="btnModifyOneQuestion">修改</button></a> 
   									<button class="btn btn-danger " name="btnDelOneQuestion">删除</button>
   								</div>
   							</div>
@@ -509,16 +509,16 @@
 					</div><!-- /.box -->
 	</script>
 	<script id="gradeTmpl" type="text/x-jsrender">
-		<a name="aGradeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+		<a class="aselect" name="aGradeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
 	</script>
 	<script id="typeTmpl" type="text/x-jsrender">
-		<a name="aTypeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+		<a class="aselect" name="aTypeName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
 	</script>
 	<script id="fieldTmpl" type="text/x-jsrender">
-		<a name="aFieldName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+		<a class="aselect" name="aFieldName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
 	</script>
 	<script id="standardTmpl" type="text/x-jsrender">
-		<a name="aStandardName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
+		<a class="aselect" name="aStandardName"><input type="hidden" value="{{:id}}"/>{{:name}}</a>&nbsp;
 	</script>
   </body>
 </html>

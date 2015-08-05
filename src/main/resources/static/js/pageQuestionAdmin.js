@@ -100,7 +100,7 @@ $(function(){
 		$.getJSON('/admin/questionAdmin/getStandard',
 				{subjectId:$('input[name="currentSubjectId"]').val()},
 				function (result, status) {
-					$('a[name="aStandardName"]').removeClass();
+					$('a[name="aStandardName"]').removeClass('current');
 					$('a[name="aStandardName"]').eq(0).addClass('current');
 					
 					alert(result);
@@ -127,7 +127,7 @@ $(function(){
 		$.getJSON('/admin/questionAdmin/getGrade', 
 				{subjectId:$('input[name="currentSubjectId"]').val()},
 				function (result, status) { 
-					$('a[name="aGradeName"]').removeClass();
+					$('a[name="aGradeName"]').removeClass('current');
 					$('a[name="aGradeName"]').eq(0).addClass('current');
 					$("#spanGradeList").empty().html($("#gradeTmpl").render(result));
 					});
@@ -156,7 +156,7 @@ $(function(){
 		$.getJSON('/admin/questionAdmin/getQuestionType', 
 				{subjectId:$('input[name="currentSubjectId"]').val()},
 				function (result, status) { 
-					$('a[name="aTypeName"]').removeClass();
+					$('a[name="aTypeName"]').removeClass("current");
 					$('a[name="aTypeName"]').eq(0).addClass('current');
 					$("#spanTypeList").empty().html($("#typeTmpl").render(result));
 					});
@@ -260,7 +260,7 @@ $(function(){
 	
 	//选择年级
 	$(document).on("click",'a[name="aGradeName"]',function(){
-		$('a[name="aGradeName"]').removeClass();
+		$('a[name="aGradeName"]').removeClass('current');
 		$(this).addClass('current');
 		$('input[name="currentGradeId"]').val($(this).find('input').val());
 		
@@ -275,7 +275,7 @@ $(function(){
 	
 	//选择题型
 	$(document).on("click",'a[name="aTypeName"]',function(){
-		$('a[name="aTypeName"]').removeClass();
+		$('a[name="aTypeName"]').removeClass('current');
 		$(this).addClass('current');
 		$('input[name="currentTypeId"]').val($(this).find('input').val());
 		
@@ -286,7 +286,7 @@ $(function(){
 	
 	//选择地区
 	$(document).on("click",'a[name="aFieldName"]',function(){
-		$('a[name="aFieldName"]').removeClass();
+		$('a[name="aFieldName"]').removeClass('current');
 		$(this).addClass('current');
 		$('input[name="currentFieldId"]').val($(this).find('input').val());
 		//重新获得知识点
@@ -299,7 +299,7 @@ $(function(){
 	
 	//选择标准
 	$(document).on("click",'a[name="aStandardName"]',function(){
-		$('a[name="aStandardName"]').removeClass();
+		$('a[name="aStandardName"]').removeClass('current');
 		$(this).addClass('current');
 		$('input[name="currentStandardId"]').val($(this).find('input').val());
 		//重新获得知识点
@@ -312,7 +312,7 @@ $(function(){
 	
 	//选择难度
 	$(document).on("click",'a[name="aHardnessName"]',function(){
-		$('a[name="aHardnessName"]').removeClass();
+		$('a[name="aHardnessName"]').removeClass('current');
 		$(this).addClass('current');
 		$('input[name="currentHardness"]').val($(this).text());
 		

@@ -256,4 +256,9 @@ public class QuestionAdminController {
 		return 1;
 	}
 	
+	@RequestMapping(value={"/admin/questionAdmin/modify"},method = RequestMethod.GET)
+	public String modify(int id){
+		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionModify";
+	}
+	
 }
