@@ -52,7 +52,7 @@ public class QuestionAdminController {
 				for(int i = 7;i <= 9;i ++){
 					Grade g = new Grade();
 					g.setId(i);
-					g.setGrade(grades[i]);
+					g.setGrade(grades[i - 1]);
 					gradeList.add(g);
 				}
 			}
@@ -60,7 +60,7 @@ public class QuestionAdminController {
 				for(int i = 10;i <= 12;i ++){
 					Grade g = new Grade();
 					g.setId(i);
-					g.setGrade(grades[i]);
+					g.setGrade(grades[i - 1]);
 					gradeList.add(g);
 				}
 			}
@@ -130,8 +130,8 @@ public class QuestionAdminController {
 	
 	@RequestMapping(value={"/admin/questionAdmin/getKnow"}, method=RequestMethod.GET)
 	@ResponseBody
-	public String getKnows(int subjectId, int gradeId, int areaId, int standardId){
-		List<Know> l = knowService.findByParam(subjectId, gradeId, areaId, standardId);		
+	public String getKnows(int subjectId, int gradeId, int fieldId, int standardId){
+		List<Know> l = knowService.findByParam(subjectId, gradeId, fieldId, standardId);		
 		JSONArray res = constructTree(0, l);
 		return res.toString();
 	}
