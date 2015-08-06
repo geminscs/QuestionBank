@@ -3,6 +3,7 @@ package indi.tammy.qb.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import indi.tammy.qb.annotation.SystemControllerLog;
 import indi.tammy.qb.model.Know;
 import indi.tammy.qb.model.Question;
 import indi.tammy.qb.model.enums.Area;
@@ -214,6 +215,7 @@ public class QuestionAdminController {
 		return res.toString();
 	}
 	
+	@SystemControllerLog(description = "admin里的getKnow")
 	@RequestMapping(value={"/admin/questionAdmin/getKnow"}, method=RequestMethod.GET)
 	@ResponseBody
 	public String getKnows(int subjectId, int gradeId, int fieldId, int standardId){

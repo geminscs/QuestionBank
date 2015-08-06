@@ -8,6 +8,7 @@ import java.util.List;
 
 import java.util.regex.Pattern;
 
+import indi.tammy.qb.annotation.SystemControllerLog;
 import indi.tammy.qb.model.Know;
 import indi.tammy.qb.model.Question;
 import indi.tammy.qb.model.User;
@@ -46,7 +47,7 @@ public class HelloController {
 	@Autowired
 	private EnumService enumService;
 
-	
+	@SystemControllerLog(description = "删除用户")
 	@RequestMapping(value={"/admin/home"},method = RequestMethod.GET)
 	public String adminHomeGet(){
 		
@@ -105,6 +106,7 @@ public class HelloController {
 	}
 	
 	@RequestMapping(value={"/admin/questionCheck/questionModify"},method = RequestMethod.GET)
+	@SystemControllerLog(description = "修改试题")
 	public String adminModifyForCheck(int id, ModelMap modelMap){//根据试题id显示试卷信息
 		Question q = questionService.findById(id);
 		List<QuestionType> l = enumService.findQuestionTypeBySubjectId(q.getSubject_id());
@@ -237,7 +239,7 @@ public class HelloController {
 		return 1;
 	}
 	
-	
+	@SystemControllerLog(description = "check里的getKnow")
 	@RequestMapping(value={"/test/knows"}, method=RequestMethod.GET)
 	@ResponseBody
 	public String testKnows(int subjectId, int gradeId, int areaId, int standardId){
