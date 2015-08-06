@@ -1,12 +1,12 @@
 package indi.tammy.qb.controller;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+
+import java.util.regex.Pattern;
 
 import indi.tammy.qb.model.Know;
 import indi.tammy.qb.model.Question;
@@ -21,12 +21,12 @@ import indi.tammy.qb.service.RegisterService;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,17 +45,6 @@ public class HelloController {
 	@Autowired
 	private EnumService enumService;
 
-	@RequestMapping(value={"/register"},method = RequestMethod.GET)
-	public String registerGet(){
-		List<User> users = registerService.getUsers();
-		System.out.println(users.size());
-		for(User x:users){
-			System.out.println(x.getEmail()+"   "+x.getPassword());
-		}
-		User user = registerService.getUserById("123");
-		System.out.println(user.getEmail());
-		return "register";
-	}
 	
 	@RequestMapping(value={"/admin/home"},method = RequestMethod.GET)
 	public String adminHomeGet(){
@@ -76,7 +65,6 @@ public class HelloController {
 	}
 	
 	
-	
 	@RequestMapping(value={"/admin/importNotice"},method = RequestMethod.GET)
 	public String adminImportNotice(){
 		
@@ -89,7 +77,6 @@ public class HelloController {
 		return "test/test1";
 	}
 	
-
 	@RequestMapping(value={"/admin/questionCheck"},method = RequestMethod.GET)
 	public String adminQuestionCheck(ModelMap modelMap){
 		List<Subject> l = enumService.findAllSubject();
@@ -128,62 +115,9 @@ public class HelloController {
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
 
-	
-	@RequestMapping(value={"/test/qbankInsert"},method = RequestMethod.GET)
-	@ResponseBody
-	public String qbankDelete(){
-		Question question = new Question();
-		question.setContent("这是一道测试 问题");
-		question.setAnswer("没有答案");
-		question.setAnalysis("没有题目解析");
-		question.setType(2);
-		question.setFull(true);
-		question.setHardness(0);
-		question.setSubmit_time(System.currentTimeMillis());
-		questionService.insert(question);
-		return "This is a test page for qbank insert"+question.getId();
-	}
-	
-	@RequestMapping(value={"/test/qbankDelete/{id}"},method = RequestMethod.GET)
-	@ResponseBody
-	public String qbankInsert(@PathVariable("id")int id){
-		questionService.delete(id);
-		return "This is a test page for qbank delete";
-	}
-	
-	@RequestMapping(value={"/test/configPath"},method = RequestMethod.GET)
-	@ResponseBody
-	public String qbankInsert(HttpServletRequest request){
-		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		rootPath = rootPath.replace( "\\", "/" );
-		System.out.println(rootPath);
-		String contextPath = request.getContextPath();
-		System.out.println(contextPath);
-		String uri = request.getRequestURI();
-		System.out.println(uri);
-		
-		String originalPath = null;
-		if ( contextPath.length() > 0 ) {
-			originalPath = rootPath + uri.substring( contextPath.length() );
-		} else {
-			originalPath = rootPath + uri;
-		}
-		System.out.println(originalPath);
-		
-		Resource r = new ClassPathResource("ApplicationContextBase.xml");
-		try {
-			System.out.println(r.getFile().getAbsolutePath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return "1";
-	}
-	
 	@RequestMapping(value={"/admin/questionCheck/getQuestionData"},method = RequestMethod.GET)
 	@ResponseBody
-	public String getJsonData(int subjectId, int pageIndex, int pageSize){
+	public String getQuestionData(int subjectId, int pageIndex, int pageSize){
 		List<Question> l = questionService.findBySubject(subjectId, pageIndex * pageSize + 1, (pageIndex + 1) * pageSize);
 		JSONObject json=new JSONObject();  
 		JSONArray jsonMembers = new JSONArray();
@@ -228,20 +162,43 @@ public class HelloController {
 		return;
 	}
 	
+	@RequestMapping(value={"/admin/questionCheck/passSome"}, method=RequestMethod.GET)
+	@ResponseBody
+	public int questionCheckPassSomw(String idArr){
+		JSONArray ids = new JSONArray(idArr);
+		for(int i = 0;i < ids.length();i ++){
+			Question q = new Question();
+			int id = ids.getInt(i);
+			q.setId(id);
+			questionService.formalInsert(q);
+			questionService.formalInsertKnowQuestion(q.getId(), id);
+			questionService.delete(id);
+		}
+		return 1;
+	}
+	
 	@RequestMapping(value={"/admin/questionCheck/questionModify/save"}, method=RequestMethod.GET)
 	@ResponseBody
 	public String question(String questionInfoStr){
+    	String contentName = "【题面】";
+    	String answerName = "【答案】";
+    	String analysisName = "【解析】";
 		JSONObject jsonObj = new JSONObject(questionInfoStr);
 		Question q = new Question();
 		q.setId(jsonObj.getInt("id"));
 		q.setType(jsonObj.getInt("typeId"));
-		q.setContent(jsonObj.getString("content"));
-		questionService.update(q);
+		String content = jsonObj.getString("content");
+		Document doc = Jsoup.parse(content);
+		Elements divs = doc.children();
+		for(int i = 0;i < divs.size();i ++){
+			System.out.println(divs.get(i).toString());
+		}
+		//questionService.update(q);
 		JSONArray knows = new JSONArray(jsonObj.getString("knowArr"));
 		if(knows.length() > 0){
-			questionService.deleteKnowQuestionByQId(q.getId());
+			//questionService.deleteKnowQuestionByQId(q.getId());
 			for(int i = 0;i < knows.length();i ++){
-				questionService.insertKnowQuestion(q.getId(), knows.getInt(i));
+				//questionService.insertKnowQuestion(q.getId(), knows.getInt(i));
 			}
 		}
 		return null;
@@ -273,5 +230,17 @@ public class HelloController {
 		}
 		return jsonArray;
 	}
+	
+	public String clearFormat(String htmlStr) {
+	    htmlStr = htmlStr
+	        .replaceAll(
+	            "<[/]?(font|FONT|span|SPAN|xml|XML|del|DEL|ins|INS|meta|META|[ovwxpOVWXP]:\\w+)[^>]*?>",
+	            "");
+	    htmlStr = htmlStr
+	        .replaceAll(
+	            "<([^>]*)(?:lang|LANG|class|CLASS|style|STYLE|size|SIZE|face|FACE|[ovwxpOVWXP]:\\w+)=(?:'[^']*'|\"\"[^\"\"]*\"\"|[^>]+)([^>]*)>",
+	            "<$1$2>");
+	    return htmlStr;
+    }
 	
 }
