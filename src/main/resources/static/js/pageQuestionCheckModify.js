@@ -85,6 +85,7 @@ $(function(){
       		
 
     		$.ajax({
+    			type:'POST',
     			url:"/admin/questionCheck/questionModify/save",
     			data:{questionInfoStr:JSON.stringify(questionInfo)},
     			success:function(result){
