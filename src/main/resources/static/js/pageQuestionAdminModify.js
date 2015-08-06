@@ -85,8 +85,9 @@ $(function(){
       		
 
     		$.ajax({
-    			url:"/admin/questionAdmin/modify/save",
+    			url:"/admin/questionAdmin/questionModify/save",
     			data:{questionInfoStr:JSON.stringify(questionInfo)},
+    			type:"POST", 
     			success:function(result){
     				if(result==1||result=='1'){
     					alert('保存成功');
