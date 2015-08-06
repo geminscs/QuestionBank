@@ -493,7 +493,7 @@ $(function(){
 		});
 		
 		$.ajax({
-			url:"/admin/questionAdmin/deleteSome",
+			url:"/admin/questionAdmin/exportSome",
 			data:{idArr:JSON.stringify(idArr)},
 			success:function(result){
 				alert('导出成功');

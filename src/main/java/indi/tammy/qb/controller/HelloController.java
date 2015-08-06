@@ -114,6 +114,12 @@ public class HelloController {
 		modelMap.addAttribute("subjectList", l2);
 		return "pagesQuestionBank/pagesQuestionCheck/pageQuestionModify";
 	}
+	
+	@RequestMapping(value={"/admin/operationLog"},method = RequestMethod.GET)
+	public String adminOperationLog(){//根据试题id显示试卷信息
+		
+		return "pagesOperationLog/pageOperationLog";
+	}
 
 	@RequestMapping(value={"/admin/questionCheck/getQuestionData"},method = RequestMethod.GET)
 	@ResponseBody
