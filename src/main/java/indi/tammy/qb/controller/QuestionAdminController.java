@@ -115,9 +115,9 @@ public class QuestionAdminController {
 		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionModify";
 	}
 	
-	@RequestMapping(value={"/admin/questionCheck/questionModify/save"}, method=RequestMethod.POST)
+	@RequestMapping(value={"/admin/questionAdmin/questionModify/save"}, method=RequestMethod.POST)
 	@ResponseBody
-	public int question(String questionInfoStr){
+	public int questionModifySave(String questionInfoStr){
     	String contentName = "【题面】";
     	String answerName = "【答案】";
     	String analysisName = "【解析】";
