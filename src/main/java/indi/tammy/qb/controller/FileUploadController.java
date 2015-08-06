@@ -211,7 +211,8 @@ public class FileUploadController {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(
 	            new FileInputStream(htmlFile)));
 	        while (br.ready()) {
-	        htmlSb.append(br.readLine());
+	        	htmlSb.append(br.readLine());
+	        	htmlSb.append(" ");
 	        }
 	        br.close();
 	        // 删除临时文件
@@ -262,9 +263,7 @@ public class FileUploadController {
 	        .replaceAll(
 	            "<([^>]*)(?:lang|LANG|class|CLASS|style|STYLE|size|SIZE|face|FACE|[ovwxpOVWXP]:\\w+)=(?:'[^']*'|\"\"[^\"\"]*\"\"|[^>]+)([^>]*)>",
 	            "<$1$2>");
-	    System.out.println(htmlStr);
 	    htmlStr = htmlStr.replaceAll("</u><u>|</U><U>", "");
-	    System.out.println(htmlStr);
 	    return "<!DOCTYPE html>"
 	    +"<html>"
 	    +"<head>"

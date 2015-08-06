@@ -76,12 +76,15 @@ public class QuestionAdminController {
 		List<Subject> high = new ArrayList<Subject>();
 		for(Subject s:l){
 			if(s.getFlag() == 1){
+				s.setName(s.getName().replaceFirst("小学", ""));
 				primary.add(s);
 			}
 			else if(s.getFlag() == 2){
+				s.setName(s.getName().replaceFirst("初中", ""));
 				middle.add(s);
 			}
 			else if(s.getFlag() == 3){
+				s.setName(s.getName().replaceFirst("高中", ""));
 				high.add(s);
 			}
 		}
@@ -244,6 +247,7 @@ public class QuestionAdminController {
 	public String deleteSome(String idArr){
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){
+			System.out.println(ids.getInt(i));
 			questionService.formalDelete(ids.getInt(i));
 		}
 		return "1";
