@@ -93,7 +93,7 @@ public class QuestionWrongController {
 		for(int i = 0;i < ids.length();i ++){
 			questionService.deleteWrongQuestionById(ids.getInt(i));
 		}
-		return null;
+		return "1";
 	}
 	
 	

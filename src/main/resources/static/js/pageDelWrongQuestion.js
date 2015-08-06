@@ -99,6 +99,7 @@ $(function(){
 			success:function(result){
 				if(result==1||result=='1'){
 					alert('成功');
+					$("#page").page('remote');
 				}else{
 					alert('发生错误');
 				}
@@ -116,14 +117,15 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
-//		$.ajax({
-//			url:"/admin/questionAdmin/deleteOne",
-//			data:{id:id},
-//			success:function(){
-//				
-//			}
-//		});
-		alert('del question id:'+id);
+		console.log('del question id:'+id);
+		$.ajax({
+			url:"/admin/questionAdmin/deleteOne",
+			data:{id:id},
+			success:function(){
+				alert('删除成功');
+				$('#page').page('remote');
+			}
+		});
 	});
 	
 	//多题忽视
@@ -136,18 +138,19 @@ $(function(){
 			var id=$(divparent).find('input[name="errorId"]').val();
 			idArr.push(id);
 		});
-//		$.ajax({
-//			url:"/admin/delWrongQuestion/ignoreQuestions",
-//			data:{idArr:idArr},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
-		alert(JSON.stringify(idArr));
+		console.log('ignore error idArr:'+JSON.stringify(idArr));
+		$.ajax({
+			url:"/admin/delWrongQuestion/ignoreSome",
+			data:{idArr:JSON.stringify(idArr)},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('成功');
+					$("#page").page('remote');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 	});
 	
 	//全选
@@ -167,18 +170,20 @@ $(function(){
 			var id=$(divparent).find('input[name="questionId"]').val();
 			idArr.push(id);
 		});
-//		$.ajax({
-//			url:"/admin/questionAdmin/deleteQuestions",
-//			data:{idArr:idArr},
-//			success:function(){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
-		alert(JSON.stringify(idArr));
+		console.log('del question idArr:'+JSON.stringify(idArr));
+		$.ajax({
+			url:"/admin/questionAdmin/deleteSome",
+			data:{idArr:JSON.stringify(idArr)},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('删除成功');
+					$('#page').page('remote');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
+		
 	});
 	
 	//选择科目

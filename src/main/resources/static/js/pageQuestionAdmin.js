@@ -425,7 +425,7 @@ $(function(){
 		$('#modalReportError').modal('hide');
 	});
 	
-	//多题审核通过
+	//多题添加至组卷
 	$('button[name="btnAddQuestionsToPaper"]').click(function(){
 		var idArr=[];
 		$('input[name="checkBoxForSelect"]:checked').each(function(){
@@ -458,7 +458,7 @@ $(function(){
 		});
 		
 		$.ajax({
-			url:"/admin/questionAdmin/deleteQuestions",
+			url:"/admin/questionAdmin/deleteSome",
 			data:{idArr:JSON.stringify(idArr)},
 			success:function(result){
 				if(result==1||result=='1'){
