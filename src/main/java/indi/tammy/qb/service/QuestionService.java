@@ -85,5 +85,22 @@ public class QuestionService {
 	public void insertWrongQuestion(int question_id, int wrong_type, String wrong_message){
 		questionDao.insertWrongQuestion(question_id, wrong_type, wrong_message);
 	}
+	
+	public Question formalFindById(int id){
+		return questionDao.formalFindById(id);
+	}
+	
+	public void formalModifyQuestion(Question q){
+		questionDao.formalModifyQuestion(q);
+	}
+	
+	public void formalModifyKnowQuestion(int question_id, int know_id){
+		questionDao.formalModifyKnowQuestion(question_id, know_id);
+	}
+	
+	public void formalCopyKnowQuestionByQId(int old_id, int new_id){
+		questionDao.formalCopyKnowQuestionByQId(old_id, new_id);
+	}
+
 
 }
