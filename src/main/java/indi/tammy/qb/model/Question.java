@@ -156,6 +156,12 @@ public class Question {
 		this.wrong_message = wrong_message;
 		this.total = total;
 	}
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", content=" + content + ", analysis="
+				+ analysis + ", answer=" + answer + ", type=" + type
+				+ ", subject_id=" + subject_id + "]";
+	}
 	
 	
 }

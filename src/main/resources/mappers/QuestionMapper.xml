@@ -9,6 +9,10 @@
 		insert into qb_temp_qbank(content, analysis, answer, type, isFull, hardness, submit_time, subject_id) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time}, #{subject_id})
 	</insert>
 	
+	<insert id="formalModifyQuestion" parameterType="indi.tammy.qb.model.Question" useGeneratedKeys="true" keyProperty="id">
+		insert into qb_formal_qbank(content, analysis, answer, type, isFull, hardness, submit_time, subject_id) values(#{content},#{analysis}, #{answer}, #{type}, #{isFull}, #{hardness}, #{submit_time}, #{subject_id})
+	</insert>
+	
 	<insert id="formalInsert" parameterType="indi.tammy.qb.model.Question" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO qb_formal_qbank (
 			content,
@@ -44,8 +48,22 @@
 			qb_temp_knowQuestion.question_id = #{temp_id}
 	</insert>
 	
+	<insert id="formalCopyKnowQuestionByQId" keyProperty="id">
+		INSERT INTO qb_formal_knowQuestion (question_id, know_id) SELECT
+			${new_id},
+			qb_formal_knowQuestion.know_id
+		FROM
+			qb_formal_knowQuestion
+		WHERE
+			qb_formal_knowQuestion.question_id = #{old_id}
+	</insert>
+	
 	<insert id="insertKnowQuestion" keyProperty="id">
 		insert into qb_temp_knowQuestion(question_id, know_id) values(#{question_id},#{know_id})
+	</insert>
+	
+	<insert id="formalModifyKnowQuestion" keyProperty="id">
+		insert into qb_fromal_knowQuestion(question_id, know_id) values(#{question_id},#{know_id})
 	</insert>
 	
 	<insert id="insertWrongQuestion" keyProperty="id">
@@ -199,6 +217,15 @@
 			qb_temp_qbank
 		WHERE
 			t1.id = qb_temp_qbank.id
+	</select>
+	
+	<select id="formalFindById" parameterType="int" resultType="indi.tammy.qb.model.Question" >
+		SELECT
+			qb_formal_qbank.*, dbo.FormalAggregateString (id) know_name
+		FROM
+			qb_formal_qbank
+		WHERE
+			id = #{id}
 	</select>
 	
 	<select id="findHaveSimQuestionBySubjectId" resultType="indi.tammy.qb.model.Question" >

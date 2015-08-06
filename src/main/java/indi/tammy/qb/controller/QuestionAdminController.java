@@ -14,8 +14,13 @@ import indi.tammy.qb.service.EnumService;
 import indi.tammy.qb.service.KnowService;
 import indi.tammy.qb.service.QuestionService;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -96,6 +101,77 @@ public class QuestionAdminController {
 		modelMap.addAttribute("standardList", enumService.findStandardBySubjectId(101));
 		modelMap.addAttribute("questionTypeList", enumService.findQuestionTypeBySubjectId(101));
 		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionAdmin";
+	}
+	
+	@RequestMapping(value={"/admin/questionAdmin/questionModify"},method = RequestMethod.GET)
+	public String questionModify(int id, ModelMap modelMap){
+		Question q = questionService.formalFindById(id);
+		List<QuestionType> l = enumService.findQuestionTypeBySubjectId(q.getSubject_id());
+		q.setContent(StringEscapeUtils.unescapeHtml4(q.getContent()));
+		List<Subject> l2 = enumService.findAllSubject();
+		modelMap.addAttribute("question", q);
+		modelMap.addAttribute("questionTypeList", l);
+		modelMap.addAttribute("subjectList", l2);
+		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionModify";
+	}
+	
+	@RequestMapping(value={"/admin/questionAdmin/questionModify/save"}, method=RequestMethod.POST)
+	@ResponseBody
+	public int questionModifySave(String questionInfoStr){
+    	String contentName = "【题面】";
+    	String answerName = "【答案】";
+    	String analysisName = "【解析】";
+		JSONObject jsonObj = new JSONObject(questionInfoStr);
+		Question q = new Question();
+		q.setId(jsonObj.getInt("id"));
+		q.setType(jsonObj.getInt("typeId"));
+		q.setSubject_id(jsonObj.getInt("subjectId"));
+		String content = jsonObj.getString("content");
+		content = clearFormat(content);
+		System.out.println(content);
+		Document doc = Jsoup.parse(content);
+		Elements divs = doc.body().children();
+		String nowType = null;
+		for(int i = 0;i < divs.size();i ++){
+			Element div = divs.get(i);
+			if(div.html().startsWith(contentName)){
+				nowType = contentName;
+				q.setContent(div.html().substring(contentName.length()));
+			}
+			else if(div.html().startsWith(answerName)){
+				nowType = answerName;
+				q.setAnswer(div.html().substring(answerName.length()));
+			}
+			else if(div.html().startsWith(analysisName)){
+				nowType = analysisName;
+				q.setAnalysis(div.html().substring(analysisName.length()));
+			}
+			else{
+				if(nowType == null){
+					return 0;
+				}
+				if(nowType.equals(contentName)){
+					q.setContent(q.getContent() + "<br/>" +div.html());
+				}
+				else if(nowType.equals(answerName)){
+					q.setAnswer(q.getAnswer() + "<br/>" +div.html());
+				}
+				else if(nowType.equals(analysisName)){
+					q.setAnalysis(q.getAnalysis() + "<br/>" +div.html());
+				}
+			}
+		}
+		if(q.getContent() == null || q.getAnalysis() == null || q.getAnswer() == null){
+			return 0;
+		}
+		questionService.formalModifyQuestion(q);
+		JSONArray knows = jsonObj.getJSONArray("knowArr");
+		if(knows.length() > 0){
+			for(int i = 0;i < knows.length();i ++){
+				questionService.formalModifyKnowQuestion(q.getId(), knows.getInt(i));
+			}
+		}
+		return 1;
 	}
 	
 	@RequestMapping(value={"/admin/questionAdmin/getQuestionData"},method = RequestMethod.GET)
@@ -264,5 +340,21 @@ public class QuestionAdminController {
 	public String modify(int id){
 		return "pagesQuestionBank/pagesQuestionAdmin/pageQuestionModify";
 	}
+	
+	public String clearFormat(String htmlStr) {
+	    htmlStr = htmlStr
+	        .replaceAll(
+	            "<[/]?(font|FONT|span|SPAN|xml|XML|del|DEL|ins|INS|meta|META|[ovwxpOVWXP]:\\w+)[^>]*?>",
+	            "");
+	    htmlStr = htmlStr
+	        .replaceAll(
+	            "<([^>]*)(?:lang|LANG|class|CLASS|style|STYLE|size|SIZE|face|FACE|[ovwxpOVWXP]:\\w+)=(?:'[^']*'|\"\"[^\"\"]*\"\"|[^>]+)([^>]*)>",
+	            "<$1$2>");
+	    htmlStr = htmlStr.replaceAll("<[P|p]>", "");
+	    htmlStr = htmlStr.replaceAll("</[P|p]>", "<br/>");
+	    //htmlStr = htmlStr.replaceAll("<[div|DIV]>", "");
+	    //htmlStr = htmlStr.replaceAll("</[div|DIV]>", "<br/>");
+	    return htmlStr;
+    }
 	
 }

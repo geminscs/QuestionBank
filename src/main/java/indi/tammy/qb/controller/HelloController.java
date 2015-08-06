@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -183,9 +184,9 @@ public class HelloController {
 		return 1;
 	}
 	
-	@RequestMapping(value={"/admin/questionCheck/questionModify/save"}, method=RequestMethod.GET)
+	@RequestMapping(value={"/admin/questionCheck/questionModify/save"}, method=RequestMethod.POST)
 	@ResponseBody
-	public String question(String questionInfoStr){
+	public int question(String questionInfoStr){
     	String contentName = "【题面】";
     	String answerName = "【答案】";
     	String analysisName = "【解析】";
@@ -193,21 +194,53 @@ public class HelloController {
 		Question q = new Question();
 		q.setId(jsonObj.getInt("id"));
 		q.setType(jsonObj.getInt("typeId"));
+		q.setSubject_id(jsonObj.getInt("subjectId"));
 		String content = jsonObj.getString("content");
+		content = clearFormat(content);
 		Document doc = Jsoup.parse(content);
-		Elements divs = doc.children();
+		Elements divs = doc.body().children();
+		String nowType = null;
 		for(int i = 0;i < divs.size();i ++){
-			System.out.println(divs.get(i).toString());
-		}
-		//questionService.update(q);
-		JSONArray knows = new JSONArray(jsonObj.getString("knowArr"));
-		if(knows.length() > 0){
-			//questionService.deleteKnowQuestionByQId(q.getId());
-			for(int i = 0;i < knows.length();i ++){
-				//questionService.insertKnowQuestion(q.getId(), knows.getInt(i));
+			Element div = divs.get(i);
+			if(div.html().startsWith(contentName)){
+				nowType = contentName;
+				q.setContent(div.html().substring(contentName.length()));
+			}
+			else if(div.html().startsWith(answerName)){
+				nowType = answerName;
+				q.setAnswer(div.html().substring(answerName.length()));
+			}
+			else if(div.html().startsWith(analysisName)){
+				nowType = analysisName;
+				q.setAnalysis(div.html().substring(analysisName.length()));
+			}
+			else{
+				if(nowType == null){
+					return 0;
+				}
+				if(nowType.equals(contentName)){
+					q.setContent(q.getContent() + "<br/>" +div.html());
+				}
+				else if(nowType.equals(answerName)){
+					q.setAnswer(q.getAnswer() + "<br/>" +div.html());
+				}
+				else if(nowType.equals(analysisName)){
+					q.setAnalysis(q.getAnalysis() + "<br/>" +div.html());
+				}
 			}
 		}
-		return null;
+		if(q.getContent() == null || q.getAnalysis() == null || q.getAnswer() == null){
+			return 0;
+		}
+		questionService.update(q);
+		JSONArray knows = jsonObj.getJSONArray("knowArr");
+		if(knows.length() > 0){
+			questionService.deleteKnowQuestionByQId(q.getId());
+			for(int i = 0;i < knows.length();i ++){
+				questionService.insertKnowQuestion(q.getId(), knows.getInt(i));
+			}
+		}
+		return 1;
 	}
 	
 	
@@ -246,6 +279,8 @@ public class HelloController {
 	        .replaceAll(
 	            "<([^>]*)(?:lang|LANG|class|CLASS|style|STYLE|size|SIZE|face|FACE|[ovwxpOVWXP]:\\w+)=(?:'[^']*'|\"\"[^\"\"]*\"\"|[^>]+)([^>]*)>",
 	            "<$1$2>");
+	    htmlStr = htmlStr.replaceAll("<[P|p]>", "");
+	    htmlStr = htmlStr.replaceAll("</[P|p]>", "<br/>");
 	    return htmlStr;
     }
 	
