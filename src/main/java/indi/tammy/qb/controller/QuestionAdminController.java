@@ -244,6 +244,7 @@ public class QuestionAdminController {
 	public String deleteSome(String idArr){
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){
+			System.out.println(ids.getInt(i));
 			questionService.formalDelete(ids.getInt(i));
 		}
 		return "1";
