@@ -479,4 +479,26 @@ $(function(){
 		getPage();
 		//alert(key);
 	});
+	
+	//试题导出
+	$('#btnExportInWord').click(function(){
+		console.log('export in word');
+		var idArr=[];
+		$('input[name="checkBoxForSelect"]:checked').each(function(){
+			var parents=$(this).parentsUntil('div[name="divQuestionBox"]');
+			var divparent = $(parents[parents.length-1]).parent();
+			//alert(divparent);
+			var id=$(divparent).find('input[name="questionId"]').val();
+			idArr.push(id);
+		});
+		
+		$.ajax({
+			url:"/admin/questionAdmin/deleteSome",
+			data:{idArr:JSON.stringify(idArr)},
+			success:function(result){
+				alert('导出成功');
+			}
+		});
+		
+	});
 });
