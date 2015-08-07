@@ -342,7 +342,6 @@ $(function(){
 	$(document).on("click",'button[name="btnModifyOneQuestion"]',function(){
 		//alert('btnPassForOneQuestion绑定成功');
 		//$(this).removeClass();
-		$(this).parent().find('button').addClass('disabled');
 		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
@@ -378,7 +377,6 @@ $(function(){
 	$(document).on("click",'button[name="btnReportOneError"]',function(){
 		//alert('btnPassForOneQuestion绑定成功');
 		//$(this).removeClass();
-		$(this).parent().find('button').addClass('disabled');
 		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
