@@ -5,7 +5,7 @@ $(function(){
 	$.getJSON('/admin/questionAdmin/getKnow', {
 		subjectId:$('#selectForSubject').val(),
 		gradeId:-1,
-		areaId:-1,
+		fieldId:-1,
 		standardId:-1
 		},function (result, status) {
 			alert(JSON.stringify(result));
@@ -80,7 +80,7 @@ $(function(){
 		$.getJSON('/admin/questionAdmin/getKnow', {
 			subjectId:$('#selectForSubject').val(),
 			gradeId:-1,
-			areaId:-1,
+			fieldId:-1,
 			standardId:-1
 			},function (result, status) {
 				alert(JSON.stringify(result));

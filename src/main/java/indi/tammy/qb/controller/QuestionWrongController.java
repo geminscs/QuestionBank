@@ -86,7 +86,7 @@ public class QuestionWrongController {
 	@ResponseBody
 	public String ignoreOne(int id){//根据试题id显示试卷信息
 		questionService.deleteWrongQuestionById(id);
-		return null;
+		return "1";
 	}
 	
 	@RequestMapping(value={"/admin/delWrongQuestion/ignoreSome"},method = RequestMethod.GET)
