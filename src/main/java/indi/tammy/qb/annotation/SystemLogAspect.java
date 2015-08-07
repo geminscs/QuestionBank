@@ -48,7 +48,8 @@ public  class SystemLogAspect {
      * 
      * @param joinPoint 切点 
      */  
-    @Before("controllerAspect()")  
+    
+   /* @Before("controllerAspect()")  
      public  void doBefore(JoinPoint joinPoint) {  
   
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();  
@@ -57,7 +58,6 @@ public  class SystemLogAspect {
         String ip = request.getRemoteAddr();  
         
          try {  
-            //*========控制台输出=========*//  
             System.out.println("=====前置通知开始=====");  
             System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));  
             System.out.println("方法描述:" + getControllerMethodDescription(joinPoint));  
@@ -69,18 +69,38 @@ public  class SystemLogAspect {
             logger.error("==前置通知异常==");  
             logger.error("异常信息:{}", e.getMessage());  
         }  
-    }  
+    }  */
     
-    @AfterReturning(value="controllerAspect()", argNames="rtv", returning="rtv")
+    /*@AfterReturning(value="controllerAspect()", argNames="rtv", returning="rtv")
     public void doAfter(JoinPoint jp, Object rtv){
     	System.out.println("结束了");
     	System.out.println(rtv);
-    }
+    }*/
     
    
-    @AfterThrowing(pointcut = "controllerAspect()", throwing = "e")  
-    public  void doAfterThrowing2(JoinPoint joinPoint, Throwable e){
-    	System.out.println("抓到异常了");
+    @Around(value = "controllerAspect()")  
+    public  Object  doAfterThrowing2(ProceedingJoinPoint  pjp){
+    	System.out.println("====around=====start");
+    	 HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();  
+         String ip = request.getRemoteAddr();  
+    	try  
+        {   
+             Object[] args           = pjp.getArgs(); 
+             System.out.println("参数"+Arrays.toString(args));
+             System.out.println("ip"+ip);
+             System.out.println("请求方法:" + (pjp.getTarget().getClass().getName() + "." + pjp.getSignature().getName() + "()"));  
+             System.out.println("方法描述:" + getControllerMethodDescription(pjp)); 
+             Object result = pjp.proceed( args ); 
+             System.out.println("返回值"+result);
+             System.out.println("====around=====end");
+             return result;  
+             
+               
+         }catch(Throwable e)  
+         {  
+             logger.error(e.toString(), e);  
+         }  
+         return null;  
     }
     /** 
      * 异常通知 用于拦截service层记录异常日志 
