@@ -155,9 +155,20 @@ public class HelloController {
 	
 	@RequestMapping(value={"/admin/questionCheck/delete"}, method=RequestMethod.GET)
 	@ResponseBody
-	public void questionCheckDelete(int id){
+	public int questionCheckDelete(int id){
 		questionService.delete(id);
-		return;
+		return 1;
+	}
+	
+	@RequestMapping(value={"/admin/questionCheck/deleteSome"}, method=RequestMethod.GET)
+	@ResponseBody
+	public int questionCheckDeleteSome(String idArr){
+		JSONArray ids = new JSONArray(idArr);
+		for(int i = 0;i < ids.length();i ++){
+			int id = ids.getInt(i);
+			questionService.delete(id);
+		}
+		return 1;
 	}
 	
 	@RequestMapping(value={"/admin/questionCheck/pass"}, method=RequestMethod.GET)
