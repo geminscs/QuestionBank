@@ -177,16 +177,6 @@ $(function(){
 				 });
 	 }
 	 
-	//筛选知识点的树形结构
-	$('#treeviewOfKPoint_pQuestionAdmin').treeview({
-        color: "#428bca",
-        expandIcon: 'glyphicon glyphicon-chevron-right',
-        collapseIcon: 'glyphicon glyphicon-chevron-down',
-        nodeIcon: 'glyphicon glyphicon-bookmark',
-        data: "",
-        showBorder:false,
-        showTags:true
-    });
 	
 	//分页插件
 	//$("#page").page({ total: 1000 });
@@ -237,8 +227,7 @@ $(function(){
 		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
 		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
 		var originName=$('b[name="currentSubjectName"]').text();
-		//$(this).parent().parent().find('h5[name=subjectSubName1]').text()+
-		var subjectName=$(this).text();
+		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
 		$('b[name="currentSubjectName"]').text(subjectName);
 		$('input[name="currentSubjectId"]').val($(this).find('input').val());
 		//alert($('input[name="currentSubjectId"]').val());

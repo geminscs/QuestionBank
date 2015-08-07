@@ -42,7 +42,13 @@ $(function(){
 	        success: function (result, pageIndex) {
 	            //回调函数
 	            //result 为 请求返回的数据，呈现数据
-	        	 $("#test").empty().html($("#questionBoxTmpl").render(jQuery.parseJSON(result.data)));
+	        	if(parseInt(result.total)==0){
+	        		$("#test").empty();
+	        		$('#divNoResult').css('display','');
+	        	}else{
+	        		$('#divNoResult').css('display','none');
+	        		$("#test").empty().html($("#questionBoxTmpl").render(jQuery.parseJSON(result.data)));
+	        	}
 	        },
 	        complete: function(XMLHttpRequest, textStatu){
 	            //...
@@ -126,7 +132,7 @@ $(function(){
 		});
 		$.ajax({
 			url:"/admin/questionCheck/passSome",
-			data:{idArrStr:JSON.stringify(idArr)},
+			data:{idArr:JSON.stringify(idArr)},
 			success:function(){
 				$("#page").page( 'remote');
 			}
@@ -154,7 +160,7 @@ $(function(){
 		});
 		$.ajax({
 			url:"/admin/questionCheck/deleteSome",
-			data:{idArrStr:JSON.stringify(idArr)},
+			data:{idArr:JSON.stringify(idArr)},
 			success:function(){
 				$("#page").page( 'remote');
 			}
@@ -168,8 +174,8 @@ $(function(){
 		$('div[name="divForSelectSubject"]').find('.box-body').toggle(200);
 		$('div[name="divForSelectSubject"]').addClass('collapsed-box');
 		$('div[name="divForSelectSubject"]').find('i').removeClass('fa-minus').addClass('fa-plus');
-		//$(this).parent().parent().find('h5[name=subjectSubName1]').text()+
-		var subjectName=$(this).text();
+		//
+		var subjectName=$(this).parent().parent().find('h5[name=subjectSubName1]').text()+$(this).text();
 		$('b[name="currentSubjectName"]').text(subjectName);
 		$('input[name="currentSubjectId"]').val($(this).find('input').val());
 		alert($('b[name="currentSubjectName"]').text());
