@@ -101,6 +101,10 @@ public class QuestionService {
 	public void formalCopyKnowQuestionByQId(int old_id, int new_id){
 		questionDao.formalCopyKnowQuestionByQId(old_id, new_id);
 	}
+	
+	public void deleteSimQuestionById(int id){
+		questionDao.deleteSimQuestionById(id);
+	}
 
 
 }

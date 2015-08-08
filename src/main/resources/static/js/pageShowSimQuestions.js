@@ -34,7 +34,7 @@ $(function(){
 	    infoFormat: '{start} ~ {end}条，共{total}条',
 	    //total:1000
 	    remote: {
-	        url: '/getJsonData',  //请求地址
+	        url: '/admin/delSimQuestion/checkSimQuestions/getSimData',  //请求地址
 	        params: { 
 	        	id: $('#defaultQuestionId').val(),
 	        	subject:$('input[name="currentSubjectName"]').val()

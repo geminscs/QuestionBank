@@ -91,6 +91,10 @@
          delete from qb_similar_question where question_id=#{id}
     </delete>
     
+    <delete id="deleteSimQuestionById" parameterType="int">
+         delete from qb_similar_question where id=#{id}
+    </delete>
+    
     <delete id="deleteWrongQuestionById" parameterType="int">
          delete from qb_wrong_question where id=#{id}
     </delete>
@@ -221,11 +225,15 @@
 	
 	<select id="formalFindById" parameterType="int" resultType="indi.tammy.qb.model.Question" >
 		SELECT
-			qb_formal_qbank.*, dbo.FormalAggregateString (id) know_name
+			qb_formal_qbank.*, qb_question_type.type_name,
+			TB_Subject.name subject_name,
+			dbo.FormalAggregateString (qb_formal_qbank.id) know_name
 		FROM
 			qb_formal_qbank
+			INNER JOIN qb_question_type ON qb_formal_qbank.type = qb_question_type.type
+			INNER JOIN TB_Subject ON qb_formal_qbank.subject_id = TB_Subject.id
 		WHERE
-			id = #{id}
+			qb_formal_qbank.id = #{id}
 	</select>
 	
 	<select id="findHaveSimQuestionBySubjectId" resultType="indi.tammy.qb.model.Question" >
@@ -260,7 +268,8 @@
 			SELECT
 				qb_formal_qbank.*, qb_question_type.type_name,
 				dbo.FormalAggregateString (qb_formal_qbank.id) know_name,
-				COUNT (*) OVER () total, row_number() over(ORDER BY qb_formal_qbank.id) n
+				COUNT (*) OVER () total, row_number() over(ORDER BY qb_similar_question.id) n,
+				qb_similar_question.id similar_id
 			FROM
 				qb_similar_question
 				INNER JOIN qb_formal_qbank ON qb_similar_question.question_id = #{question_id}

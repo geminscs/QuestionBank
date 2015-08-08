@@ -79,9 +79,10 @@ public class QuestionSimilarController {
 		return res.toString();
 	}
 	
-	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions"},method = RequestMethod.GET)
-	public String checkSimQuestions(int id){//根据试题id显示试卷信息
-		List<Question> l = questionService.findSimQuestionByQId(1, 10, id);
+	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions/getSimData"},method = RequestMethod.GET)
+	@ResponseBody
+	public String checkSimQuestionsGetSimData(int id, int pageIndex, int pageSize){//根据试题id显示试卷信息
+		List<Question> l = questionService.findSimQuestionByQId(pageIndex*pageSize+1, (pageIndex+1)*pageSize, id);
 		JSONArray jsonMembers = new JSONArray();
 		JSONObject res = new JSONObject();
 		for(Question q:l){
@@ -92,36 +93,59 @@ public class QuestionSimilarController {
 			member.put("answer", q.getAnswer());  
 			member.put("analysis", q.getAnalysis());  
 			member.put("know", q.getKnow_name());
+			member.put("simId", q.getSimilar_id());
 			
 			jsonMembers.put(member);
 		}
 		
 		if(l.size() > 0){
 			res.put("total", l.get(0).getTotal());
-		}
-		else{
+		}else{
 			res.put("total", 0);
 		}
 		res.put("data", jsonMembers);
-		System.out.println(res.toString());
+		return res.toString();
+	}
+	
+	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions"},method = RequestMethod.GET)
+	public String checkSimQuestions(int id, ModelMap modelMap){//根据试题id显示试卷信息
+		Question q = questionService.formalFindById(id);
+		modelMap.addAttribute("question", q);
 		return "pagesQuestionBank/pagesDelSimQuestion/pageShowSimQuestion";
 	}
 	
 	@RequestMapping(value={"/admin/delSimQuestion/ignoreOne"},method = RequestMethod.GET)
 	@ResponseBody
-	public String ignoreOne(int id){
+	public int ignoreOne(int id){
 		questionService.deleteSimQuestionByQId(id);
-		return null;
+		return 1;
 	}
 	
 	@RequestMapping(value={"/admin/delSimQuestion/ignoreSome"},method = RequestMethod.GET)
 	@ResponseBody
-	public String ignoreSome(String idArr){
+	public int ignoreSome(String idArr){
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){
 			questionService.deleteSimQuestionByQId(ids.getInt(i));
 		}
-		return null;
+		return 1;
+	}
+	
+	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions/ignoreOne"},method = RequestMethod.GET)
+	@ResponseBody
+	public int checkSimQuestionsIgnoreOne(int id){
+		questionService.deleteSimQuestionById(id);
+		return 1;
+	}
+	
+	@RequestMapping(value={"/admin/delSimQuestion/checkSimQuestions/ignoreSome"},method = RequestMethod.GET)
+	@ResponseBody
+	public int checkSimQuestionsIgnoreSome(String idArr){
+		JSONArray ids = new JSONArray(idArr);
+		for(int i = 0;i < ids.length();i ++){
+			questionService.deleteSimQuestionById(ids.getInt(i));
+		}
+		return 1;
 	}
 	
 }
