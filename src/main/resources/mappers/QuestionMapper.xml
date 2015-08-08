@@ -126,14 +126,14 @@
 	
 	<select id="formalFindByParam" resultType="indi.tammy.qb.model.Question" >
 		SELECT TOP ${pEnd}
-			*, COUNT (*) OVER () total
+			*
 		FROM
 		(
 		SELECT 
 		qb_formal_qbank.*, 
 		t2.name know_name, 
 		row_number () OVER (ORDER BY qb_formal_qbank.id) n,
-		qb_question_type.type_name
+		qb_question_type.type_name, COUNT (*) OVER () total
 		FROM
 			(
 			SELECT
@@ -234,16 +234,23 @@
 		FROM
 			(
 			SELECT
-				qb_formal_qbank.*, qb_question_type.type_name,COUNT (*) OVER () total,
-				row_number () OVER (ORDER BY qb_formal_qbank.id) n,dbo.formalAggregateString(qb_formal_qbank.id) know_name
+				qb_formal_qbank.*, qb_question_type.type_name,
+				COUNT (*) OVER () total,
+				row_number () OVER (ORDER BY qb_formal_qbank.id) n,
+				dbo.formalAggregateString (qb_formal_qbank.id) know_name
 			FROM
-				qb_similar_question
-				INNER JOIN qb_formal_qbank ON qb_formal_qbank.subject_id = #{subject_id}
-				AND qb_formal_qbank.id = qb_similar_question.question_id
-				INNER JOIN qb_question_type ON qb_formal_qbank.id=qb_question_type.type
-			) t1
-		WHERE
-			t1.n >= #{pStart}
+				(
+				SELECT DISTINCT
+					qb_similar_question.question_id
+				FROM
+					qb_similar_question
+				) t1
+				INNER JOIN qb_formal_qbank ON t1.question_id = qb_formal_qbank.id
+				AND qb_formal_qbank.subject_id = #{subject_id}
+				INNER JOIN qb_question_type ON qb_formal_qbank.type = qb_question_type.type
+				) t2
+			WHERE
+				t2.n >= #{pStart}
 	</select>
 
 	<select id="findSimQuestionByQId" resultType="indi.tammy.qb.model.Question" >

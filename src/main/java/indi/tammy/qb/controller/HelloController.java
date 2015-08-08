@@ -144,7 +144,7 @@ public class HelloController {
 			jsonMembers.put(member); 
 		}
 		if(l.size() > 0){
-			json.put("total", l.size());
+			json.put("total", l.get(0).getTotal());
 		}
 		else{
 			json.put("total", 0);

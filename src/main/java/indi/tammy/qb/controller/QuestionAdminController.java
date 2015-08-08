@@ -187,10 +187,6 @@ public class QuestionAdminController {
 		List<Question> l = questionService.formalFindByParam(pageIndex*pageSize+1, (pageIndex+1)*pageSize, knowId, fieldId, standardId, gradeId, subjectId, typeId, -1, key);
 		JSONObject res = new JSONObject();
 		JSONArray jsonMembers = new JSONArray();
-		if(l.size() == 0){
-			res.put("total", 0);
-			return res.toString();
-		}
 		for(int i = 0;i < l.size();i ++){
 			JSONObject member = new JSONObject();
 			Question q = l.get(i);
