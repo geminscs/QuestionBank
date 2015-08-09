@@ -20,12 +20,18 @@ public class Question {
 	private int wrong_id;
 	private String wrong_type_name;
 	private String wrong_message;
+	private int similar_id;
 	
 	//查询得到的总条目数
 	private int total;
 	
 	
-	
+	public int getSimilar_id() {
+		return similar_id;
+	}
+	public void setSimilar_id(int similar_id) {
+		this.similar_id = similar_id;
+	}
 	public int getWrong_id() {
 		return wrong_id;
 	}
@@ -132,11 +138,13 @@ public class Question {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Question(int id, String content, String analysis, String answer,
 			int type, boolean isFull, int hardness, long submit_time,
 			int subject_id, String know_name, String type_name,
 			String subject_name, int wrong_type, int wrong_id,
-			String wrong_type_name, String wrong_message, int total) {
+			String wrong_type_name, String wrong_message, int similar_id,
+			int total) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -154,6 +162,7 @@ public class Question {
 		this.wrong_id = wrong_id;
 		this.wrong_type_name = wrong_type_name;
 		this.wrong_message = wrong_message;
+		this.similar_id = similar_id;
 		this.total = total;
 	}
 	@Override

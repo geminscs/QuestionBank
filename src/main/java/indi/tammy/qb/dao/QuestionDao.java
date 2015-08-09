@@ -28,7 +28,9 @@ public interface QuestionDao {
 	
 	public void deleteKnowQuestionByQId(int id);
 	
-	public void deleteSimQuestionByQId(int question_id);
+	public void deleteSimQuestionByQId(int id);
+	
+	public void deleteSimQuestionById(int id);
 	
 	public void deleteWrongQuestionById(int id);
 	

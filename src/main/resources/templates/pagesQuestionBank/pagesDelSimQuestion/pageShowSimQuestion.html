@@ -235,25 +235,24 @@
 
           <!-- Main content -->
           <section class="content">
-          			<input id="defaultQuestionId" type="hidden" value="1"/>
+          			<input id="defaultQuestionId" type="hidden" th:value="${question.id}"/>
           			<div class="box box-solid" name="divQuestionBox">
-						<input type="hidden" value="{{:id}}" name="questionId"/>
+						<input type="hidden" th:value="${question.id}" name="questionId"/>
 						<div class="box-header with-border">
 							<h5 class="box-title">原题</h5>
 							<div class="pull-right">
 						      <!-- Buttons, labels, and many other things can be placed here! -->
 						      <!-- Here is a label for example -->
 						      <span>
-						      	<label>题型：{{:type}}</label>&nbsp;&nbsp;
-						      	<label>科目：{{:subject}}</label>&nbsp;&nbsp;
-						      	<label>年级：{{:grade}}</label>&nbsp;&nbsp;
-						      	<label>知识点：{{:know}}</label>
+						      	<label th:text="题型：+${question.type_name}"></label>&nbsp;&nbsp;
+						      	<label th:text="科目：+${question.subject_name}"></label>&nbsp;&nbsp;
+						      	<label th:text="知识点：+${question.know_name}"></label>
 						      </span>
 						    </div><!-- /.box-tools -->
 						</div>
   						<div class="box-body">
-  							<div style="padding-left:10px;padding-right:10px;">
-  								{{:content}}
+  							<div style="padding-left:10px;padding-right:10px;" th:utext="${question.content}">
+  								
   							</div>
   						</div><!-- /.box-body -->
   						<div class="box-footer with-border">
@@ -267,11 +266,9 @@
   							<div class="box-info box-solid" style="display:none;" name="divFullInfo">
   								<br/>
   								<div class="box-body bg-gray color-palette">
-	  								<p><label>答案：</label>
-	  									{{:answer}}
+	  								<p th:utext="答案：+${question.answer}"><label>答案：</label>
 	  								</p>
-	  								<p><label>解析：</label>
-	  									{{:analysis}}
+	  								<p th:utext="解析：+${question.analysis}"><label>解析：</label>
 	  								</p>
   								</div>
   							</div>
