@@ -34,7 +34,7 @@ $(function(){
 	    infoFormat: '{start} ~ {end}条，共{total}条',
 	    //total:1000
 	    remote: {
-	        url: '/getJsonData',  //请求地址
+	        url: '/admin/delSimQuestion/checkSimQuestions/getSimData',  //请求地址
 	        params: { 
 	        	id: $('#defaultQuestionId').val(),
 	        	subject:$('input[name="currentSubjectName"]').val()
@@ -107,7 +107,7 @@ $(function(){
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
 //		$.ajax({
-//			url:"/admin/delSimQuestion/ignoreOneQuestion",
+//			url:"/admin/delSimQuestion/checkSimQuestions/ignoreOne",
 //			data:{id:id},
 //			success:function(result){
 //				if(result==1||result=='1'){
@@ -135,7 +135,7 @@ $(function(){
 			idArr.push(id);
 		});
 //		$.ajax({
-//			url:"/admin/delSimQuestion/ignoreSome",
+//			url:"/admin/delSimQuestion/checkSimQuestions/ignoreOne",
 //			data:{idArr:idArr},
 //			success:function(result){
 //				if(result==1||result=='1'){
@@ -195,6 +195,29 @@ $(function(){
 //		});
 		alert(JSON.stringify(idArr));
 	});
+	
+	//忽略全部
+	$('#btnIgnoreTheQuestion').click(function(){
+		$(this).parent().find('button').addClass('disabled');
+		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
+		var divparent = $(parents[parents.length-1]).parent();
+		//alert(divparent);
+		var id=$(divparent).find('input[name="questionId"]').val();
+//		$.ajax({
+//		url:"/admin/delSimQuestion/ignoreOne",
+//		data:{id:id},
+//		success:function(result){
+//			if(result==1||result=='1'){
+//				alert('成功');
+//				$("#page").page( 'remote'});
+//			}else{
+//				alert('发生错误');
+//			}
+//		}
+//		});
+	});
+	
+
 	
 	//全选
 	$('button[name="btnSelectAllQuestions"]').click(function(){
