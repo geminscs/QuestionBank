@@ -24,4 +24,6 @@ public class WordsImportAdmin {
 	public String pageWordImport(){
 		return "pagesLexicon/pagesWordsImport/pageWordImport";
 	}
+	
+	
 }

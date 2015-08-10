@@ -7,6 +7,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
     <!-- Bootstrap 3.3.4 -->
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <!-- webuploader -->
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/webUploader/webuploader.css}"/>
     <!-- Font Awesome Icons -->
     <link th:href="@{/font_awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
@@ -236,7 +238,7 @@
           			<h3 class="box-title">手动导入</h3>
           		</div>
           		<div class="box-body">
-          			<p>在以下的输入框中输入需要导入的单词 <a> 单词导入说明</a></p>
+          			<p>请选择文件上传 <a> 单词导入说明</a></p>
           			<div class="row">
           				<div class="col-md-3 form-group">
           					<label>词类选择</label>
@@ -263,13 +265,18 @@
           			  <div class="col-md-6"> 
           			  </div>
           			</div>
-          			<div class="form-group">
-                      <textarea class="form-control" rows="10" placeholder="在此输入" id="textareaForWords"></textarea>
-                    </div>
-          		</div>
-          		<div class="box-footer with-border">
-          			<button class="btn btn-primary" id="btnSubmit">提交</button>
-          			<button class="btn btn-default" id="btnClear">清空</button>
+          			<div class="box">
+          				<div class="box-body">
+          					<div id="uploader" class="wu-example">
+							    <!--用来存放文件信息-->
+							    <div id="thelist" class="uploader-list"></div>
+							    <div class="btns">
+							        <div id="picker">选择文件</div>
+							        <button id="ctlBtn" class="btn btn-default">开始上传</button>
+							    </div>
+							</div>
+          				</div>
+          			</div>
           		</div>
           	</div>
           </section><!-- /.content -->
@@ -289,6 +296,8 @@
     <script th:src="@{/plugins/jQuery/jQuery-2.1.4.min.js}" type="text/javascript"></script>
     <!-- Bootstrap 3.3.2 JS -->
     <script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+    <!-- webUploader -->
+    <script type="text/javascript" th:src="@{/plugins/webUploader/webuploader.js}"></script>
     <!-- SlimScroll -->
     <script th:src="@{/plugins/slimScroll/jquery.slimscroll.min.js}" type="text/javascript"></script>
     <!-- FastClick -->
@@ -297,6 +306,6 @@
     <script th:src="@{/dist/js/app.min.js}" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script th:src="@{/dist/js/demo.js}" type="text/javascript"></script>
-    <script th:src="@{/js/pagesLexicon/pageManualImport.js}" type="text/javascript"></script>
+    <script th:src="@{/js/pagesLexicon/pageWordImport.js}" type="text/javascript"></script>
   </body>
 </html>

@@ -46,7 +46,11 @@ $(function(){
 	            //回调函数
 	            //result 为 请求返回的数据，呈现数据
 	        	alert('success');
-	        	 $("#test").empty().html($("#questionBoxTmpl").render(result.data));
+	        	if(parseInt(result.total)==0){
+	        		location.href='/admin/delSimQuestion';
+	        	}else{
+	        		 $("#test").empty().html($("#questionBoxTmpl").render(result.data));
+	        	}
 	        },
 	        complete: function(XMLHttpRequest, textStatu){
 	            //...
@@ -105,20 +109,20 @@ $(function(){
 		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
-		var id=$(divparent).find('input[name="questionId"]').val();
-//		$.ajax({
-//			url:"/admin/delSimQuestion/checkSimQuestions/ignoreOne",
-//			data:{id:id},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//					$("#page").page( 'remote'});
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
-		alert('ignore sim question id:'+id);
+		var id=$(divparent).find('input[name="simId"]').val();
+		console.log('ignore sim question id:'+id);
+		$.ajax({
+			url:"/admin/delSimQuestion/checkSimQuestions/ignoreOne",
+			data:{id:id},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('成功');
+					$("#page").page( 'remote');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 	});
 	
 	
@@ -156,18 +160,18 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
-//		$.ajax({
-//			url:"/admin/questionAdmin/deleteOne",
-//			data:{id:id},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//					$("#page").page( 'remote');
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
+		$.ajax({
+			url:"/admin/questionAdmin/deleteOne",
+			data:{id:id},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('成功');
+					$("#page").page( 'remote');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 		alert('delete sim question id:'+id);
 	});
 	
@@ -181,18 +185,18 @@ $(function(){
 			var id=$(divparent).find('input[name="questionId"]').val();
 			idArr.push(id);
 		});
-//		$.ajax({
-//			url:"/admin/questionAdmin/deleteSome",
-//			data:{idArr:idArr},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('成功');
-//					$("#page").page( 'remote'});
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
+		$.ajax({
+			url:"/admin/questionAdmin/deleteSome",
+			data:{idArr:idArr},
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('成功');
+					$("#page").page( 'remote');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 		alert(JSON.stringify(idArr));
 	});
 	
@@ -203,13 +207,15 @@ $(function(){
 		var divparent = $(parents[parents.length-1]).parent();
 		//alert(divparent);
 		var id=$(divparent).find('input[name="questionId"]').val();
+		console.log('展示相似题目的页面：忽视全部');
+		location.href='/admin/delSimQuestion';
 //		$.ajax({
 //		url:"/admin/delSimQuestion/ignoreOne",
 //		data:{id:id},
 //		success:function(result){
 //			if(result==1||result=='1'){
 //				alert('成功');
-//				$("#page").page( 'remote'});
+//				location.href='/admin/delSimQuestion';
 //			}else{
 //				alert('发生错误');
 //			}
@@ -217,7 +223,28 @@ $(function(){
 //		});
 	});
 	
-
+	//删除原题
+	$('#btnDelTheQuestion').click(function(){
+		$(this).parent().find('button').addClass('disabled');
+		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
+		var divparent = $(parents[parents.length-1]).parent();
+		//alert(divparent);
+		var id=$(divparent).find('input[name="questionId"]').val();
+		console.log('展示相似题目的页面：删除原题');
+		location.href='/admin/delSimQuestion';
+//		$.ajax({
+//		url:"/admin/questionAdmin/deleteOne",
+//		data:{id:id},
+//		success:function(result){
+//			if(result==1||result=='1'){
+//				alert('成功');
+//				location.href='/admin/delSimQuestion';
+//			}else{
+//				alert('发生错误');
+//			}
+//		}
+//		});
+	});
 	
 	//全选
 	$('button[name="btnSelectAllQuestions"]').click(function(){

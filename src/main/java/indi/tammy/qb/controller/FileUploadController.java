@@ -80,9 +80,10 @@ public class FileUploadController {
 					out.write(upfile.getBytes());
 					out.close();
 					//convert(new File(rootPath + "/" + fname),rootPath);
-					String str=toHtmlString(new File(rootPath + "/" + fname),rootPath);
+					//String str=toHtmlString(new File(rootPath + "/" + fname),rootPath);
+					String str=null;
 					if(str==null){
-						return "{\"code\": \"0\"}";
+						return "{\"jsonrpc\":2.0,\"error\":{\"code\":102, \"message\":\"保存失败\"}}";
 					}
 					System.out.println(str);
 					OutputStream fileWriter = new FileOutputStream(rootPath + "/" + new Date().getTime()
@@ -120,18 +121,21 @@ public class FileUploadController {
 			        		}
 			        	}
 			        }
-					return "{\"name\":\""+fname+"\", \"originalName\": \""+fname+"\", \"size\": 8192, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"/upload/"+fname+"\"}";
+			        
+					//return "{\"name\":\""+fname+"\", \"originalName\": \""+fname+"\", \"size\": 8192, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"/upload/"+fname+"\"}";
+					//return "{\"code\":200}";
+					return "{\"jsonrpc\":2.0,\"error\":{\"code\":102, \"message\":\"保存失败\"}}";
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					return "FAIL";
+					return "{\"code\":-100}";
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					return "FAIL";
+					return "{\"code\":-200}";
 				}  
 		}
-		return "FAIL";
+		return "{\"code\":-300}";
 	}
 	
 	@RequestMapping(value={"/upload/file2"})
@@ -168,6 +172,7 @@ public class FileUploadController {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		}  
 	    OpenOfficeConnection con = new SocketOpenOfficeConnection("127.0.0.1", 8100);  
 	    // 连接

@@ -259,8 +259,8 @@
   							<div class="checkbox" style="margin-bottom:0px;margin-top:0px;margin-left:10px">
   								<label><input type="checkbox" name="checkboxForFullInfo"/>查看答案与解析</label>&nbsp;&nbsp;
   								<div class="pull-right">
-	  								<button class="btn btn-primary " name="btnDelOneQuestion">删除</button>
-  									<button class="btn btn-default " name="btnIgnoreTheQuestion">忽略</button>
+	  								<button class="btn btn-primary " id="btnDelTheQuestion">删除</button>
+  									<button class="btn btn-default " id="btnIgnoreTheQuestion">忽略</button>
   								</div>
   							</div>
   							<div class="box-info box-solid" style="display:none;" name="divFullInfo">
@@ -316,7 +316,7 @@
     <script id="questionBoxTmpl" type="text/x-jsrender">
 	<div class="box box-solid" name="divQuestionBox">
 						<input type="hidden" value="{{:id}}" name="questionId"/>
-						<input type="hidden" value="{{:simId}}" name="questionId"/>
+						<input type="hidden" value="{{:simId}}" name="simId"/>
 						<div class="box-header with-border">
 							<h3 class="box-title"></h3>
 							<div class="pull-left">
