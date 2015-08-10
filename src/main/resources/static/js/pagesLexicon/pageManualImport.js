@@ -8,10 +8,6 @@ $(function(){
 		console.log('提交内容：'+str);
 		var arr=new Array();
 		arr=newString.split('<br/>');//注split可以用字符或字符串分割  
-		for(var i=0;i<(arr.length);i++){
-			console.log(i+':'+arr[i]);
-		}
-		
 		var words={};
 		words.type=$('#selectForType').val();
 		words.grade=$('#selectForGrade').val();

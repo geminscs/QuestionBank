@@ -34,9 +34,19 @@ public class WordBankController {
 		return "pagesLexicon/pagesWordsImport/pageWordImport";
 	}
 	
+	/**
+	 * 新词审阅界面
+	 * @return
+	 */
+	@RequestMapping(value={"/admin/lexicon/wordsCheck"},method = RequestMethod.GET)
+	public String pageWordsCheck(){
+		return "pagesLexicon/pagesWordsCheck/pageWordsCheck";
+	}
+	
 	@RequestMapping(value={"/admin/lexicon/wordImport/uploader"},method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> wordImportUploader(@RequestParam("file") MultipartFile upfile){
+	public ResponseEntity<String> wordImportUploader(@RequestParam("file") MultipartFile upfile,String wordType,String grade){
+		System.out.println("wordType:"+wordType+",grade:"+grade);
 		return new ResponseEntity<String>("123", HttpStatus.BAD_REQUEST);
 	}
 	
