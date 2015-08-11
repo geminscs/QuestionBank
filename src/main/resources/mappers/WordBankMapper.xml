@@ -8,6 +8,29 @@
 		insert into qb_temp_wordbank(word, type, grade, phonetic, explain) values(#{word}, #{type}, #{grade}, #{phonetic}, #{explain})
 	</insert>
 	
+	<insert id="copyTempToFormal" parameterType="int" >
+		INSERT INTO qb_formal_wordbank (
+			word,
+			type,
+			grade,
+			phonetic,
+			explain
+		) SELECT
+			word,
+			type,
+			grade,
+			phonetic,
+			explain
+		FROM
+			qb_temp_wordbank
+		WHERE
+			id = #{id}
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+         delete from qb_temp_wordbank where id = #{id}
+    </delete>
+	
 	<select id="findByType" resultType="indi.tammy.qb.model.WordBank" >
 		SELECT
 			TOP ${pEnd} *

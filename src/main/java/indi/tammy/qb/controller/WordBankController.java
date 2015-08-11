@@ -66,24 +66,7 @@ public class WordBankController {
 		return "pagesLexicon/pagesWordsImport/pageWordImport";
 	}
 	
-	/**
-	 * 新词审阅界面
-	 * @return
-	 */
-	@RequestMapping(value={"/admin/lexicon/wordsCheck"},method = RequestMethod.GET)
-	public String pageWordsCheck(){
-		return "pagesLexicon/pagesWordsCheck/pageWordsCheck";
-	}
 	
-	/**
-	 * 新词审阅的单词修改页面
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value={"/admin/lexicon/wordsCheck/modify"},method = RequestMethod.GET)
-	public String pageWordsCheckModify(String id){
-		return "pagesLexicon/pagesWordsCheck/pageWordsModify";
-	}
 	
 	/**
 	 * 上传单词文件处理
@@ -92,32 +75,7 @@ public class WordBankController {
 	 * @param grade
 	 * @return
 	 */
-	@RequestMapping(value={"/admin/lexicon/wordsCheck/getWordsData"},method = RequestMethod.GET)
-	@ResponseBody
-	public String getWordsData(int pageIndex, int pageSize, int type){
-		List<WordBank> l = wordBankService.findByType(pageIndex*pageSize+1, (pageIndex+1)*pageSize, type);
-		JSONObject json=new JSONObject();  
-		JSONArray jsonMembers = new JSONArray();
-		for(int i = 0;i < l.size();i ++){
-			JSONObject member = new JSONObject();
-			WordBank w = l.get(i);
-			member.put("id", w.getId());  
-			member.put("type", w.getType_name());  
-			member.put("grade",w.getGrade());  
-			member.put("word", w.getWord());  
-			member.put("phonetic", w.getPhonetic());  
-			member.put("explain", w.getExplain());  
-			jsonMembers.put(member); 
-		}
-		if(l.size() > 0){
-			json.put("total", l.get(0).getTotal());
-		}
-		else{
-			json.put("total", 0);
-		}
-		json.put("data", jsonMembers.toString());    
-		return json.toString();
-	}
+	
 	
 	@SuppressWarnings("resource")
 	@RequestMapping(value={"/admin/lexicon/wordImport/uploader"},method = RequestMethod.POST)

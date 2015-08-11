@@ -20,4 +20,12 @@ public class WordBankService {
 	public List<WordBank> findByType(int pStart, int pEnd, int type){
 		return wordBankDao.findByType(pStart, pEnd, type);
 	}
+	
+	public void copyTempToFormal(int id){
+		wordBankDao.copyTempToFormal(id);
+	}
+	
+	public void delete(int id){
+		wordBankDao.delete(id);
+	}
 }

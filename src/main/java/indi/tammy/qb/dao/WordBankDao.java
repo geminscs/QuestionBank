@@ -9,5 +9,11 @@ import indi.tammy.qb.model.WordBank;
 public interface WordBankDao {
 	public void insert(WordBank w);
 	
+	public void copyTempToFormal(int id);
+	
+	public void delete(int id);
+	
 	public List<WordBank> findByType(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="type")int type);
+
+
 }
