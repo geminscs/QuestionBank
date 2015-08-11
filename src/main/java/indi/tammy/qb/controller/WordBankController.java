@@ -43,6 +43,23 @@ public class WordBankController {
 		return "pagesLexicon/pagesWordsCheck/pageWordsCheck";
 	}
 	
+	/**
+	 * 新词审阅的单词修改页面
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value={"/admin/lexicon/wordsCheck/modify"},method = RequestMethod.GET)
+	public String pageWordsCheckModify(String id){
+		return "pagesLexicon/pagesWordsCheck/pageWordsModify";
+	}
+	
+	/**
+	 * 上传单词文件处理
+	 * @param upfile
+	 * @param wordType
+	 * @param grade
+	 * @return
+	 */
 	@RequestMapping(value={"/admin/lexicon/wordImport/uploader"},method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> wordImportUploader(@RequestParam("file") MultipartFile upfile,String wordType,String grade){

@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "word": "hello",
+      "type": "英文单词",
+      "grade": "小学一年级",
+      "phonetic": "hello",
+      "explain": "你好"
+    },
+    {
+      "id": "2",
+      "word": "hello2",
+      "type": "英文单词",
+      "grade": "小学一年级",
+      "phonetic": "hello",
+      "explain": "你好"
+    },
+    {
+      "id": "3",
+      "word": "hello3",
+      "type": "英文单词",
+      "grade": "小学一年级",
+      "phonetic": "hello",
+      "explain": "你好"
+    }
+    ]
+}
