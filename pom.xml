@@ -59,12 +59,13 @@
 		<version>1.6.3</version>
 	</dependency>
 	
-	 <!-- aspectj 
+	<!-- poi -->
 	<dependency>
-	<groupId>org.aspectj</groupId>
-		<artifactId>aspectjrt</artifactId>
-		<version>1.8.6</version>
-	</dependency>-->
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>3.12</version>
+	</dependency>
+
 	
 	
 	<!-- jacob -->

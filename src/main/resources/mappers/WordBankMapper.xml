@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="indi.tammy.qb.dao.WordBankDao">
+	<insert id="insert" parameterType="indi.tammy.qb.model.WordBank" >
+		insert into qb_temp_wordbank(word, type, grade, phonetic, explain) values(#{word}, #{type}, #{grade}, #{phonetic}, #{explain})
+	</insert>
+	
+	<select id="findByType" resultType="indi.tammy.qb.model.WordBank" >
+		SELECT
+			TOP ${pEnd} *
+		FROM
+			(
+			SELECT
+				qb_temp_wordbank.*, qb_word_type.type_name,
+				row_number () OVER (ORDER BY qb_temp_wordbank.id) n,
+				COUNT (*) OVER () total
+			FROM
+				qb_temp_wordbank
+				INNER JOIN qb_word_type ON qb_temp_wordbank.type = qb_word_type.type
+			WHERE
+			qb_temp_wordbank.type = #{type}
+			) t1
+		WHERE
+			t1.n >= #{pStart}
+	</select>
+	
+</mapper>
