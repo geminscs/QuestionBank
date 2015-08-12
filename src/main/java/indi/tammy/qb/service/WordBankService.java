@@ -28,4 +28,12 @@ public class WordBankService {
 	public void delete(int id){
 		wordBankDao.delete(id);
 	}
+	
+	public WordBank findById(int id){
+		return wordBankDao.findById(id);
+	}
+	
+	public void update(WordBank w){
+		wordBankDao.update(w);
+	}
 }

@@ -1,5 +1,6 @@
 package indi.tammy.qb.controller;
 
+import indi.tammy.qb.annotation.SystemControllerLog;
 import indi.tammy.qb.model.WordBank;
 import indi.tammy.qb.service.WordBankService;
 
@@ -9,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,8 +65,14 @@ public class WordBankCheckController {
 	 * @param id
 	 * @return
 	 */
+	@SystemControllerLog(description = "词库修改")
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/modify"},method = RequestMethod.GET)
-	public String pageWordsCheckModify(String id){
+	public String pageWordsCheckModify(int id, ModelMap modelMap){
+		WordBank w = wordBankService.findById(id);
+		if(w == null){
+			return "ErrorPage";
+		}
+		modelMap.addAttribute("wordBank", w);
 		return "pagesLexicon/pagesWordsCheck/pageWordsModify";
 	}
 	
@@ -108,6 +116,24 @@ public class WordBankCheckController {
 			int id = ids.getInt(i);
 			wordBankService.delete(id);
 		}
+		return 1;
+	}
+	
+	@RequestMapping(value={"/admin/lexicon/wordsCheck/modify/save"},method = RequestMethod.POST)
+	@ResponseBody
+	public int save(String wordInfo){
+		if(wordInfo == null){
+			return 0;
+		}
+		JSONObject jsonObj = new JSONObject(wordInfo);
+		WordBank w = new WordBank();
+		w.setId(jsonObj.getInt("id"));
+		w.setWord(jsonObj.getString("word"));
+		w.setPhonetic(jsonObj.getString("phonetic"));
+		w.setExplain(jsonObj.getString("explain"));
+		w.setType(jsonObj.getInt("type"));
+		w.setGrade(jsonObj.getInt("grade"));
+		wordBankService.update(w);
 		return 1;
 	}
 }
