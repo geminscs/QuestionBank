@@ -21,8 +21,8 @@ public class WordBankCheckController {
 	
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/getWordsData"},method = RequestMethod.GET)
 	@ResponseBody
-	public String getWordsData(int pageIndex, int pageSize, int type){
-		List<WordBank> l = wordBankService.findByType(pageIndex*pageSize+1, (pageIndex+1)*pageSize, type);
+	public String getWordsData(int draw, int start, int length, int wordType){
+		List<WordBank> l = wordBankService.findByType(start+1, start+length, wordType);
 		JSONObject json=new JSONObject();  
 		JSONArray jsonMembers = new JSONArray();
 		for(int i = 0;i < l.size();i ++){
@@ -37,11 +37,14 @@ public class WordBankCheckController {
 			jsonMembers.put(member); 
 		}
 		if(l.size() > 0){
-			json.put("total", l.get(0).getTotal());
+			json.put("recordsTotal", l.get(0).getTotal());
+			json.put("recordsFiltered", l.get(0).getTotal());
 		}
 		else{
-			json.put("total", 0);
+			json.put("recordsTotal", 0);
+			json.put("recordsFiltered", 0);
 		}
+		json.put("draw", draw);
 		json.put("data", jsonMembers.toString());    
 		return json.toString();
 	}
