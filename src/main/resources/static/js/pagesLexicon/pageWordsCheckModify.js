@@ -11,7 +11,9 @@ $(function(){
 		console.log('word save:'+JSON.stringify(wordInfo));
 		$.ajax({
 			url:'/admin/lexicon/wordsCheck/modify/save',
-			wordInfo:JSON.stringify(wordInfo),
+			data:{
+				wordInfo:JSON.stringify(wordInfo)
+			}
 			type:'POST',
 			success:function(result){
 				if(result==1||result=='1'){

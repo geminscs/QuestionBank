@@ -56,7 +56,7 @@ $(function(){
                      {
                     	 "data":null,
                          "defaultContent": 
-                        	 '<button class="btn btn-primary btn-xs" name="btnAddOneToText">添加至组卷</button> '+
+                        	 '<button class="btn btn-primary btn-xs" name="btnAddOneToTest">添加至组卷</button> '+
                         	 '<button class="btn btn-default btn-xs" name="btnDelOne">删除</button> '+
                         	 '<button class="btn btn-default btn-xs" name="btnModify">修改</button> '
                      }
@@ -195,6 +195,11 @@ $(function(){
 		console.log('modify word id:'+id);
 		location.href='/admin/lexicon/wordsCheck/modify?id='+id;
 
+	});
+	
+	//选择的类型改变
+	$('#selectForType').change(function(){
+		
 	});
 
 });
