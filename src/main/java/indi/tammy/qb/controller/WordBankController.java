@@ -75,6 +75,15 @@ public class WordBankController {
 		return "pagesLexicon/pagesWordsAdmin/pageWordsAdmin";
 	}
 	
+	/**
+	 * 单词管理的单词修改页面
+	 * @return
+	 */
+	@RequestMapping(value={"/admin/lexicon/wordsAdmin/modify"},method = RequestMethod.GET)
+	public String pageWordsAdminModify(int id){
+		return "pagesLexicon/pagesWordsAdmin/pageWordsModify";
+	}
+	
 	
 	/**
 	 * 上传单词文件处理

@@ -57,6 +57,7 @@ $(function(){
                     	 "data":null,
                          "defaultContent": 
                         	 '<button class="btn btn-primary btn-xs" name="btnAddOneToTest">添加至组卷</button> '+
+                        	 '<button class="btn btn-default btn-xs" name="btnReportError">报告错误</button> '+
                         	 '<button class="btn btn-default btn-xs" name="btnDelOne">删除</button> '+
                         	 '<button class="btn btn-default btn-xs" name="btnModify">修改</button> '
                      }
@@ -193,7 +194,7 @@ $(function(){
 		var data=row.data();
 		var id=data.id;
 		console.log('modify word id:'+id);
-		location.href='/admin/lexicon/wordsCheck/modify?id='+id;
+		location.href='/admin/lexicon/wordsAdmin/modify?id='+id;
 
 	});
 	
@@ -208,5 +209,47 @@ $(function(){
 	});
 	
 	//点击搜索
-	$
+	$('#btnSearchWord').click(function(){
+		console.log('search key:'+$('#keyForSearchQuestion').val());
+	});
+	
+	//报告错误
+	$('#datatableOfWords tbody').on('click', 'button[name="btnReportError"]', function (){
+		var parents = $(this).parentsUntil('div[name="divQuestionBox"]');
+		var divparent = $(parents[parents.length-1]).parent();
+		//alert(divparent);
+		var tr=$(this).closest('tr');
+		var row = table.row( tr );
+		var data=row.data();
+		var id=data.id;
+		$('input[name="currentWordId"]').val(id);
+		$('#modalReportError').modal('show');
+		
+		console.log('current question id:'+$('input[name="currentWordId"]').val());
+	});
+	
+	//举报错误
+	$('#btnSubmitError').click(function(){
+		var type=$('#selectErrorType').val();
+		var content=$('#textErrorContent').val();
+		var id=$('input[name="currentWordId"]').val();
+		console.log('error type:'+type+',content:'+content+
+				',word id:'+id);
+//		$.ajax({
+//			url:"/admin/lexicon/wordsAdmin/reportError",
+//			data:{id:id,
+//				type:type,
+//				content:content},
+//			success:function(result){
+//				if(result=="1"||result==1){
+//					alert('报错成功');
+//				}else{
+//					alert('报错发生错误');
+//				}
+//			}
+//		});
+		//清空输入框
+		$('#textErrorContent').val('');
+		$('#modalReportError').modal('hide');
+	});
 });
