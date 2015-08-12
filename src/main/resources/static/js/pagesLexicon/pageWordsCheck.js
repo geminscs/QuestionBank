@@ -64,16 +64,12 @@ $(function(){
          "searching": false,
          "processing": true,
          "serverSide": true,
-         "ajax":: {
+         "ajax":{
         	 "url": "/admin/lexicon/wordsCheck/getWordsData",
-             "type": "POST",
+             "type": "GET",
+             "dataType": "json",
              "data": function ( d ) {
-                 d.opModule = $('#selectForOpModule').val();
-                 d.userType=$('#selectForUserType').val();
-                 d.dateRange=$('#inputRangeDate').val();
-                 d.key=$('#keyForSearchOpLog').val();
-                 // d.custom = $('#myInput').val();
-                 // etc
+                d.wordType=1;
              }
          },
          "columns": [
@@ -88,7 +84,7 @@ $(function(){
                          "defaultContent": '<input type="checkbox" name="checkBoxForSelect">'
                      },
                      { "data": "word" },
-                     { "data": "type" },
+                     { "data": "type"},
                      { "data": "grade" },
                      {
                     	 "data":null,
@@ -127,21 +123,22 @@ $(function(){
 		var id=data.id;
 		console.log('pass word id:'+id);
 		
-//		table.ajax.reload();
-//		$.ajax({
-//			url:'/admin/lexicon/wordsCheck/passOne';
-//			data:{
-//				id:id
-//			},
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('通过成功');
-//					table.ajax.reload();
-//				}else{
-//					alert('产生错误');
-//				}
-//			}
-//		});
+		//table.ajax.reload();
+		$.ajax({
+			url:'/admin/lexicon/wordsCheck/passOne',
+			data:{
+				id:id
+			},
+			success:function(result){
+				if(result==1||result=='1'){
+					//alert('通过成功');
+					alert('通过成功');
+					table.ajax.reload();
+				}else{
+					alert('产生错误');
+				}
+			}
+		});
 	});
 	
 	//通过多个选中的单词

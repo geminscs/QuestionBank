@@ -22,7 +22,7 @@ public class WordBankCheckController {
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/getWordsData"},method = RequestMethod.GET)
 	@ResponseBody
 	public String getWordsData(int draw, int start, int length, int wordType){
-		List<WordBank> l = wordBankService.findByType(start+1, start+length, wordType);
+		List<WordBank> l = wordBankService.findByType(start, start+length, wordType);
 		JSONObject json=new JSONObject();  
 		JSONArray jsonMembers = new JSONArray();
 		for(int i = 0;i < l.size();i ++){
@@ -45,7 +45,7 @@ public class WordBankCheckController {
 			json.put("recordsFiltered", 0);
 		}
 		json.put("draw", draw);
-		json.put("data", jsonMembers.toString());    
+		json.put("data", jsonMembers);    
 		return json.toString();
 	}
 	
@@ -68,7 +68,13 @@ public class WordBankCheckController {
 		return "pagesLexicon/pagesWordsCheck/pageWordsModify";
 	}
 	
+	/**
+	 * 通过一个单词
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/passOne"},method = RequestMethod.GET)
+	@ResponseBody
 	public int passOne(int id){
 		wordBankService.copyTempToFormal(id);
 		wordBankService.delete(id);
@@ -76,6 +82,7 @@ public class WordBankCheckController {
 	}
 	
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/passSome"},method = RequestMethod.GET)
+	@ResponseBody
 	public int passSome(String idArr){
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){
@@ -87,12 +94,14 @@ public class WordBankCheckController {
 	}
 	
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/delOne"},method = RequestMethod.GET)
+	@ResponseBody
 	public int delOne(int id){
 		wordBankService.delete(id);
 		return 1;
 	}
 	
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/delSome"},method = RequestMethod.GET)
+	@ResponseBody
 	public int delSome(String idArr){
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){

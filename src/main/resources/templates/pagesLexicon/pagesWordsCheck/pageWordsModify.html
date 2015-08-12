@@ -227,7 +227,8 @@
               <li><a th:href="@{#}">手动导入</a></li>
             </ol>
           </section>
-
+          <!-- 单词的id -->
+		  <input type="hidden" value="5" id="wordId"/>
           <!-- Main content -->
           <section class="content">
           	<div class="box box-solid">
@@ -235,7 +236,9 @@
           			<h3 class="box-title">新词审核</h3>
           		</div>
           		<div class="box-body">
-          			
+          			<select></select>
+          			<input type="text" value="word" id="inputWord"/>
+          			<input type="text" value="word" id="inputPhonetic"/>
           		</div>
           		<div class="box-footer with-border">
           			
