@@ -66,6 +66,14 @@ public class WordBankController {
 		return "pagesLexicon/pagesWordsImport/pageWordImport";
 	}
 	
+	/**
+	 * 单词管理的页面
+	 * @return
+	 */
+	@RequestMapping(value={"/admin/lexicon/wordsAdmin"},method = RequestMethod.GET)
+	public String pageWordsAdmin(){
+		return "pagesLexicon/pagesWordsAdmin/pageWordsAdmin";
+	}
 	
 	
 	/**
@@ -75,8 +83,6 @@ public class WordBankController {
 	 * @param grade
 	 * @return
 	 */
-	
-	
 	@SuppressWarnings("resource")
 	@RequestMapping(value={"/admin/lexicon/wordImport/uploader"},method = RequestMethod.POST)
 	@ResponseBody

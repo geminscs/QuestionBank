@@ -236,12 +236,48 @@
           			<h3 class="box-title">新词审核</h3>
           		</div>
           		<div class="box-body">
-          			<select></select>
-          			<input type="text" value="word" id="inputWord"/>
-          			<input type="text" value="word" id="inputPhonetic"/>
+          			<div class="row">
+          				<div class="col-md-3 form-group">
+          					<label>类型</label>
+          					<select class="form-control" id="selectForWordType">
+          						<option value="1">英文单词</option>
+          						<option value="2">英文词组</option>
+          						<option value="3">语文字</option>
+          						<option value="4">语文词</option>
+          						<option value="5">语文成语</option>
+          					</select>
+          				</div>
+          				<div class="col-md-3 form-group">
+          					<label>年级</label>
+          					<select class="form-control" id="selectForGrade">
+          						<option value="1">小学一年级</option>
+          						<option value="2">小学二年级</option>
+          						<option value="3">小学三年级</option>
+          						<option value="4">小学四年级</option>
+          						<option value="5">小学五年级</option>
+          					</select>
+          				</div>
+          			</div>
+          			<div class="row">
+          				<div class="col-md-3 form-group">
+          					<label>单词</label>
+          					<input type="text" value="word" id="inputWord" class="form-control"/>
+          				</div>
+          				<div class="col-md-3 form-group">
+          					<label>发音</label>
+          					<input type="text" value="word" id="inputPhonetic" class="form-control"/>
+          				</div>
+          			</div>
+          			<div class="row">
+          				<div class="col-md-12 form-group">
+          					<label>解释</label>
+          					<input type="text" value="n.单词; 话语; 诺言; 消息; vt.措辞，用词; 用言语表达; vi.讲话;" id="inputExplain" class="form-control"/>
+          				</div>
+          			</div>
           		</div>
           		<div class="box-footer with-border">
-          			
+          			<button class="btn btn-primary" id="btnSave">保存</button>
+          			<button class="btn btn-default" id="btnBack">返回</button>
           		</div>
           	</div>
           </section><!-- /.content -->
@@ -269,5 +305,7 @@
     <script th:src="@{/dist/js/app.min.js}" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script th:src="@{/dist/js/demo.js}" type="text/javascript"></script>
+    <!-- pageWordsCheckModify.js -->
+    <script th:src="@{/js/pagesLexicon/pageWordsCheckModify.js}"></script>
   </body>
 </html>
