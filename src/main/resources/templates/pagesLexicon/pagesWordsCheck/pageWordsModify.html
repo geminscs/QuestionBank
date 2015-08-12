@@ -255,23 +255,30 @@
           						<option value="3">小学三年级</option>
           						<option value="4">小学四年级</option>
           						<option value="5">小学五年级</option>
+          						<option value="6">小学六年级</option>
+          						<option value="7">初一</option>
+          						<option value="8">初二</option>
+          						<option value="9">初三</option>
+          						<option value="10">高一</option>
+          						<option value="11">高二</option>
+          						<option value="12">高三</option>
           					</select>
           				</div>
           			</div>
           			<div class="row">
           				<div class="col-md-3 form-group">
           					<label>单词</label>
-          					<input type="text" value="word" id="inputWord" class="form-control"/>
+          					<input type="text" id="inputWord" class="form-control" th:value="${wordBank.word}"/>
           				</div>
           				<div class="col-md-3 form-group">
           					<label>发音</label>
-          					<input type="text" value="word" id="inputPhonetic" class="form-control"/>
+          					<input type="text" id="inputPhonetic" class="form-control" th:value="${wordBank.phonetic}"/>
           				</div>
           			</div>
           			<div class="row">
           				<div class="col-md-12 form-group">
           					<label>解释</label>
-          					<input type="text" value="n.单词; 话语; 诺言; 消息; vt.措辞，用词; 用言语表达; vi.讲话;" id="inputExplain" class="form-control"/>
+          					<input type="text" id="inputExplain" class="form-control" th:value="${wordBank.explain}"/>
           				</div>
           			</div>
           		</div>

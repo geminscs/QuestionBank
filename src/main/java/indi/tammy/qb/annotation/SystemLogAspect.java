@@ -98,9 +98,9 @@ public  class SystemLogAspect {
                
          }catch(Throwable e)  
          {  
-             logger.error(e.toString(), e);  
+             logger.error(e.toString(), e);
+             return "ErrorPage";
          }  
-         return null;  
     }
     /** 
      * 异常通知 用于拦截service层记录异常日志 
