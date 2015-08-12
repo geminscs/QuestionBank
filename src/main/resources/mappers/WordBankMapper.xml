@@ -8,6 +8,10 @@
 		insert into qb_temp_wordbank(word, type, grade, phonetic, explain) values(#{word}, #{type}, #{grade}, #{phonetic}, #{explain})
 	</insert>
 	
+	<insert id="insertWrongWord" parameterType="indi.tammy.qb.model.WordBank" >
+		insert into qb_wrong_word(word_id, wrong_type, wrong_message) values(#{id},#{wrong_type},#{wrong_message})	
+	</insert>
+		
 	<insert id="copyTempToFormal" parameterType="int" >
 		INSERT INTO qb_formal_wordbank (
 			word,
@@ -39,6 +43,11 @@
  		UPDATE qb_temp_wordbank SET word=#{word}, type=#{type}, grade#{grade}, phonetic=#{phonetic}, explain=#{explain}
         WHERE id=#{id}    
     </update>
+    
+    <update id="formalUpdate" parameterType="indi.tammy.qb.model.WordBank">
+ 		UPDATE qb_formal_wordbank SET word=#{word}, type=#{type}, grade#{grade}, phonetic=#{phonetic}, explain=#{explain}
+        WHERE id=#{id}    
+    </update>
 	
 	<select id="findByType" resultType="indi.tammy.qb.model.WordBank" >
 		SELECT
@@ -61,6 +70,10 @@
 	
 	<select id="findById" parameterType="int" resultType="indi.tammy.qb.model.WordBank" >
 		select * from  qb_temp_wordbank where id = #{id}
+	</select>
+	
+	<select id="formalFindById" parameterType="int" resultType="indi.tammy.qb.model.WordBank" >
+		select * from  qb_formal_wordbank where id = #{id}
 	</select>
 	
 	<select id="formalFindByWord" parameterType="String" resultType="indi.tammy.qb.model.WordBank" >

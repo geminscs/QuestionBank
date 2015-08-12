@@ -79,10 +79,7 @@ public class WordBankController {
 	 * 单词管理的单词修改页面
 	 * @return
 	 */
-	@RequestMapping(value={"/admin/lexicon/wordsAdmin/modify"},method = RequestMethod.GET)
-	public String pageWordsAdminModify(int id){
-		return "pagesLexicon/pagesWordsAdmin/pageWordsModify";
-	}
+	
 	
 	
 	/**

@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,5 +71,44 @@ public class WordBankAdminController {
 		json.put("draw", draw);
 		json.put("data", jsonMembers);    
 		return json.toString();
+	}
+	
+	@RequestMapping(value={"/admin/lexicon/wordsAdmin/modify"},method = RequestMethod.GET)
+	public String pageWordsAdminModify(int id, ModelMap modelMap){
+		WordBank w = wordBankService.formalFindById(id);
+		if(w == null){
+			return "ErrorPage";
+		}
+		modelMap.addAttribute("wordBank", w);
+		return "pagesLexicon/pagesWordsAdmin/pageWordsModify";
+	}
+	
+	@RequestMapping(value={"/admin/lexicon/wordsAdmin/modify/save"},method = RequestMethod.POST)
+	@ResponseBody
+	public int save(String wordInfo){
+		if(wordInfo == null){
+			return 0;
+		}
+		JSONObject jsonObj = new JSONObject(wordInfo);
+		WordBank w = new WordBank();
+		w.setId(jsonObj.getInt("id"));
+		w.setWord(jsonObj.getString("word"));
+		w.setPhonetic(jsonObj.getString("phonetic"));
+		w.setExplain(jsonObj.getString("explain"));
+		w.setType(jsonObj.getInt("type"));
+		w.setGrade(jsonObj.getInt("grade"));
+		wordBankService.formalUpdate(w);
+		return 1;
+	}
+	
+	@RequestMapping(value={"/admin/lexicon/wordsAdmin/reportError"},method = RequestMethod.GET)
+	@ResponseBody
+	public int reportError(int id, int type, String content){
+		WordBank w = new WordBank();
+		w.setId(id);
+		w.setWrong_type(type);
+		w.setWrong_message(content);
+		wordBankService.insertWrongWord(w);
+		return 1;
 	}
 }

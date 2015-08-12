@@ -9,9 +9,36 @@ public class WordBank {
 	String explain;
 	
 	String type_name;
+	int wrong_type;
+	String wrong_type_name;
+	String wrong_message;
 	int total;
 	
 	
+
+	public int getWrong_type() {
+		return wrong_type;
+	}
+
+	public void setWrong_type(int wrong_type) {
+		this.wrong_type = wrong_type;
+	}
+
+	public String getWrong_type_name() {
+		return wrong_type_name;
+	}
+
+	public void setWrong_type_name(String wrong_type_name) {
+		this.wrong_type_name = wrong_type_name;
+	}
+
+	public String getWrong_message() {
+		return wrong_message;
+	}
+
+	public void setWrong_message(String wrong_message) {
+		this.wrong_message = wrong_message;
+	}
 
 	public int getTotal() {
 		return total;
@@ -79,7 +106,8 @@ public class WordBank {
 
 
 	public WordBank(int id, String word, int type, int grade, String phonetic,
-			String explain, String type_name, int total) {
+			String explain, String type_name, int wrong_type,
+			String wrong_type_name, String wrong_message, int total) {
 		super();
 		this.id = id;
 		this.word = word;
@@ -88,6 +116,9 @@ public class WordBank {
 		this.phonetic = phonetic;
 		this.explain = explain;
 		this.type_name = type_name;
+		this.wrong_type = wrong_type;
+		this.wrong_type_name = wrong_type_name;
+		this.wrong_message = wrong_message;
 		this.total = total;
 	}
 

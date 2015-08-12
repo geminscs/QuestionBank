@@ -228,7 +228,7 @@
             </ol>
           </section>
           <!-- 单词的id -->
-		  <input type="hidden" value="5" id="wordId"/>
+		  <input type="hidden" th:value="${wordBank.id}" id="wordId"/>
           <!-- Main content -->
           <section class="content">
           	<div class="box box-solid">
@@ -268,17 +268,17 @@
           			<div class="row">
           				<div class="col-md-3 form-group">
           					<label>单词</label>
-          					<input type="text" id="inputWord" class="form-control" value="${wordBank.word}"/>
+          					<input type="text" id="inputWord" class="form-control" th:value="${wordBank.word}"/>
           				</div>
           				<div class="col-md-3 form-group">
           					<label>发音</label>
-          					<input type="text" id="inputPhonetic" class="form-control" value="${wordBank.phonetic}"/>
+          					<input type="text" id="inputPhonetic" class="form-control" th:value="${wordBank.phonetic}"/>
           				</div>
           			</div>
           			<div class="row">
           				<div class="col-md-12 form-group">
           					<label>解释</label>
-          					<input type="text" id="inputExplain" class="form-control" value="${wordBank.explain}"/>
+          					<input type="text" id="inputExplain" class="form-control" th:value="${wordBank.explain}"/>
           				</div>
           			</div>
           		</div>

@@ -9,6 +9,8 @@ import indi.tammy.qb.model.WordBank;
 public interface WordBankDao {
 	public void insert(WordBank w);
 	
+	public void insertWrongWord(WordBank w);
+	
 	public void copyTempToFormal(int id);
 	
 	public void delete(int id);
@@ -17,9 +19,13 @@ public interface WordBankDao {
 	
 	public void update(WordBank w);
 	
+	public void formalUpdate(WordBank w);
+	
 	public List<WordBank> findByType(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="type")int type);
 
 	public WordBank findById(int id);
+	
+	public WordBank formalFindById(int id);
 	
 	public WordBank formalFindByWord(String word);
 	

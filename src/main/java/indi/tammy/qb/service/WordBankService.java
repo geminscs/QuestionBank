@@ -49,5 +49,17 @@ public class WordBankService {
 	public WordBank formalFindByWord(String word){
 		return wordBankDao.formalFindByWord(word);
 	}
+	
+	public WordBank formalFindById(int id){
+		return wordBankDao.formalFindById(id);
+	}
+	
+	public void formalUpdate(WordBank w){
+		wordBankDao.formalUpdate(w);
+	}
+	
+	public void insertWrongWord(WordBank w){
+		wordBankDao.insertWrongWord(w);
+	}
 
 }
