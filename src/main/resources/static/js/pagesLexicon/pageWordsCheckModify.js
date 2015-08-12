@@ -9,17 +9,18 @@ $(function(){
 		wordInfo.phonetic=$('#inputPhonetic').val();
 		wordInfo.explain=$('#inputExplain').val();
 		console.log('word save:'+JSON.stringify(wordInfo));
-//		$.ajax({
-//			url:'/admin/lexicon/wordsCheck/modify/save',
-//			wordInfo:JSON.stringify(wordInfo),
-//			success:function(result){
-//				if(result==1||result=='1'){
-//					alert('保存成功');
-//				}else{
-//					alert('发生错误');
-//				}
-//			}
-//		});
+		$.ajax({
+			url:'/admin/lexicon/wordsCheck/modify/save',
+			wordInfo:JSON.stringify(wordInfo),
+			type:'POST',
+			success:function(result){
+				if(result==1||result=='1'){
+					alert('保存成功');
+				}else{
+					alert('发生错误');
+				}
+			}
+		});
 	});
 	
 	//返回单词审阅的界面
