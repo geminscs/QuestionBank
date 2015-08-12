@@ -5,6 +5,7 @@ import indi.tammy.qb.model.WordBank;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,14 @@ public class WordBankService {
 	public void update(WordBank w){
 		wordBankDao.update(w);
 	}
+	
+	public void formalDelete(int id){
+		wordBankDao.formalDelete(id);
+	}
+	
+	public List<WordBank> formalFindByParam(int pStart, int pEnd, int type, int grade, String key){
+		return wordBankDao.formalFindByParam(pStart, pEnd, type, grade, key);
+	}
+
+
 }

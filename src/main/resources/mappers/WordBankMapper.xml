@@ -30,6 +30,15 @@
 	<delete id="delete" parameterType="int">
          delete from qb_temp_wordbank where id = #{id}
     </delete>
+    
+    <delete id="formalDelete" parameterType="int">
+         delete from qb_formal_wordbank where id = #{id}
+    </delete>
+    
+    <update id="update" parameterType="indi.tammy.qb.model.WordBank">
+ 		UPDATE qb_temp_wordbank SET word=#{word}, type=#{type}, grade#{grade}, phonetic=#{phonetic}, explain=#{explain}
+        WHERE id=#{id}    
+    </update>
 	
 	<select id="findByType" resultType="indi.tammy.qb.model.WordBank" >
 		SELECT
@@ -54,8 +63,33 @@
 		select * from  qb_temp_wordbank where id = #{id}
 	</select>
 	
-	<update id="update" parameterType="indi.tammy.qb.model.WordBank">
- 		UPDATE qb_temp_wordbank SET word=#{word}, type=#{type}, grade#{grade}, phonetic=#{phonetic}, explain=#{explain}
-        WHERE id=#{id}    
-    </update>
+	<select id="formalFindByParam" resultType="indi.tammy.qb.model.WordBank" >
+		SELECT
+			TOP ${pEnd} *
+		FROM
+			(
+			SELECT
+				qb_temp_wordbank.*, qb_word_type.type_name,
+				row_number () OVER (ORDER BY qb_temp_wordbank.id) n,
+				COUNT (*) OVER () total
+			FROM
+				qb_temp_wordbank
+				INNER JOIN qb_word_type ON qb_temp_wordbank.type = qb_word_type.type
+			WHERE
+				1 = 1
+			<if test = "type > 0">
+			AND qb_temp_wordbank.type = #{type}
+			</if>
+			<if test = "grade > 0">
+			AND qb_temp_wordbank.grade = #{grade}
+			</if>
+			<if test = "key != null">
+			AND qb_temp_wordbank.word like '${key}'
+			</if>
+			) t1
+		WHERE
+			t1.n >= #{pStart}
+	</select>
+	
+	
 </mapper>
