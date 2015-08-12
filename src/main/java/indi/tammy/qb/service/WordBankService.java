@@ -46,5 +46,8 @@ public class WordBankService {
 		return wordBankDao.formalFindByParam(pStart, pEnd, type, grade, key);
 	}
 
+	public WordBank formalFindByWord(String word){
+		return wordBankDao.formalFindByWord(word);
+	}
 
 }

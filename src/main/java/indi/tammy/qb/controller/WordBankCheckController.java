@@ -4,6 +4,7 @@ import indi.tammy.qb.annotation.SystemControllerLog;
 import indi.tammy.qb.model.WordBank;
 import indi.tammy.qb.service.WordBankService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -84,9 +85,17 @@ public class WordBankCheckController {
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/passOne"},method = RequestMethod.GET)
 	@ResponseBody
 	public int passOne(int id){
+		WordBank w1 = wordBankService.findById(id);
+		WordBank w2 = wordBankService.formalFindByWord(w1.getWord());
+		if(w2 == null){
 		wordBankService.copyTempToFormal(id);
 		wordBankService.delete(id);
 		return 1;
+		}
+		else{
+			wordBankService.delete(id);
+			return 0;
+		}
 	}
 	
 	@RequestMapping(value={"/admin/lexicon/wordsCheck/passSome"},method = RequestMethod.GET)
@@ -95,8 +104,15 @@ public class WordBankCheckController {
 		JSONArray ids = new JSONArray(idArr);
 		for(int i = 0;i < ids.length();i ++){
 			int id = ids.getInt(i);
-			wordBankService.copyTempToFormal(id);
-			wordBankService.delete(id);
+			WordBank w1 = wordBankService.findById(id);
+			WordBank w2 = wordBankService.formalFindByWord(w1.getWord());
+			if(w2 == null){
+				wordBankService.copyTempToFormal(id);
+				wordBankService.delete(id);
+			}
+			else{
+				wordBankService.delete(id);
+			}
 		}
 		return 1;
 	}

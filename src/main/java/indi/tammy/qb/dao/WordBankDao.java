@@ -21,5 +21,7 @@ public interface WordBankDao {
 
 	public WordBank findById(int id);
 	
+	public WordBank formalFindByWord(String word);
+	
 	public List<WordBank> formalFindByParam(@Param(value="pStart")int pStart, @Param(value="pEnd")int pEnd, @Param(value="type")int type, @Param(value="grade")int grade, @Param(value="key")String key);
 }

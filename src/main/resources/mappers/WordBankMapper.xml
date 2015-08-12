@@ -63,28 +63,32 @@
 		select * from  qb_temp_wordbank where id = #{id}
 	</select>
 	
+	<select id="formalFindByWord" parameterType="String" resultType="indi.tammy.qb.model.WordBank" >
+		select * from  qb_formal_wordbank where word=#{word}
+	</select>
+	
 	<select id="formalFindByParam" resultType="indi.tammy.qb.model.WordBank" >
 		SELECT
 			TOP ${pEnd} *
 		FROM
 			(
 			SELECT
-				qb_temp_wordbank.*, qb_word_type.type_name,
-				row_number () OVER (ORDER BY qb_temp_wordbank.id) n,
+				qb_formal_wordbank.*, qb_word_type.type_name,
+				row_number () OVER (ORDER BY qb_formal_wordbank.id) n,
 				COUNT (*) OVER () total
 			FROM
-				qb_temp_wordbank
-				INNER JOIN qb_word_type ON qb_temp_wordbank.type = qb_word_type.type
+				qb_formal_wordbank
+				INNER JOIN qb_word_type ON qb_formal_wordbank.type = qb_word_type.type
 			WHERE
 				1 = 1
 			<if test = "type > 0">
-			AND qb_temp_wordbank.type = #{type}
+			AND qb_formal_wordbank.type = #{type}
 			</if>
 			<if test = "grade > 0">
-			AND qb_temp_wordbank.grade = #{grade}
+			AND qb_formal_wordbank.grade = #{grade}
 			</if>
 			<if test = "key != null">
-			AND qb_temp_wordbank.word like '${key}'
+			AND qb_formal_wordbank.word like '${key}'
 			</if>
 			) t1
 		WHERE
