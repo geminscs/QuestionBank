@@ -199,7 +199,14 @@ $(function(){
 	
 	//选择的类型改变
 	$('#selectForType').change(function(){
-		
+		console.log('type change:'+$('#selectForType').val());
 	});
-
+	
+	//选择的年级改变
+	$('#selectForGrade').change(function(){
+		console.log('grade change:'+$('#selectForGrade').val());
+	});
+	
+	//点击搜索
+	$
 });
