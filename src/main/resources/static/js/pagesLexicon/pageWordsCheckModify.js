@@ -13,7 +13,7 @@ $(function(){
 			url:'/admin/lexicon/wordsCheck/modify/save',
 			data:{
 				wordInfo:JSON.stringify(wordInfo)
-			}
+			},
 			type:'POST',
 			success:function(result){
 				if(result==1||result=='1'){
