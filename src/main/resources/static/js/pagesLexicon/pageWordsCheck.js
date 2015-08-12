@@ -9,7 +9,7 @@ function format ( d ) {
 	
 
 $(function(){
-//	$('#datatableOfWords').DataTable({
+//	var table=$('#datatableOfWords').DataTable({
 //    	"language": {
 //             "lengthMenu": "每页 _MENU_ 条记录",
 //             "zeroRecords": "没有找到记录",
@@ -42,7 +42,7 @@ $(function(){
 //             }
 //         }
 //    });
-	
+//	
 	//初始化dataTable
 	var table=$('#datatableOfWords').DataTable({
     	"language": {
@@ -62,7 +62,20 @@ $(function(){
          "ordering": false,
          "lengthChange": false,
          "searching": false,
-         "ajax":"/datatableJson.txt",
+         "processing": true,
+         "serverSide": true,
+         "ajax":: {
+        	 "url": "/admin/lexicon/wordsCheck/getWordsData",
+             "type": "POST",
+             "data": function ( d ) {
+                 d.opModule = $('#selectForOpModule').val();
+                 d.userType=$('#selectForUserType').val();
+                 d.dateRange=$('#inputRangeDate').val();
+                 d.key=$('#keyForSearchOpLog').val();
+                 // d.custom = $('#myInput').val();
+                 // etc
+             }
+         },
          "columns": [
                      {
 			        	 "className":      'details-control',
